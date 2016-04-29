@@ -64,6 +64,7 @@
 </body>
 <script>
 	var clickCounter = 0;
+
 	function init() {
 		window.addEventListener("click", onClick);
 	}
@@ -88,16 +89,22 @@
 				TweenMax.delayedCall(i*0.05, animateElement, [element]);
 			}
 		}
+		var cookie = document.getElementsByTagName("img");
+		TweenMax.to(cookie, 4, {x:900, alpha:0, ease:Back.easeInOut, delay:1});
+		//TweenMax.to(cookie, 2, {x:0, alpha:1, ease:Quad.easeInOut, delay:5});
 	}
 
 	function animateElement(element) {
-		var textSplit = new SplitText(element, {type:"chars, words, lines"});
+		var textSplit = new SplitText(element, {type:"words"});
 		for(var i = 0; i < textSplit.words.length; i++) {
 			var block = textSplit.words[i];
 			TweenMax.set(block, {transformOrigin:"50% 100%"});
-			TweenMax.to(block, 2, {alpha:0, y:100+Math.random()*200, rotation:-20+Math.random()*40, ease:Bounce.easeOut, delay:i*0.1});
+			TweenMax.to(block, 1, {alpha:0, y:100+Math.random()*200, rotation:-20+Math.random()*40, ease:Bounce.easeOut, delay:i*0.1});
+
+			//TweenMax.to(block, 0.5, {alpha:1, y:0, rotation:0, ease:Back.easeOut, delay:5+i*0.1});
 		}
 	}
+
 	this.addEventListener("load", init);
 </script>
 </html>
