@@ -115,6 +115,7 @@
 	}
 
 	function onBlockClick(e) {
+		e.target.removeEventListener("mouseover", onBlockClick);
 		TweenMax.to(e.target, 1, {x:0, y:0, rotation:0, rotationX:0, skewX:0, ease:Elastic.easeInOut});
 	}
 
