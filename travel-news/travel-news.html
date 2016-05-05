@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,200italic,300,300italic,400italic,600,600italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="styles/travel-news.css">
 	<title>Travel News</title>
 </head>
 <body>
 <img class="logo" src="images/nyt.jpg">
-<img class="full-width-image" src="images/ski.jpg">
+<div class="full-width-image-container">
+</div>
 <ul>
 	<li>
 		<a href="articleurl.html" target="_blank"><h3>&lsquo;Snow Snow Snow,&rsquo; and East Coast Skiers Rejoice</h3>
@@ -38,6 +40,8 @@
 </ol>
 
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenMax.min.js"></script>
+<script src="scripts/utils/SplitText.min.js"></script>
 <script type="text/javascript" src="scripts/travel-news.js"></script>
 <script type="text/javascript">
 	this.addEventListener("load", init);
