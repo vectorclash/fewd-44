@@ -1,5 +1,6 @@
 /* Reset */
 /* ------------------------ */
+
 * {
 	margin: 0;
 	padding: 0;	
@@ -8,8 +9,9 @@
 p {
 	line-height: 1.5;
 	margin-bottom: 15px;
+	font-family: serif;
+	letter-spacing: 1px;
 }
-
 
 /* Layout */
 /* ------------------------ */
@@ -30,20 +32,15 @@ header {
 	text-align: center;
 }
 
-li {
-	display: inline;
+footer {
+	margin-top: 40px;
+	padding-top: 40px;
+	border-top: 1px solid #878787;
+	text-align: center;
 }
 
-a {
-	color: #23D39E;
-}
-
-h1 {
-	margin-bottom: 30px;
-}
-
-.nav {
-	list-style-type: none;
+#main {
+	opacity: 0;
 }
 
 .name {
@@ -56,32 +53,87 @@ h1 {
 /* Headings */
 /* ------------------------ */
 
+h1 {
+	margin-bottom: 30px;
+}
 
+h2 {
+	color: #999;
+	padding-bottom: 20px;
+	text-transform: uppercase;
+	font-size: 16px;
+	letter-spacing: 1px;
+}
 
 /* Navigation Lists */
 /* ------------------------ */
 
+nav li {
+	display: inline;
+}
 
+nav li:not(:last-child) {
+	padding-right: 5px;
+	border-right: 1px solid #999;
+}
+
+.nav {
+	list-style-type: none;
+}
 
 /* Links */
 /* ------------------------ */
 
+a {
+	color: #23D39E;
+}
 
+a:hover {
+	text-decoration: none;
+}
 
 /* About Me page */
 /* ------------------------ */
 
 .wendy {
+	max-height: 90%;
 	float: right;
 	padding: 5px;
 	margin-left: 20px;
-	margin-bottom: 10px;
+	margin-bottom: 5px;
 	border: 1px solid #878787;
 }
 
 /* Resume page */
 /* ------------------------ */
 
+.education {
+	padding-left: 20px;
+	list-style-type: disc;
+	font-family: serif;
+	letter-spacing: 1px;
+	line-height: 25px;
+	color: #F72052;
+}
+
+.education span {
+	color: #E0E0E0;
+}
 
 /* Resume page - Experience */
 /* ------------------------ */
+
+.experience {
+	padding-left: 20px;
+	padding-bottom: 10px;
+	list-style-type: square;
+}
+
+.experience p {
+	color: #999;
+}
+
+.experience em {
+	font-size: 14px;
+	color: #CCC;
+}
