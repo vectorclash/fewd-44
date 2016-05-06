@@ -15,6 +15,7 @@ li {
 	cursor: pointer;
 	
 }
+
 li:hover {
     /*background: linear-gradient(30deg, #FF4A79, #D0FDFF);*/
     /*background: -webkit-linear-gradient(#FF1743, #4BE0FF);
