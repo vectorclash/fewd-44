@@ -1,5 +1,22 @@
+/* Reset */
+/* ------------------------ */
+
+* {
+	margin: 0;
+	padding: 0;	
+}
+
+p {
+	line-height: 1.5;
+	margin-bottom: 15px;
+	font-family: serif;
+	letter-spacing: 1px;
+}
+
+/* ------------------------ */
+
 body {
-	font-family: Arial, sans-serif;
+	font-family: 'Raleway', sans-serif;
 	color: #333;
 	background-color: #ccc;
 	margin: 0;
@@ -14,6 +31,28 @@ h1 {
 	color: #777;
 	box-shadow: 0px 10px 90px #999;
 	border-right: 50px solid #333;
+}
+
+h2 {
+	color: #FF0064;
+	padding-bottom: 10px;
+	font-size: 36px;
+}
+
+nav ul li {
+	list-style-type: square;
+	margin-left: 25px;
+	font-size: 30px;
+	line-height: 50px;
+}
+
+a {
+	text-decoration: none;
+	color: #333;
+}
+
+a:hover {
+	color: #0cf;
 }
 
 #main {
