@@ -1,6 +1,6 @@
 function init() {
-	var elements = document.querySelector("#main");
-	TweenMax.set(main, {alpha:1});
+	var elements = document.querySelector(".main");
+	TweenMax.set(".main", {alpha:1});
 	TweenMax.staggerFrom(elements.childNodes, 1, {alpha:0, transformOrigin:"50% 0%", scaleY:1.1, y:10, ease:Bounce.easeOut}, 0.07);
 
 	var text = document.querySelectorAll("p");
