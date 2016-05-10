@@ -5,7 +5,7 @@ var linkContainer;
 function init() {
 	linkContainer = document.querySelector("#link-container");
 	var newLi = document.createElement("li");
-	newLi.innerHTML = "<a href='linkorsomething.html'><h3>She done already had herses</h3></a>";
+	newLi.innerHTML = "<a href='linkorsomething.html'><h3>She already done had herses</h3></a>";
 	linkContainer.appendChild(newLi);
 
 	logo = document.querySelector(".logo");
