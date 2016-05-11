@@ -16,7 +16,7 @@ function init() {
 		var element = text[i];
 		if(element.className != "name") {
 			var textSplit = new SplitText(element, {type:"words"});
-			TweenMax.delayedCall(i, colorPulse, [textSplit.words, false]);
+			TweenMax.delayedCall(i*0.5, colorPulse, [textSplit.words, false]);
 			TweenMax.staggerFrom(textSplit.words, 1, {alpha:0, 
 													  cycle:{x:[0, ranCoord(), 0, ranCoord(), 0, ranCoord(), 0], 
 													  	     y:[ranCoord(), 0, ranCoord(), 0, ranCoord(), 0, ranCoord()]}, 
@@ -34,9 +34,10 @@ function init() {
 	setParticles();
 
 	var footerNav = document.querySelector("footer");
-	var footerElements = footerNav.querySelectorAll("li");
+	var footerElements = footerNav.querySelectorAll("img");
 	for(var n = 0; n < footerElements.length; n++) {
 		var element = footerElements[n];
+		TweenMax.to(element, 1, {alpha:1, ease:Bounce.easeOut, delay:1+n*0.2});
 		element.addEventListener("mouseover", onSocialOver);
 		element.addEventListener("mouseout", onSocialOut);
 		element.addEventListener("click", onSocialClick);
@@ -83,11 +84,22 @@ function colorPulse(elementSplit, animateLogo) {
 	var colorOffset = Math.random();
 	for(var i = 0; i < elementSplit.length; i++) {
 		var element = elementSplit[i];
-		var color = i/elementSplit.length + colorOffset;
-		if(color > 1) {
-			color -= 1;
+		var color;
+		var isColorRandom = Math.random();
+		if(isColorRandom > 0.9) {
+			color = Math.random();
+		} else {
+			color = i/elementSplit.length + colorOffset;
+			if(color > 1) {
+				color -= 1;
+			}
 		}
-		TweenMax.to(element, 0.5, {color:hslToRgb(color, 0.3+Math.random()*0.6, 0.3+Math.random()*0.6), ease:Expo.easeOut, delay:i*0.02, yoyo:true, repeat:1});
+
+		TweenMax.to(element, 0.5, {color:hslToRgb(color, 0.3+Math.random()*0.6, 0.3+Math.random()*0.6), 
+								   ease:Quad.easeOut,
+								   delay:i*0.02,
+								   yoyo:true,
+								   repeat:1});
 	}
 
 	if(animateLogo) {
@@ -97,7 +109,7 @@ function colorPulse(elementSplit, animateLogo) {
 }
 
 function onSocialOver(e) {
-	TweenMax.to(e.target, 0.5, {scaleX:1.3, scaleY:1.3, ease:Back.easeOut});
+	TweenMax.to(e.target, 0.5, {scaleX:0.8, scaleY:0.8, ease:Back.easeOut});
 }
 
 function onSocialOut(e) {
