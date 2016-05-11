@@ -1,8 +1,12 @@
 var particleNum = 20;
+var nameSplit;
 
 function init() {
-	var elements = document.querySelector(".main");
-	TweenMax.set(".main", {alpha:1});
+	var nameSplit = new SplitText(document.querySelector(".name", {type:"chars"}));
+	TweenMax.delayedCall(5, colorPulse, [nameSplit.chars]);
+
+	var elements = document.querySelector("main");
+	TweenMax.set("main", {alpha:1});
 	TweenMax.staggerFrom(elements.childNodes, 1, {alpha:0, transformOrigin:"50% 0%", scaleY:1.1, y:10, ease:Bounce.easeOut}, 0.07);
 
 	var text = document.querySelectorAll("p");
@@ -72,10 +76,50 @@ function removeParticle(particle, container) {
 	addParticle(container);
 }
 
+function colorPulse(elementSplit) {
+	var colorOffset = Math.random();
+	for(var i = 0; i < elementSplit.length; i++) {
+		var element = elementSplit[i];
+		var color = i/elementSplit.length + colorOffset;
+		if(color > 1) {
+			color -= 1;
+		}
+		TweenMax.to(element, 0.5, {skewY:-20+Math.random()*40, color:hslToRgb(color, 0.6, 0.7), ease:Sine.easeOut, delay:i*0.08});
+		TweenMax.to(element, 0.5, {skewY:0, color:0xFFFFFF, ease:Sine.easeOut, delay:1+i*0.08});
+	}
+
+	TweenMax.delayedCall(10, colorPulse, [elementSplit]);
+}
+
 function onSocialOver(e) {
 	TweenMax.to(e.target, 0.5, {scaleX:1.3, scaleY:1.3, ease:Back.easeOut});
 }
 
 function onSocialOut(e) {
 	TweenMax.to(e.target, 0.5, {scaleX:1, scaleY:1, ease:Bounce.easeOut});
+}
+
+function hslToRgb(h, s, l){
+    var r, g, b;
+
+    if(s == 0){
+        r = g = b = l; // achromatic
+    }else{
+        function hue2rgb(p, q, t){
+            if(t < 0) t += 1;
+            if(t > 1) t -= 1;
+            if(t < 1/6) return p + (q - p) * 6 * t;
+            if(t < 1/2) return q;
+            if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+            return p;
+        }
+
+        var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+        var p = 2 * l - q;
+        r = hue2rgb(p, q, h + 1/3);
+        g = hue2rgb(p, q, h);
+        b = hue2rgb(p, q, h - 1/3);
+    }
+
+    return 'rgb(' + Math.round(r * 255) + ',' + Math.round(g * 255) + ',' + Math.round(b * 255) + ')';
 }
