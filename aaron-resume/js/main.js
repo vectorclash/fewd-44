@@ -85,10 +85,11 @@ function colorPulse(elementSplit) {
 		if(color > 1) {
 			color -= 1;
 		}
-		TweenMax.to(element, 1, {y:-10+Math.random()*20, skewY:-20+Math.random()*40, color:hslToRgb(color, 0.5, 0.5), ease:Bounce.easeOut, delay:i*0.08});
-		TweenMax.to(element, 0.5, {y:0, skewY:0, color:0xFFFFFF, ease:Sine.easeOut, delay:1+i*0.08});
+		TweenMax.to(element, 2, {color:hslToRgb(color, 0.5, 0.5), ease:Elastic.easeOut, delay:i*0.08});
+		TweenMax.to(element, 0.5, {color:0xFFFFFF, ease:Sine.easeOut, delay:1+i*0.08});
 	}
 
+	onShapeClicked(null);
 	TweenMax.delayedCall(10, colorPulse, [elementSplit]);
 }
 
