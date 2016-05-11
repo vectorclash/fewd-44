@@ -4,7 +4,7 @@ var nameSplit;
 function init() {
 	buildLogo();
 	var nameSplit = new SplitText(document.querySelector(".name", {type:"chars"}));
-	TweenMax.delayedCall(5, colorPulse, [nameSplit.chars]);
+	TweenMax.delayedCall(5, colorPulse, [nameSplit.chars, true]);
 
 	var elements = document.querySelector("main");
 	TweenMax.set("main", {alpha:1});
@@ -16,6 +16,7 @@ function init() {
 		var element = text[i];
 		if(element.className != "name") {
 			var textSplit = new SplitText(element, {type:"words"});
+			TweenMax.delayedCall(i, colorPulse, [textSplit.words, false]);
 			TweenMax.staggerFrom(textSplit.words, 1, {alpha:0, 
 													  cycle:{x:[0, ranCoord(), 0, ranCoord(), 0, ranCoord(), 0], 
 													  	     y:[ranCoord(), 0, ranCoord(), 0, ranCoord(), 0, ranCoord()]}, 
@@ -77,7 +78,7 @@ function removeParticle(particle, container) {
 	addParticle(container);
 }
 
-function colorPulse(elementSplit) {
+function colorPulse(elementSplit, animateLogo) {
 	var colorOffset = Math.random();
 	for(var i = 0; i < elementSplit.length; i++) {
 		var element = elementSplit[i];
@@ -85,12 +86,14 @@ function colorPulse(elementSplit) {
 		if(color > 1) {
 			color -= 1;
 		}
-		TweenMax.to(element, 2, {color:hslToRgb(color, 0.5, 0.5), ease:Elastic.easeOut, delay:i*0.08});
+		TweenMax.to(element, 2, {color:hslToRgb(color, Math.random(), Math.random()), ease:Quad.easeOut, delay:i*0.08});
 		TweenMax.to(element, 0.5, {color:0xFFFFFF, ease:Sine.easeOut, delay:1+i*0.08});
 	}
 
-	onShapeClicked(null);
-	TweenMax.delayedCall(10, colorPulse, [elementSplit]);
+	if(animateLogo) {
+		onShapeClicked(null);
+	}
+	TweenMax.delayedCall(10, colorPulse, [elementSplit, animateLogo]);
 }
 
 function onSocialOver(e) {
