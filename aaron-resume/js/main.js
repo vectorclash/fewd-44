@@ -16,7 +16,7 @@ function init() {
 		var element = text[i];
 		if(element.className != "name") {
 			var textSplit = new SplitText(element, {type:"words"});
-			TweenMax.delayedCall(i*0.5, colorPulse, [textSplit.words, false]);
+			TweenMax.delayedCall(5+(i*0.5), colorPulse, [textSplit.words, false]);
 			TweenMax.staggerFrom(textSplit.words, 1, {alpha:0, 
 													  cycle:{x:[0, ranCoord(), 0, ranCoord(), 0, ranCoord(), 0], 
 													  	     y:[ranCoord(), 0, ranCoord(), 0, ranCoord(), 0, ranCoord()]}, 
