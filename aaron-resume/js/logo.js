@@ -9,7 +9,7 @@ var shapeAng = 360/shapePoints;
 var shapeSize = 40;
 var lineThickness = 1;
 
-function init() {
+function buildLogo() {
 	stage = new createjs.Stage("logo");
   TweenLite.ticker.addEventListener("tick", loop, this);
 
@@ -185,7 +185,3 @@ function hslToRgb(h, s, l){
 
     return 'rgb(' + Math.round(r * 255) + ',' + Math.round(g * 255) + ',' + Math.round(b * 255) + ')';
 }
-
-// start this thing!
-
-window.addEventListener('load', init);

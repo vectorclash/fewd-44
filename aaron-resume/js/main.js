@@ -2,6 +2,7 @@ var particleNum = 20;
 var nameSplit;
 
 function init() {
+	buildLogo();
 	var nameSplit = new SplitText(document.querySelector(".name", {type:"chars"}));
 	TweenMax.delayedCall(5, colorPulse, [nameSplit.chars]);
 
@@ -67,7 +68,7 @@ function addParticle(container) {
 	TweenMax.to(particle, ranTime, {scaleX:-5+Math.random()*10, 
 									x: -(window.innerWidth/2)+Math.random()*window.innerWidth,
 									rotation:-4+Math.random()*8,
-									ease:Quad.easeInOut});
+									ease:Power1.easeInOut});
 	TweenMax.to(particle, 1, {alpha:0, delay:ranTime-10, onComplete:removeParticle, onCompleteParams:[particle, container]});
 }
 
@@ -84,8 +85,8 @@ function colorPulse(elementSplit) {
 		if(color > 1) {
 			color -= 1;
 		}
-		TweenMax.to(element, 0.5, {skewY:-20+Math.random()*40, color:hslToRgb(color, 0.6, 0.7), ease:Sine.easeOut, delay:i*0.08});
-		TweenMax.to(element, 0.5, {skewY:0, color:0xFFFFFF, ease:Sine.easeOut, delay:1+i*0.08});
+		TweenMax.to(element, 1, {y:-10+Math.random()*20, skewY:-20+Math.random()*40, color:hslToRgb(color, 0.5, 0.5), ease:Bounce.easeOut, delay:i*0.08});
+		TweenMax.to(element, 0.5, {y:0, skewY:0, color:0xFFFFFF, ease:Sine.easeOut, delay:1+i*0.08});
 	}
 
 	TweenMax.delayedCall(10, colorPulse, [elementSplit]);
