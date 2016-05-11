@@ -39,6 +39,7 @@ function init() {
 		var element = footerElements[n];
 		element.addEventListener("mouseover", onSocialOver);
 		element.addEventListener("mouseout", onSocialOut);
+		element.addEventListener("click", onSocialClick);
 	}
 }
 
@@ -86,8 +87,7 @@ function colorPulse(elementSplit, animateLogo) {
 		if(color > 1) {
 			color -= 1;
 		}
-		TweenMax.to(element, 2, {color:hslToRgb(color, Math.random(), Math.random()), ease:Quad.easeOut, delay:i*0.08});
-		TweenMax.to(element, 0.5, {color:0xFFFFFF, ease:Sine.easeOut, delay:1+i*0.08});
+		TweenMax.to(element, 0.5, {color:hslToRgb(color, 0.3+Math.random()*0.6, 0.3+Math.random()*0.6), ease:Expo.easeOut, delay:i*0.02, yoyo:true, repeat:1});
 	}
 
 	if(animateLogo) {
@@ -101,6 +101,10 @@ function onSocialOver(e) {
 }
 
 function onSocialOut(e) {
+	TweenMax.to(e.target, 0.5, {scaleX:1, scaleY:1, ease:Bounce.easeOut});
+}
+
+function onSocialClick(e) {
 	TweenMax.to(e.target, 0.5, {scaleX:1, scaleY:1, ease:Bounce.easeOut});
 }
 
