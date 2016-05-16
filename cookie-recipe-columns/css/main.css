@@ -8,6 +8,10 @@
 
 /*main layout*/
 
+body {
+	background: #ECEFD0;
+}
+
 main {
 	display: flex;
 }
@@ -15,7 +19,7 @@ main {
 section {
 	padding: 20px;
 	background: #ECEECF;
-	flex: 3;
+	flex: 2;
 }
 
 aside {
@@ -25,7 +29,8 @@ aside {
 }
 
 table {
-	width: 566px;
+	width: 80%;
+	max-width: 566px;
 	text-align: center;
 	padding: 20px 0;
 }
@@ -75,15 +80,16 @@ li {
 
 aside p {
 	line-height: 18px;
-	padding-bottom: 5px;
+	padding-bottom: 10px;
 }
 
 /*hero image*/
 
 .hero-image {
 	position: relative;
-	width: 566px;
-	height: 283px;
+	width: 80%;
+	max-width: 566px;
+	overflow: hidden;
 	cursor: pointer;
 }
 
@@ -115,4 +121,16 @@ aside p {
 	left: 0;
 	background: #fff;
 	z-index: 10;
+}
+
+/*links*/
+
+a:link {
+	color: #96BC91;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #E92447;
+	text-decoration: underline;
 }
