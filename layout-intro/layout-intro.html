@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Layout Intro</title>
+	<style type="text/css">
+
+		/*Reset*/
+
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		/*Page-wide styles*/
+
+		body {
+			font-family: Arial, sans-serif;
+			font-size: 12px;
+		}
+
+		/*Table Layout*/
+
+		table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+
+		td {
+			text-align: center;
+			background: #FF195F;
+			padding: 10px;
+		}
+
+		/*Float Layout*/
+
+		header {
+			overflow: hidden;
+			padding-bottom: 5px;
+		}
+
+		div {
+			box-sizing: border-box;
+			text-align: center;
+		}
+
+		div {
+			float: left;
+			padding: 10px;
+			background: #3CDBFF;
+		}
+
+		.three-columns div {
+			width: 33.333333%;
+		}
+
+		/*Flexbox Layout*/
+
+		main {
+			display: flex;
+		}
+
+		section {
+			padding: 10px;
+			background: #E4FF00;
+			text-align: center;
+
+		}
+
+		/*Flexbox Sidebar Layout*/
+
+		.main {
+			flex: 2;
+			background: #FF7A2D;
+		}
+
+		.sidebar {
+			width: 200px;
+			background: #FFEE27;
+		}
+
+		.column {
+			flex: 1;
+			background: #FF88C9;
+		}
+
+		/*Absolute Layout*/
+
+		footer {
+			position: relative;
+			background: linear-gradient(135deg, #1e5799 0%,#ad1b6e 47%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+			height: 200px;
+			width: 100%;
+		}
+
+		footer p {
+			position: absolute;
+			width: 50%;
+			right: 5px;
+			bottom: 5px;
+			color: #fff;
+		}
+
+	</style>
+</head>
+<body>
+	<h1>Layout Intro</h1>
+
+	<h2>Table Layout</h2>
+	<table>
+		<tr>
+			<td>Column 1</td>
+			<td>Column 2</td>
+			<td>Column 3</td>
+		</tr>
+	</table>
+
+	<h2>Float Layout</h2>
+	<header>
+		<div>Column 1</div>
+		<div>Column 2</div>
+		<div>Column 3</div>
+	</header>
+
+	<header class="three-columns">
+		<div>Column 1</div>
+		<div>Column 2</div>
+		<div>Column 3</div>
+	</header>
+
+	<h2>Flexbox Layout</h2>
+	<main>
+		<section>Column 1</section>
+		<section>Column 2</section>
+		<section>Column 3</section>
+	</main>
+
+	<h2>Sidebar Flexbox Layout</h2>
+	<main>
+		<section class="sidebar">Sidebar</section>
+		<section class="column">Column 1</section>
+		<section class="main">Main</section>
+		<section class="column">Column 3</section>
+	</main>
+
+	<h2>Absolute Layout</h2>
+	<footer>
+		<p>Are creatures of the cosmos two ghostly white figures in coveralls and helmets are soflty dancing muse about finite but unbounded trillion! Laws of physics. Rich in heavy atoms a mote of dust suspended in a sunbeam birth finite but unbounded another world white dwarf? A still more glorious dawn awaits Vangelis?</p>
+	</footer>
+</body>
+</html>

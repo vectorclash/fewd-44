@@ -1,0 +1,118 @@
+/*reset*/
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+/*main layout*/
+
+main {
+	display: flex;
+}
+
+section {
+	padding: 20px;
+	background: #ECEECF;
+	flex: 3;
+}
+
+aside {
+	padding: 20px;
+	background: #EBD17E;
+	flex: 1;
+}
+
+table {
+	width: 566px;
+	text-align: center;
+	padding: 20px 0;
+}
+
+.recipe-by {
+	padding-bottom: 10px;
+	font-size: 14px;
+	color: #96BC91;
+}
+
+/*text styles and headers*/
+
+body {
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 14px;
+	color: #333;
+}
+
+h1, h2 {
+	color: #A3562F;
+}
+
+h1 {
+	font-size: 32px;
+	font-weight: 700;
+	letter-spacing: -1px;
+}
+
+h2 {
+	font-size: 16px;
+	letter-spacing: -0.5px;
+	padding-bottom: 10px;
+}
+
+/*list styles*/
+
+ul, ol {
+	padding-left: 20px;
+	padding-bottom: 20px;
+}
+
+li {
+	padding: 2px 0;
+}
+
+/*aside styling*/
+
+aside p {
+	line-height: 18px;
+	padding-bottom: 5px;
+}
+
+/*hero image*/
+
+.hero-image {
+	position: relative;
+	width: 566px;
+	height: 283px;
+	cursor: pointer;
+}
+
+.info-button {
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+	border: 2px solid white;
+	color: #000;
+	border-radius: 50%;
+	padding: 4px 12px;
+	overflow: hidden;
+	z-index: 100;
+}
+
+.info-button p {
+	position: relative;
+	display: block;
+	font-size: 16px;
+	z-index: 20;
+}
+
+.info-button-back {
+	position: absolute;
+	display: block;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background: #fff;
+	z-index: 10;
+}
