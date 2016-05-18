@@ -146,7 +146,6 @@ section {
 
 .lower-block:hover {
 	background: yellow;
-	border: 0;
 }
 
 .lower-block:last-child {
