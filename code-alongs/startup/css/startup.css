@@ -6,6 +6,12 @@
 	box-sizing: border-box;
 }
 
+/*body styles*/
+
+body {
+	background: #000;
+}
+
 /*header*/
 
 header {
@@ -77,6 +83,7 @@ header p .underline {
 main {
 	display: block;
 	z-index: 50;
+	background: #fff;
 }
 
 .mym {
