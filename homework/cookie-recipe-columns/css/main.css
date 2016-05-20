@@ -28,18 +28,6 @@ aside {
 	flex: 1;
 }
 
-table {
-	width: 80%;
-	max-width: 566px;
-	text-align: center;
-}
-
-td {
-	padding: 20px 0;
-	border-radius: 10px;
-	background: #ECEFD0;
-}
-
 .recipe-by {
 	padding-bottom: 10px;
 	font-size: 14px;
@@ -163,4 +151,20 @@ a:link {
 a:hover {
 	color: #E92447;
 	text-decoration: underline;
+}
+
+/*mobile*/
+
+@media (max-width: 450px) {
+	main {
+		flex-direction: column;
+	}
+
+	.hero-image {
+		width: 100%;
+	}
+
+	.time-servings {
+		width: 100%;
+	}
 }
