@@ -92,10 +92,15 @@ aside p {
 
 .hero-image {
 	position: relative;
-	width: 80%;
+	width: 85%;
 	max-width: 566px;
 	overflow: hidden;
 	cursor: pointer;
+} 
+
+.hero-image img {
+	position: relative;
+	width: 100%;
 }
 
 .info-button {
@@ -132,7 +137,7 @@ aside p {
 
 .time-servings {
 	position: relative;
-	width: 80%;
+	width: 85%;
 	max-width: 566px;
 }
 
