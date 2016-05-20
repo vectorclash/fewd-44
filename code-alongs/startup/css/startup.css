@@ -84,6 +84,7 @@ main {
 	display: block;
 	z-index: 50;
 	background: #fff;
+	padding-bottom: 20px;
 }
 
 .mym {
@@ -140,7 +141,7 @@ main {
 
 section {
 	display: flex;
-	margin-top: 10px;
+	padding-top: 20px;
 }
 
 .lower-block {
@@ -153,6 +154,8 @@ section {
 
 .lower-block:hover {
 	background: yellow;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
 }
 
 .lower-block:last-child {
@@ -193,7 +196,6 @@ section {
 footer {
 	background: #000;
 	color: #fff;
-	margin-top: 20px;
 	padding: 20px;
 	font-family: 'Source Sans Pro', sans-serif;
 	font-size: 20px;
