@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Traffic Light</title>
+	<link rel="stylesheet" type="text/css" href="css/traffic-light.css">
+</head>
+<body>
+	<main>
+		<nav>
+			<ul>
+				<li class="stop">stop</li>
+				<li class="slow">slow</li>
+				<li class="go">go</li>
+			</ul>
+		</nav>
+		<section class="traffic-light">
+			<ul>
+				<li class="red light-off"></li>
+				<li class="yellow light-off"></li>
+				<li class="green light-off"></li>
+			</ul>
+		</section>
+	</main>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenMax.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript">
+	this.addEventListener("load", init);
+</script>
+</html>
