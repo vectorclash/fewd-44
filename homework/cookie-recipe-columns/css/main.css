@@ -80,8 +80,7 @@ aside p {
 
 .hero-image {
 	position: relative;
-	width: 85%;
-	max-width: 566px;
+	width: 100;
 	overflow: hidden;
 	cursor: pointer;
 } 
@@ -125,8 +124,7 @@ aside p {
 
 .time-servings {
 	position: relative;
-	width: 85%;
-	max-width: 566px;
+	width: 100%;
 }
 
 .time-servings ul {
