@@ -11,6 +11,9 @@ function init() {
 
 	heroImage.addEventListener("mouseover", onImageOver);
 	heroImage.addEventListener("mouseout", onImageOut);
+
+	var aside = document.querySelector("aside");
+	TweenMax.from(aside, 2, {css:{flex:"0", opacity:"0", borderLeft:"20px solid #CCFF00"}, ease:Bounce.easeOut, delay:1});
 }
 
 function onImageOver(e) {
