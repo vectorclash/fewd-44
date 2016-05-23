@@ -1,7 +1,7 @@
 /*main structure*/
 
 .container {
-	padding: 40px;
+	padding: 40px 48px 40px 40px;
 	border-left: 8px solid #DDDDDD;
 }
 
