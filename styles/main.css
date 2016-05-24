@@ -39,7 +39,11 @@ h2 {
 	font-size: 36px;
 }
 
-nav ul li {
+ul {
+	padding-bottom: 40px;
+}
+
+ul li {
 	list-style-type: square;
 	margin-left: 25px;
 	font-size: 30px;
