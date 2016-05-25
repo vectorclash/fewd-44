@@ -157,7 +157,7 @@ aside section {
 	margin-bottom: 20px;
 }
 
-iframe {
+.ad-wrapper {
 	position: relative;
 	width: 300px;
 	height: 250px;
