@@ -150,6 +150,7 @@ aside p {
 }
 
 aside section {
+	display: inline-block;
 	border-bottom: 1px solid #ccc;
 	padding-bottom: 20px;
 	margin-bottom: 20px;
