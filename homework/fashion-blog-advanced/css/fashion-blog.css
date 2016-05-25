@@ -155,13 +155,6 @@ aside section {
 	margin-bottom: 20px;
 }
 
-.ad-wrapper {
-	display: block;
-	position: relative;
-	width: 300px;
-	height: 250px;
-}
-
 aside li {
 	list-style-type: disc;
 	padding-left: 10px;
