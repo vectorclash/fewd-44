@@ -1,0 +1,121 @@
+main {
+	position: absolute;
+	width: 300px;
+	height: 250px;
+	left: 0;
+	top: 0;
+	overflow: hidden;
+	z-index: 100;
+	border: 1px solid #B3B3B3;
+	box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    cursor: pointer;
+}
+
+.background {
+	position: absolute;
+	width: 300px;
+	height: 250px;
+	top: 0;
+	left: 0;
+	z-index: 0;
+	background: url(../img/background.svg);
+}
+
+.logo {
+	position: absolute;
+	width: 42px;
+	height: 59px;
+	left: 18px;
+	bottom: 9px;
+	background: url(../img/logo.svg) no-repeat;
+	z-index: 100;
+}
+
+.pig {
+	position: absolute;
+	width: 177px;
+	height: 104px;
+	right: 5px;
+	bottom: -5px;
+	background: url(../img/pig.svg) no-repeat;
+	opacity: 0;
+	z-index: 10;
+}
+
+.poop {
+	position: absolute;
+	width: 45px;
+	height: 13px;
+	left: 102px;
+	bottom: 0px;
+	background: url(../img/poop.svg) no-repeat;
+	opacity: 0;
+	z-index: 10;
+}
+
+.poop-falling {
+	position: absolute;
+	width: 16px;
+	height: 50px;
+	left: 118px;
+	bottom: 5px;
+	background: url(../img/poop-falling.svg) no-repeat;
+	opacity: 0;
+	z-index: 10;
+}
+
+.fullsize-image {
+	position: absolute;
+	width: 300px;
+	height: 250px;
+	left: 0;
+	top: 0;
+	opacity: 0;
+	z-index: 50;
+}
+
+.fight-climate {
+	background: url(../img/fight-climate.png);
+}
+
+.change-in {
+	background: url(../img/change-in.png);
+}
+
+.three {
+	background: url(../img/three.png);
+}
+
+.two {
+	background: url(../img/two.png);
+}
+
+.one {
+	background: url(../img/one.png);
+}
+
+.make-doo-doo {
+	background: url(../img/make-doo-doo.png);
+}
+
+.do-more {
+	background: url(../img/do-more.png);
+}
+
+.fight-climate-two {
+	background: url(../img/fight-climate-two.png);
+}
+
+.change-by-turning {
+	background: url(../img/change-by-turning.png);
+}
+
+.poo-into-power {
+	background: url(../img/poo-into-power.png);
+}
+
+.cta {
+	background: url(../img/cta.png);
+}
