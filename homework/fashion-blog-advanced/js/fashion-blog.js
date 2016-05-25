@@ -25,14 +25,28 @@ function init() {
 			TweenMax.from(article.children[j], 1, {y:20, alpha:0, ease:Quad.easeOut, delay:i+(j*0.5)});
 		}
 	}
+
+	window.addEventListener("resize", onWindowResize);
+}
+
+function onWindowResize() {
+	var theWidth = window.innerWidth;
+	if(theWidth > 450) {
+		TweenMax.set(nav, {css:{height:"100%"}});
+		navOpen = true;
+	} else if(theWidth < 450) {
+		TweenMax.set(nav, {css:{height:"0"}});
+		navOpen = false;
+	}
 }
 
 function onHMBClick(e) {
 	if(navOpen) {
-		TweenMax.to(nav, 1, {css:{height:"0px"}, ease:Bounce.easeOut});
+		TweenMax.to(nav, 1, {height:0, ease:Bounce.easeOut});
 		navOpen = false;
 	} else {
-		TweenMax.to(nav, 1, {css:{height:"100%"}, ease:Bounce.easeOut});
+		TweenMax.set(nav, {height:"auto"});
+		TweenMax.from(nav, 1, {height:0, ease:Bounce.easeOut});
 		navOpen = true;
 	}
 }

@@ -3,7 +3,6 @@
 .wrapper {
 	padding: 40px;
 	border-left: 8px solid #DDDDDD;
-	min-width: 450px;
 }
 
 /*font styles*/
@@ -37,14 +36,12 @@ header nav {
 }
 
 header nav ul {
-	display: flex;
-	flex-wrap: wrap;
 	padding-top: 20px;
 }
 
 header nav li {
-	flex: 1;
-	margin-right: 5px;
+	display: inline-block;
+	margin-right: 2px;
 }
 
 header nav li:last-child {
@@ -171,12 +168,12 @@ aside li {
 	margin-left: 20px;
 }
 
-aside a {
+aside .links a {
 	text-decoration: none;
 	color: #E13E38;
 }
 
-aside a:hover {
+aside .links a:hover {
 	border-bottom: 1px solid #E13E38;
 }
 
@@ -225,12 +222,22 @@ footer p {
 		flex-direction: column;
 	}
 
+	header nav {
+		height: 100%;
+	}
+
 	aside {
 		padding-top: 0px;
 	}
 }
 
 @media (max-width: 450px) {
+
+	h1 {
+		display: inline-block;
+		padding-right: 0px;
+	}
+
 	header nav {
 		height: 0;
 	}
@@ -240,12 +247,13 @@ footer p {
 	}
 
 	header nav li {
+		width: 100%;
 		margin-right: 0px;
 	}
 
 	.hmb-nav {
 		display: inline-block;
-		clear: both;
+		padding-top: 20px;
 		cursor: pointer;
 	}
 }
