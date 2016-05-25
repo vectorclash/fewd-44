@@ -11,6 +11,8 @@ h1 {
 }
 
 input {
+	display: inline-block;
+	text-align: center;
 	width: 160px;
 	font-size: 20px;
 	padding: 10px;
@@ -23,7 +25,7 @@ button {
 	font-weight: 700;
 	border-radius: 15px;
 	color: #989;
-	background-color: #8DFFA5;
+	background-color: #F3FF0D;
 	box-shadow: 5px 5px 20px #000;
 	border: none;
 	outline: none;
@@ -36,6 +38,7 @@ button:active {
 }
 
 .sign {
+	display: inline-block;
 	padding: 10px;
 	color: #FF284C;
 	font-size: 20px;
