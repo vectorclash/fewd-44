@@ -8,6 +8,9 @@ var pageWidth;
 function init() {
 	pageWidth = window.innerWidth;
 	nav = document.querySelector("header nav");
+	if(pageWidth < 450) {
+		TweenMax.set(nav, {css:{height:"0"}});
+	}
 	navButtons = document.querySelectorAll("header a");
 	for(var h = 0; h < navButtons.length; h++) {
 		var button = navButtons[h];
