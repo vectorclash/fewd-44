@@ -63,7 +63,6 @@ header nav a {
 .hmb-nav {
 	display: none;
 	float: right;
-	padding-top: 5px;
 }
 
 /*main*/
@@ -251,7 +250,7 @@ footer p {
 
 	.hmb-nav {
 		display: inline-block;
-		padding-top: 22px;
+		padding-top: 24px;
 		cursor: pointer;
 	}
 }

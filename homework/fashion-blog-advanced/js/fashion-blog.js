@@ -35,11 +35,11 @@ function onWindowResize() {
 	var theWidth = window.innerWidth;
 	if(pageWidth != theWidth) {
 		if(theWidth > 450) {
-			TweenMax.set(nav, {css:{height:"100%"}});
+			TweenMax.set(nav, {css:{height:"auto"}});
 		} else if(theWidth < 450 && navOpen == false) {
 			TweenMax.set(nav, {css:{height:"0"}});
 		} else if(theWidth < 450 && navOpen) {
-			TweenMax.set(nav, {css:{height:"100%"}});
+			TweenMax.set(nav, {css:{height:"auto"}});
 		}
 	}
 }
@@ -51,6 +51,10 @@ function onHMBClick(e) {
 	} else {
 		TweenMax.set(nav, {height:"auto"});
 		TweenMax.from(nav, 1, {height:0, ease:Bounce.easeOut});
+		for(var h = 0; h < navButtons.length; h++) {
+			var button = navButtons[h];
+			TweenMax.from(button, 0.5, {y:20, alpha:0, ease:Bounce.easeOut, delay:h*0.07});
+		}
 		navOpen = true;
 	}
 }
