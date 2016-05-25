@@ -53,10 +53,7 @@ ul li {
 a {
 	text-decoration: none;
 	color: #333;
-}
-
-a:hover {
-	color: #0cf;
+	padding-right: 20px;
 }
 
 #main {

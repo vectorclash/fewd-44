@@ -4,9 +4,25 @@ var time2 = 0.0;
 var interval1 = 0.001;
 var interval2 = 0.002;
 
+var links;
+
 function init() {
+    links = document.querySelectorAll("a");
+    for(var i = 0; i < links.length; i++) {
+        var link = links[i];
+        link.addEventListener("mouseover", onButtonOver);
+        link.addEventListener("mouseout", onButtonOut);
+    }
 	header = document.querySelector("h1");
 	TweenMax.ticker.addEventListener("tick", render);
+}
+
+function onButtonOver(e) {
+    TweenMax.to(e.currentTarget, 0.5, {color:Math.random()*0xFFFFFF, ease:Elastic.easeOut});
+}
+
+function onButtonOut(e) {
+    TweenMax.to(e.currentTarget, 0.5, {color:0x333333, ease:Back.easeOut});
 }
 
 function render() {
