@@ -31,6 +31,10 @@ function init() {
 	hmb = document.querySelector(".hmb-nav");
 	hmb.addEventListener("click", onHMBClick);
 
+	TweenMax.from(hmb, 1, {alpha:0, delay:2});
+
+	TweenMax.staggerFrom("aside section", 1, {alpha:0, y:20, ease:Bounce.easeOut, delay:1}, 0.2);
+
 	window.addEventListener("resize", onWindowResize);
 }
 
@@ -56,7 +60,7 @@ function onHMBClick(e) {
 		TweenMax.from(nav, 1, {height:0, ease:Bounce.easeOut});
 		for(var h = 0; h < navButtons.length; h++) {
 			var button = navButtons[h];
-			TweenMax.from(button, 0.5, {y:-20, scaleY:0, transformOrigin:"50% 0%", ease:Bounce.easeOut, delay:h*0.09});
+			TweenMax.from(button, 0.5, {y:-20, alpha:0, ease:Bounce.easeOut, delay:h*0.09});
 		}
 		navOpen = true;
 	}
