@@ -3,8 +3,10 @@ var nav;
 var articles;
 var hmb;
 var navOpen = false;
+var pageWidth;
 
 function init() {
+	pageWidth = window.innerWidth;
 	nav = document.querySelector("header nav");
 	hmb = document.querySelector(".hmb-nav");
 	hmb.addEventListener("click", onHMBClick);
@@ -31,12 +33,14 @@ function init() {
 
 function onWindowResize() {
 	var theWidth = window.innerWidth;
-	if(theWidth > 450) {
-		TweenMax.set(nav, {css:{height:"100%"}});
-		navOpen = true;
-	} else if(theWidth < 450) {
-		TweenMax.set(nav, {css:{height:"0"}});
-		navOpen = false;
+	if(pageWidth != theWidth) {
+		if(theWidth > 450) {
+			TweenMax.set(nav, {css:{height:"100%"}});
+			navOpen = true;
+		} else if(theWidth < 450) {
+			TweenMax.set(nav, {css:{height:"0"}});
+			navOpen = false;
+		}
 	}
 }
 
