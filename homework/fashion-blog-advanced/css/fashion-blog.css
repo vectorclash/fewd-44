@@ -215,10 +215,6 @@ footer p {
 		flex-direction: column;
 	}
 
-	header nav {
-		height: 100%;
-	}
-
 	main {
 		padding-right: 0px;
 	}
@@ -233,10 +229,6 @@ footer p {
 	h1 {
 		display: inline-block;
 		padding-right: 0px;
-	}
-
-	header nav {
-		height: 0;
 	}
 
 	header nav ul {
