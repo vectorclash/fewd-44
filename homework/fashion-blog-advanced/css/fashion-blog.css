@@ -151,9 +151,15 @@ aside p {
 
 aside section {
 	display: inline-block;
+	position: relative;
 	border-bottom: 1px solid #ccc;
 	padding-bottom: 20px;
 	margin-bottom: 20px;
+}
+
+.ad-container {
+	position: relative;
+	height: 274px;
 }
 
 aside li {
