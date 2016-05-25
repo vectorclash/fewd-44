@@ -46,10 +46,9 @@ function onWindowResize() {
 	if(pageWidth != theWidth) {
 		if(theWidth > 450) {
 			TweenMax.set(nav, {css:{height:"auto"}});
-		} else if(theWidth < 450 && navOpen == false) {
+		} else if(theWidth < 450) {
 			TweenMax.set(nav, {css:{height:"0"}});
-		} else if(theWidth < 450 && navOpen) {
-			TweenMax.set(nav, {css:{height:"auto"}});
+			navOpen = false;
 		}
 	}
 }
