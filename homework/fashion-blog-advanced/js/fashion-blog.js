@@ -8,12 +8,12 @@ var pageWidth;
 function init() {
 	pageWidth = window.innerWidth;
 	nav = document.querySelector("header nav");
-	hmb = document.querySelector(".hmb-nav");
-	hmb.addEventListener("click", onHMBClick);
 	navButtons = document.querySelectorAll("header a");
 	for(var h = 0; h < navButtons.length; h++) {
 		var button = navButtons[h];
-		TweenMax.from(button, 1, {y:20, alpha:0, ease:Bounce.easeOut, delay:h*0.2});
+		if(pageWidth < 450) {
+			TweenMax.from(button, 1, {y:20, alpha:0, ease:Bounce.easeOut, delay:h*0.2});
+		}
 		button.addEventListener("mouseover", onButtonOver);
 		button.addEventListener("mouseout", onButtonOut);
 	}
@@ -27,6 +27,9 @@ function init() {
 			TweenMax.from(article.children[j], 1, {y:20, alpha:0, ease:Quad.easeOut, delay:i+(j*0.5)});
 		}
 	}
+
+	hmb = document.querySelector(".hmb-nav");
+	hmb.addEventListener("click", onHMBClick);
 
 	window.addEventListener("resize", onWindowResize);
 }
@@ -53,7 +56,7 @@ function onHMBClick(e) {
 		TweenMax.from(nav, 1, {height:0, ease:Bounce.easeOut});
 		for(var h = 0; h < navButtons.length; h++) {
 			var button = navButtons[h];
-			TweenMax.from(button, 0.5, {y:20, alpha:0, ease:Bounce.easeOut, delay:h*0.07});
+			TweenMax.from(button, 0.5, {y:-20, scaleY:0, transformOrigin:"50% 0%", ease:Bounce.easeOut, delay:h*0.09});
 		}
 		navOpen = true;
 	}
