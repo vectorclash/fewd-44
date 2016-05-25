@@ -226,6 +226,10 @@ footer p {
 		height: 100%;
 	}
 
+	main {
+		padding-right: 0px;
+	}
+
 	aside {
 		padding-top: 0px;
 	}
@@ -253,7 +257,7 @@ footer p {
 
 	.hmb-nav {
 		display: inline-block;
-		padding-top: 20px;
+		padding-top: 22px;
 		cursor: pointer;
 	}
 }
