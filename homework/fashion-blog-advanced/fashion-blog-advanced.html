@@ -11,7 +11,52 @@
 <body>
 	<div class="wrapper">
 		<header>
-			<div class="hmb-nav"><i class="fa fa-bars fa-2x" aria-hidden="true"></i></div>
+			<div class="hmb-nav">
+				<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 180 135" enable-background="new 0 0 180 135" xml:space="preserve">
+					<g id="hamburger">
+						<linearGradient id="lowerBun_1_" gradientUnits="userSpaceOnUse" x1="82.5881" y1="126.6616" x2="97.4119" y2="71.3384">
+							<stop  offset="0" style="stop-color:#ED0C6E"/>
+							<stop  offset="1" style="stop-color:#034EA2"/>
+						</linearGradient>
+						<path id="lowerBun" fill="url(#lowerBun_1_)" d="M162,109H18c-5.5,0-10-4.5-10-10c0-5.5,4.5-10,10-10h144c5.5,0,10,4.5,10,10
+							C172,104.5,167.5,109,162,109z"/>
+						<linearGradient id="patty_1_" gradientUnits="userSpaceOnUse" x1="82.5881" y1="90.6617" x2="97.4119" y2="35.3384">
+							<stop  offset="0" style="stop-color:#ED0C6E"/>
+							<stop  offset="1" style="stop-color:#034EA2"/>
+						</linearGradient>
+						<path id="patty" fill="url(#patty_1_)" d="M162,73H18c-5.5,0-10-4.5-10-10s4.5-10,10-10h144c5.5,0,10,4.5,10,10S167.5,73,162,73z"
+							/>
+						<linearGradient id="upperBun_1_" gradientUnits="userSpaceOnUse" x1="82.5881" y1="54.6617" x2="97.4119" y2="-0.6616">
+							<stop  offset="0" style="stop-color:#ED0C6E"/>
+							<stop  offset="1" style="stop-color:#034EA2"/>
+						</linearGradient>
+						<path id="upperBun" fill="url(#upperBun_1_)" d="M162,37H18c-5.5,0-10-4.5-10-10s4.5-10,10-10h144c5.5,0,10,4.5,10,10
+							S167.5,37,162,37z"/>
+					</g>
+					<g id="close">
+						
+							<linearGradient id="lowerBar_1_" gradientUnits="userSpaceOnUse" x1="-16.6621" y1="31.8669" x2="137.0153" y2="73.0447" gradientTransform="matrix(0.7071 -0.7071 0.7071 0.7071 7.2685 71.5477)">
+							<stop  offset="0" style="stop-color:#ED0C6E"/>
+							<stop  offset="1" style="stop-color:#034EA2"/>
+						</linearGradient>
+						<path id="lowerBar" fill="url(#lowerBar_1_)" d="M36,127c-2.6,0-5.1-1-7.1-2.9c-3.9-3.9-3.9-10.2,0-14.1L130.8,8.1
+							c3.9-3.9,10.2-3.9,14.1,0c3.9,3.9,3.9,10.2,0,14.1L43.1,124.1C41.1,126,38.6,127,36,127z"/>
+						<linearGradient id="dot_1_" gradientUnits="userSpaceOnUse" x1="87.3631" y1="72.8418" x2="92.6373" y2="53.1583">
+							<stop  offset="0" style="stop-color:#ED0C6E"/>
+							<stop  offset="1" style="stop-color:#034EA2"/>
+						</linearGradient>
+						<path id="dot" fill="url(#dot_1_)" d="M90.7,73h-1.4c-5.5,0-10-4.5-10-10s4.5-10,10-10h1.4c5.5,0,10,4.5,10,10S96.2,73,90.7,73z"/>
+						
+							<linearGradient id="upperBar_1_" gradientUnits="userSpaceOnUse" x1="61.4997" y1="101.2059" x2="76.3236" y2="45.8822" gradientTransform="matrix(0.7071 0.7071 -0.7071 0.7071 96.364 -34.6432)">
+							<stop  offset="0" style="stop-color:#ED0C6E"/>
+							<stop  offset="1" style="stop-color:#034EA2"/>
+						</linearGradient>
+						<path id="upperBar" fill="url(#upperBar_1_)" d="M144,127c-2.6,0-5.1-1-7.1-2.9L35.1,22.2c-3.9-3.9-3.9-10.2,0-14.1
+							c3.9-3.9,10.2-3.9,14.1,0l101.8,101.8c3.9,3.9,3.9,10.2,0,14.1C149.1,126,146.6,127,144,127z"/>
+					</g>
+				</svg>
+			</div>
 			<div class="title">
 				<h1>Sartre’s List</h1>
 				<span class="sub-head">Better-Dressed People</span>
@@ -85,9 +130,9 @@
 		</footer>
 	</div>
 </body>
-<script src="https://use.fontawesome.com/99982e406a.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenMax.min.js"></script>
-<script src="js/perlin.js"></script>
+<script src="js/DrawSVGPlugin.min.js"></script>
+<script src="js/MorphSVGPlugin.min.js"></script>
 <script src="js/fashion-blog.js"></script>
 <script>
 	this.addEventListener("load", init);

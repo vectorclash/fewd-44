@@ -34,7 +34,7 @@ function init() {
 	hmb = document.querySelector(".hmb-nav");
 	hmb.addEventListener("click", onHMBClick);
 
-	TweenMax.from(hmb, 1, {alpha:0, delay:0.5});
+	TweenMax.staggerFrom(hmb, 1, {alpha:0, delay:0.5});
 
 	TweenMax.staggerFrom("aside section", 1, {alpha:0, y:20, ease:Bounce.easeOut, delay:1}, 0.2);
 
@@ -54,6 +54,7 @@ function onWindowResize() {
 }
 
 function onHMBClick(e) {
+	animateHamburger();
 	if(navOpen) {
 		TweenMax.to(nav, 1, {height:0, ease:Bounce.easeOut});
 		navOpen = false;
@@ -65,6 +66,18 @@ function onHMBClick(e) {
 			TweenMax.from(button, 0.5, {y:-20, alpha:0, ease:Bounce.easeOut, delay:h*0.099});
 		}
 		navOpen = true;
+	}
+}
+
+function animateHamburger() {
+	if(navOpen) {
+		TweenMax.to("#upperBun", 1, {morphSVG:"#upperBun", ease:Elastic.easeOut});
+		TweenMax.to("#patty", 1, {morphSVG:"#patty", ease:Elastic.easeOut});
+		TweenMax.to("#lowerBun", 1, {morphSVG:"#lowerBun", ease:Elastic.easeOut});
+	} else {
+		TweenMax.to("#upperBun", 1, {morphSVG:"#upperBar", ease:Elastic.easeOut});
+		TweenMax.to("#patty", 1, {morphSVG:"#dot", ease:Elastic.easeOut});
+		TweenMax.to("#lowerBun", 1, {morphSVG:"#lowerBar", ease:Elastic.easeOut});
 	}
 }
 
