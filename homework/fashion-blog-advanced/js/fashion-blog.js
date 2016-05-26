@@ -34,7 +34,7 @@ function init() {
 	hmb = document.querySelector(".hmb-nav");
 	hmb.addEventListener("click", onHMBClick);
 
-	TweenMax.staggerFrom(hmb, 1, {alpha:0, delay:0.5});
+	TweenMax.from(hmb, 1, {alpha:0, delay:0.5});
 
 	TweenMax.staggerFrom("aside section", 1, {alpha:0, y:20, ease:Bounce.easeOut, delay:1}, 0.2);
 

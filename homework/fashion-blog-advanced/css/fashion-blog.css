@@ -250,5 +250,6 @@ footer p {
 		display: inline-block;
 		padding-top: 20px;
 		cursor: pointer;
+		overflow: visible;
 	}
 }
