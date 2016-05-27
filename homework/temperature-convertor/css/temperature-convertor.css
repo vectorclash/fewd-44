@@ -5,7 +5,7 @@ body {
 	color: #fff;
 	font-family: Avenir, sans-serif;
 	background-image: url(../img/nebula.png), linear-gradient(#FF2943, #680FFF);
-	background-repeat: no-repeat, no-repeat;
+	background-repeat: no-repeat, repeat-x;
 	background-size: cover, cover;
 	background-color: #680FFF;
 }
