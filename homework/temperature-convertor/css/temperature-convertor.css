@@ -4,6 +4,10 @@ body {
 	background: #333;
 	color: #fff;
 	font-family: Avenir, sans-serif;
+	background-image: url(../img/nebula.png), linear-gradient(#FF2943, #680FFF);
+	background-repeat: no-repeat, no-repeat;
+	background-size: cover, auto;
+	background-color: #680FFF;
 }
 
 h1 {
@@ -12,16 +16,29 @@ h1 {
 
 main {
 	width: 100%;
+	height: 100%;
 	display: flex;
+	justify-content: space-around;
 }
 
 main div {
 	flex: 4;
 }
 
+footer {
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 200px;
+}
+
 .sign {
 	flex: 1;
 	margin-top: -20px;
+	padding: 10px;
+	color: #FF284C;
+	font-size: 20px;
+	text-shadow: 5px 5px 20px #680FFF;
 }
 
 .sign p {
@@ -32,8 +49,17 @@ input {
 	display: inline-block;
 	text-align: center;
 	width: 160px;
-	font-size: 20px;
-	padding: 10px;
+	font-size: 26px;
+	color: #4C2798;
+	padding: 5px;
+	box-shadow: 10px 10px 20px #680FFF;
+	border-radius: 10px;
+}
+
+input:focus {
+	outline: none;
+	box-shadow: 10px 10px 30px #FF0057;
+	background-color: #D0F2FF;
 }
 
 button {
@@ -53,9 +79,26 @@ button:active {
 	box-shadow: 0px 0px 0px #000;
 }
 
-.sign {
-	display: inline-block;
-	padding: 10px;
-	color: #FF284C;
-	font-size: 20px;
+div .type {
+	margin-top: 10px;
+}
+
+.particle {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 50px;
+	height: 50px;
+	background: #680FFF;
+	border-radius: 50%;
+}
+
+@media (max-width: 450px) {
+	main {
+		flex-direction: column;
+	}
+
+	.sign {
+		margin: -50px;
+	}
 }
