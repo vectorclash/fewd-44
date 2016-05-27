@@ -61,8 +61,8 @@ header nav a {
 }
 
 .hmb-nav {
-	width: 50px;
-	height: 50px;
+	width: 40px;
+	height: 40px;
 	display: none;
 	float: right;
 }
@@ -234,7 +234,12 @@ footer p {
 
 	h1 {
 		display: inline-block;
-		padding-right: 0px;
+		padding-right: 5px;
+		font-size: 50px;
+	}
+
+	.sub-head {
+		font-size: 22px;
 	}
 
 	header nav ul {
@@ -248,7 +253,7 @@ footer p {
 
 	.hmb-nav {
 		display: inline-block;
-		padding-top: 20px;
+		padding-top: 22px;
 		cursor: pointer;
 		overflow: visible;
 	}

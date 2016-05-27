@@ -36,6 +36,10 @@ function init() {
 
 	TweenMax.from(hmb, 1, {alpha:0, delay:0.5});
 
+	TweenMax.to("#upperBun", 1, {fill:0x6F6E72, delay:1});
+	TweenMax.to("#patty", 1, {fill:0x6F6E72, transformOrigin:"50% 50%", delay:1.1});
+	TweenMax.to("#lowerBun", 1, {fill:0x6F6E72, delay:1.2});
+
 	TweenMax.staggerFrom("aside section", 1, {alpha:0, y:20, ease:Bounce.easeOut, delay:1}, 0.2);
 
 	window.addEventListener("resize", onWindowResize);
@@ -71,13 +75,13 @@ function onHMBClick(e) {
 
 function animateHamburger() {
 	if(navOpen) {
-		TweenMax.to("#upperBun", 1, {morphSVG:"#upperBun", ease:Elastic.easeOut});
-		TweenMax.to("#patty", 1, {morphSVG:"#patty", ease:Elastic.easeOut});
-		TweenMax.to("#lowerBun", 1, {morphSVG:"#lowerBun", ease:Elastic.easeOut});
+		TweenMax.to("#upperBun", 1, {morphSVG:"#upperBun", fill:0x6F6E72, ease:Elastic.easeOut});
+		TweenMax.to("#patty", 1, {morphSVG:"#patty", fill:0x6F6E72, rotation:0, ease:Elastic.easeOut});
+		TweenMax.to("#lowerBun", 1, {morphSVG:"#lowerBun", fill:0x6F6E72, ease:Elastic.easeOut});
 	} else {
-		TweenMax.to("#upperBun", 1, {morphSVG:"#upperBar", ease:Elastic.easeOut});
-		TweenMax.to("#patty", 1, {morphSVG:"#dot", ease:Elastic.easeOut});
-		TweenMax.to("#lowerBun", 1, {morphSVG:"#lowerBar", ease:Elastic.easeOut});
+		TweenMax.to("#upperBun", 1, {morphSVG:"#upperBar", fill:0xD40D5D, ease:Elastic.easeOut});
+		TweenMax.to("#patty", 1, {morphSVG:"#dot", fill:0xD40D5D, rotation:90, ease:Elastic.easeOut});
+		TweenMax.to("#lowerBun", 1, {morphSVG:"#lowerBar", fill:0xD40D5D, ease:Elastic.easeOut});
 	}
 }
 
