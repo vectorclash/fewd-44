@@ -40,6 +40,7 @@ main div {
 	line-height: 18px;
 	letter-spacing: 0.2px;
 	padding: 10px 40px;
+	text-align: justify;
 }
 
 .p-highlight {
