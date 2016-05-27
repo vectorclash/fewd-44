@@ -32,8 +32,8 @@ function initParticles(container) {
 			container.appendChild(particle);
 			var ranSize = Math.random();
 			var ranTime = 20 + Math.random() * 40;
-			TweenMax.set(particle, {scaleX:ranSize, scaleY:ranSize, y:window.innerHeight, x:Math.random()*window.innerWidth});
-			TweenMax.to(particle, ranTime, {y:-100, ease:Back.easeOut, delay:i*0.5});
+			TweenMax.set(particle, {scaleX:ranSize, scaleY:ranSize, y:200, x:-200+((Math.random()*window.innerWidth)+200)});
+			TweenMax.to(particle, ranTime, {y:-(window.innerHeight/2), ease:Back.easeOut, delay:i*0.5});
 			TweenMax.to(particle, ranTime/2, {backgroundColor:Math.random()*0xFFFFFF, alpha:0, scaleX:ranSize-0.2, scaleY:ranSize-0.2, ease:Back.easeOut, delay:ranTime/3+(i*0.5), onComplete:removeParticle, onCompleteParams:[particle, container]});
 		}
 	}
