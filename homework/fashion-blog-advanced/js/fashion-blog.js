@@ -36,9 +36,9 @@ function init() {
 
 	TweenMax.from(hmb, 1, {alpha:0, delay:0.5});
 
-	TweenMax.to("#upperBun", 1, {fill:0x6F6E72, delay:1});
-	TweenMax.to("#patty", 1, {fill:0x6F6E72, transformOrigin:"50% 50%", delay:1.1});
-	TweenMax.to("#lowerBun", 1, {fill:0x6F6E72, delay:1.2});
+	TweenMax.to("#upperBun", 1, {fill:0x6F6E72, delay:2});
+	TweenMax.to("#patty", 1, {fill:0x6F6E72, transformOrigin:"50% 50%", delay:2.1});
+	TweenMax.to("#lowerBun", 1, {fill:0x6F6E72, delay:2.2});
 
 	TweenMax.staggerFrom("aside section", 1, {alpha:0, y:20, ease:Bounce.easeOut, delay:1}, 0.2);
 

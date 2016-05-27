@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Temperature Convertor</title>
+	<link rel="stylesheet" type="text/css" href="css/temperature-convertor.css">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+</head>
+<body>
+	<h1>Temperature Conversion</h1>
+	<main>
+		<div class="f-column">
+			<h2>Fahrenheit</h2>
+	    	<input class="fahrenheit" /> °F
+	    </div>
+	    <div class="sign"><p>=</p></div>
+	    <div class="c-column">
+	    	<h2>Celsius</h2>
+	    	<input class="celsius" /> °C
+	    </div>
+	</main>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenMax.min.js"></script>
+<script src="js/temperature-convertor.js"></script>
+<script>
+	this.addEventListener("load", init);
+</script>
+</html>
