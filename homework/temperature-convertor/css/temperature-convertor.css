@@ -1,14 +1,17 @@
 body {
-	text-align: center;
-	padding: 40px;
-	background: #333;
-	color: #fff;
-	font-family: Avenir, sans-serif;
 	background-image: url(../img/nebula.png), linear-gradient(#FF2943, #680FFF);
 	background-repeat: no-repeat, repeat-x;
 	background-size: cover, cover;
 	background-color: #680FFF;
+}
+
+.wrapper {
 	text-align: center;
+	padding: 40px;
+	color: #fff;
+	font-family: Avenir, sans-serif;
+	text-align: center;
+	overflow: visible;
 }
 
 h1 {
@@ -85,6 +88,7 @@ div .type {
 }
 
 .particle {
+	display: block;
 	position: absolute;
 	bottom: 0;
 	left: 0;
