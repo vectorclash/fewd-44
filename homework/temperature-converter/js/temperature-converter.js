@@ -5,8 +5,6 @@ var footer;
 var particleNum = 10;
 var currentParticles = 0;
 var maxParticles = 100;
-var activeParticles;
-
 var time = 0.0;
 var interval = 0.005;
 
