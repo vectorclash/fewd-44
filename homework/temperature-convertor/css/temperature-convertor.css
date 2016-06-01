@@ -1,3 +1,5 @@
+/*Main elements*/
+
 body {
 	background-position: center top, center top;
 	background-image: url(../img/nebula.png), linear-gradient(#FF2943, #680FFF);
@@ -18,14 +20,6 @@ body {
 	margin: auto;
 }
 
-h1 {
-	padding: 20px;
-}
-
-h2 {
-	margin-bottom: 10px;
-}
-
 main {
 	position: relative;
 	width: 100%;
@@ -38,21 +32,6 @@ main div {
 	flex: 4;
 }
 
-.description p {
-	font-size: 12px;
-	line-height: 18px;
-	letter-spacing: 0.2px;
-	padding: 10px 15px;
-	text-align: justify;
-}
-
-.p-highlight {
-	font-family: 'Roboto Slab', serif;
-	color: #36FFF5;
-	letter-spacing: 0.5px;
-	text-shadow: 5px 5px 10px #9A0BFF;
-}
-
 footer {
 	position: fixed;
 	bottom: 0;
@@ -63,6 +42,18 @@ footer {
 	z-index: 10;
 	background-image:linear-gradient(rgba(104,15,255,0), #680FFF);
 }
+
+/*Headlines*/
+
+h1 {
+	padding: 20px;
+}
+
+h2 {
+	margin-bottom: 10px;
+}
+
+/*Temperature convertor*/
 
 .sign {
 	flex: 1;
@@ -102,26 +93,28 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0; 
 }
 
-button {
-	margin: 30px;
-	padding: 10px 20px;
-	font-size: 20px;
-	font-weight: 700;
-	color: #989;
-	background-color: #F3FF0D;
-	border: none;
-	outline: none;
-}
-
-button:active {
-	color: #fff;
-	background-color: #FF56BC;
-	box-shadow: 0px 0px 0px #000;
-}
-
 div .type {
 	margin-top: 10px;
 }
+
+/*Lower paragraphs*/
+
+.description p {
+	font-size: 12px;
+	line-height: 18px;
+	letter-spacing: 0.2px;
+	padding: 10px 15px;
+	text-align: justify;
+}
+
+.p-highlight {
+	font-family: 'Roboto Slab', serif;
+	color: #36FFF5;
+	letter-spacing: 0.5px;
+	text-shadow: 5px 5px 10px #9A0BFF;
+}
+
+/*Particles*/
 
 .particle {
 	display: block;
@@ -134,6 +127,8 @@ div .type {
 	border-radius: 50%;
 	z-index: 10;
 }
+
+/*Responsive*/
 
 @media (max-width: 450px) {
 	main {
