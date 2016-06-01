@@ -9,10 +9,25 @@ ul {
 
 li {
 	display: inline-block;
-	width: 50px;
-	height: 50px;
+	width: 80px;
+	height: 80px;
 	border: 4px solid black;
 	border-radius: 50%;
 	cursor: pointer;
 	margin-right: 15px;
+}
+
+h1 {
+	font-size: 80px;
+	line-height: 80px;
+}
+
+p {
+	font-size: 20px;
+}
+
+.current-color {
+	font-size: 20px;
+	font-weight: 700;
+	color: #1C2A35;
 }
