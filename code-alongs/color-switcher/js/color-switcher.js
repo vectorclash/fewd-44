@@ -31,8 +31,8 @@ function init() {
 }
 
 function onColorClick(e) {
-	TweenMax.to(e.currentTarget, 0.5, {css:{border:"20px solid black"}, ease:Quad.easeOut});
-	TweenMax.to(e.currentTarget, 0.5, {css:{border:"5px solid black"}, delay:0.6, ease:Bounce.easeOut});
+	TweenMax.to(e.currentTarget, 0.3, {css:{border:"20px solid black"}, ease:Quad.easeOut});
+	TweenMax.to(e.currentTarget, 0.5, {css:{border:"5px solid black"}, delay:0.35, ease:Bounce.easeOut});
 	changeColor(e.currentTarget.id);
 }
 
