@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Color Switcher</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/color-switcher.css">
+</head>
+<body>
+	<div class="wrapper">
+		<main>
+			<h1>Color Theme Switcher</h1>
+			<p>Click on one of the swatches to change the theme for this page.</p>
+			<ul></ul>
+			<div class="current-color">Current color theme is: ...</div>
+		</main>
+	</div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+<script src="js/color-switcher.js"></script>
+<script>
+	window.addEventListener("load", init);
+</script>
+</html>

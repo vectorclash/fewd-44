@@ -4,9 +4,7 @@ var linkContainer;
 
 function init() {
 	linkContainer = document.querySelector("#link-container");
-	var newLi = document.createElement("li");
-	newLi.innerHTML = "<a href='linkorsomething.html'><h3>She already done had herses</h3></a>";
-	linkContainer.appendChild(newLi);
+	createItem("She already done had herses", "#", linkContainer);
 
 	logo = document.querySelector(".logo");
 	TweenMax.from(logo, 2, {alpha:0, delay:1, ease:Quad.easeOut});
@@ -16,6 +14,14 @@ function init() {
 		element.addEventListener("mouseover", onElementOver);
 		element.addEventListener("mouseout", onElementOut);
 	}
+}
+
+function createItem(title, url, container) {
+	var newLi = document.createElement("li");
+	newLi.innerHTML = "<a href='" + url + "'><h3>" + title + "</h3></a>";
+	container.appendChild(newLi);
+	newLi.addEventListener("mouseover", onElementOver);
+	newLi.addEventListener("mouseout", onElementOut);
 }
 
 function onElementOver(e) {
