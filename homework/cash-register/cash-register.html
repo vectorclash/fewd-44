@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cash Register</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/cash-register.css">
+</head>
+<body>
+<div class="register">
+	<div class="ticket">
+		<h1>Fewd Sushi</h1>
+		<ul class="entries">
+		</ul>
+		<footer>
+			<p>Total</p>
+			<p class="total">
+			$0.00
+			</p>
+		</footer>
+	</div>
+	<form>
+		<input type="number" placeholder="Item cost">
+	</form>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/plugins/TextPlugin.min.js"></script>
+<script src="js/utils/SplitText.min.js"></script>
+<script src="js/cash-register.js"></script>
+<script>
+	window.addEventListener("load", init);
+</script>
+</body>
+</html>
