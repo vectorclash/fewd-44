@@ -19,7 +19,13 @@ var addColor;
 var jsColor;
 var gradientCheck;
 
+var nebulas = ["img/nebula.png", "img/nebula-two.png", "img/nebula-three.png"];
+var currentBackgroundImage = "";
+var spaceList;
+var wrapper;
+
 function init() {
+	wrapper = document.querySelector(".wrapper");
 	shuffle(colors);
 	colorList = document.querySelector("ul");
 	currentColor = document.querySelector(".current-color");
@@ -54,12 +60,39 @@ function init() {
 
 
 	addColor.addEventListener("click", addNewColor);
+
+	// build space selector
+
+	spaceList = document.querySelector(".space-list");
+
+	for(var i = 0; i < nebulas.length; i++) {
+		var newSpaceLI = document.createElement("li");
+		spaceList.appendChild(newSpaceLI);
+		newSpaceLI.style.backgroundImage = "url(" + nebulas[i] + ")";
+		newSpaceLI.id = i;
+		TweenMax.from(newSpaceLI, 1, {y:100, alpha:0, ease:Bounce.easeOut, delay:2+i*0.09});
+		newSpaceLI.addEventListener("click", onSpaceClick);
+	}
 }
 
 function onColorClick(e) {
-	TweenMax.to(e.currentTarget, 0.3, {css:{border:"20px solid black", height:"70px"}, ease:Quad.easeOut});
-	TweenMax.to(e.currentTarget, 0.5, {css:{border:"5px solid black", height:"80px"}, delay:0.35, ease:Bounce.easeOut});
+	animateButton(e.currentTarget);
 	changeColor(e.currentTarget.id);
+}
+
+function onSpaceClick(e) {
+	animateButton(e.currentTarget);
+	changeBackgroundNebula(e.currentTarget.id);
+}
+
+function animateButton(button) {
+	TweenMax.to(button, 0.3, {css:{border:"20px solid black", height:"70px"}, ease:Quad.easeOut});
+	TweenMax.to(button, 0.5, {css:{border:"5px solid black", height:"80px"}, delay:0.35, ease:Bounce.easeOut});
+}
+
+function changeBackgroundNebula(id) {
+	currentBackgroundImage = nebulas[id];
+	updateGradient();
 }
 
 function changeColor(id) {
@@ -78,7 +111,7 @@ function changeColor(id) {
 }
 
 function updateGradient() {
-	var gradientBackground = "linear-gradient(42deg," + gradientColors.color1 + "," + gradientColors.color2 + "," + gradientColors.color3 + ")";
+	var gradientBackground = "url(" + currentBackgroundImage + "), linear-gradient(42deg," + gradientColors.color1 + "," + gradientColors.color2 + "," + gradientColors.color3 + ")";
 	var theBody = document.querySelector("body");
 	theBody.style.backgroundImage = gradientBackground;
 }

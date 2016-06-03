@@ -8,20 +8,22 @@
 	<link rel="stylesheet" type="text/css" href="css/color-switcher.css">
 </head>
 <body>
-	<div class="wrapper">
-		<main>
-			<h1>Color Theme Switcher</h1>
-			<p>Click on one of the swatches to change the theme for this page.</p>
-			<ul></ul>
-			<div class="current-color">Current color theme is: Blank</div>
-			<section>
-				<h2>Add a color</h2>
-				<input class="jscolor">
-				<button class="add-color">Add color</button>
-				<div><input type="checkbox" class="gradient-check"> Create triadic gradient from color selection</div>
-			</section>
-		</main>
-	</div>
+	<main class="wrapper">
+		<h1>Color Theme Switcher</h1>
+		<p>Click on one of the swatches to change the theme for this page.</p>
+		<ul class="color-list"></ul>
+		<div class="current-color">Current color theme is: Blank</div>
+		<section class="add-color-section">
+			<h2>Add a color</h2>
+			<input class="jscolor">
+			<button class="add-color">Add color</button>
+			<div><input type="checkbox" class="gradient-check"> Create triadic gradient from color selection</div>
+		</section>
+		<section class="change-nebula-section">
+			<h2>Choose a space background</h2>
+			<ul class="space-list"></ul>
+		</section>
+	</main>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/plugins/TextPlugin.min.js"></script>
