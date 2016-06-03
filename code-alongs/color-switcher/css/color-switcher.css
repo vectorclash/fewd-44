@@ -52,13 +52,15 @@ p {
 .current-color {
 	font-size: 20px;
 	font-weight: 700;
+	margin-bottom: 20px;
 }
 
 /*add color*/
 
 section {
 	margin: 10px 0;
-	padding-bottom: 20px;
+	padding: 20px 0;
+	border-top: 1px solid grey;
 }
 
 section div {

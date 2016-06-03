@@ -116,6 +116,7 @@ function addNewColor() {
 	var colorObject = {color:"#"+jsColor.value, name:name + jsColor.value, type:type};
 	colors.push(colorObject);
 	newColorLI.addEventListener("click", onColorClick);
+	TweenMax.from(newColorLI, 1, {y:100, alpha:0, ease:Bounce.easeOut});
 }
 
 // Array shuffler
