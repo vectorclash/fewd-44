@@ -58,6 +58,7 @@ p {
 
 section {
 	margin: 10px 0;
+	padding-bottom: 20px;
 }
 
 section div {
@@ -72,6 +73,7 @@ h2 {
 .jscolor {
 	padding: 10px;
 	font-size: 16px;
+	box-shadow: 5px 5px 10px rgba(63,0,141,0.4);
 }
 
 button {
