@@ -1,12 +1,13 @@
-var colors = [{color:0xBDFF0E, name:"Lime"},
-			  {color:0xFF2063, name:"Radical Red"},
-			  {color:0x84FFF3, name:"Aquamarine"},
-			  {color:0x5E1A8E, name:"Seance"},
-			  {color:0xFFCE00, name:"Supernova"},
-			  {color:0x93FF75, name:"Mint Green"},
-			  {color:0xFFA7FE, name:"Lavender Rose"},
-			  {color:0x0084EE, name:"Azure Radiance"},
-			  {color:0xFF3A00, name:"Vermilion"}] 
+var colors = [{color:"#BDFF0E", name:"Lime"},
+			  {color:"#FF2063", name:"Radical Red"},
+			  {color:"#84FFF3", name:"Aquamarine"},
+			  {color:"#5E1A8E", name:"Seance"},
+			  {color:"#FFCE00", name:"Supernova"},
+			  {color:"#93FF75", name:"Mint Green"},
+			  {color:"#FFA7FE", name:"Lavender Rose"},
+			  {color:"#0084EE", name:"Azure Radiance"},
+			  {color:"#FF3A00", name:"Vermilion"},
+			  {color:"#7F7F7F", name:"Tin"}] 
 var colorList;
 var currentColor;
 
@@ -31,15 +32,27 @@ function init() {
 }
 
 function onColorClick(e) {
-	TweenMax.to(e.currentTarget, 0.3, {css:{border:"20px solid black"}, ease:Quad.easeOut});
-	TweenMax.to(e.currentTarget, 0.5, {css:{border:"5px solid black"}, delay:0.35, ease:Bounce.easeOut});
+	TweenMax.to(e.currentTarget, 0.3, {css:{border:"20px solid black", height:"70px"}, ease:Quad.easeOut});
+	TweenMax.to(e.currentTarget, 0.5, {css:{border:"5px solid black", height:"80px"}, delay:0.35, ease:Bounce.easeOut});
 	changeColor(e.currentTarget.id);
 }
 
 function changeColor(id) {
 	TweenMax.to("body", 2, {backgroundColor:colors[id].color, ease:Bounce.easeOut});
+	detectBrightness(colors[id].color);
 	//currentColor.textContent = "Current color theme is: " + colors[id].name;
 	TweenMax.to(currentColor, 1, {text:"Current color theme is: " + colors[id].name, ease:Linear.easeNone});
+}
+
+function detectBrightness(color) {
+	var bColor = new tinycolor(color);
+	var brightness = bColor.getBrightness();
+	console.log(brightness);
+	if(brightness < 150) {
+		TweenMax.to("body", 2, {color:0xFFFFFF, ease:Bounce.easeOut});
+	} else {
+		TweenMax.to("body", 2, {color:0x000000, ease:Bounce.easeOut});
+	}
 }
 
 // Array shuffler

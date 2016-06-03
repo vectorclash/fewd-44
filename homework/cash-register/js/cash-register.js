@@ -54,21 +54,19 @@ function addEntry(value) {
 	TweenMax.from(newEntry, 0.5, {height:0, ease:Back.easeOut});
 }
 
-// Utility functions
-// ------------------------------------------------
-
-
 function updateTotal(value) {
 	var currentTotal = Number(total.textContent.replace("$", ""));
 	var newTotal = currentTotal+=value;
 	var fixedTotal = newTotal.toFixed(2);
 	var signedTotal = "$" + fixedTotal;
 
-	if(signedTotal.indexOf('.') == -1)
-	{
+	if(signedTotal.indexOf('.') == -1) {
 		signedTotal += ".00";
 	}
 
 	TweenMax.to(total, 1, {text:signedTotal, ease:Linear.easeNone});
 	//total.textContent = signedTotal;
 }
+
+// Utility functions
+// ------------------------------------------------
