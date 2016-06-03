@@ -1,19 +1,23 @@
-var colors = [{color:"#BDFF0E", name:"Lime"},
-			  {color:"#FF2063", name:"Radical Red"},
-			  {color:"#84FFF3", name:"Aquamarine"},
-			  {color:"#5E1A8E", name:"Seance"},
-			  {color:"#FFCE00", name:"Supernova"},
-			  {color:"#93FF75", name:"Mint Green"},
-			  {color:"#FFA7FE", name:"Lavender Rose"},
-			  {color:"#0084EE", name:"Azure Radiance"},
-			  {color:"#FF3A00", name:"Vermilion"},
-			  {color:"#7F7F7F", name:"Tin"},
+var colors = [{color:"#BDFF0E", name:"Lime", type:"color"},
+			  {color:"#FF2063", name:"Radical Red", type:"color"},
+			  {color:"#84FFF3", name:"Aquamarine", type:"color"},
+			  {color:"#5E1A8E", name:"Seance", type:"color"},
+			  {color:"#FFCE00", name:"Supernova", type:"color"},
+			  {color:"#93FF75", name:"Mint Green", type:"color"},
+			  {color:"#FFA7FE", name:"Lavender Rose", type:"color"},
+			  {color:"#0084EE", name:"Azure Radiance", type:"color"},
+			  {color:"#FF3A00", name:"Vermilion", type:"color"},
+			  {color:"#7F7F7F", name:"Tin", type:"color"},
 			  {color:"#1E8800", name:"Japanese Laurel Triadic Gradient", type:"gradient"},
 			  {color:"#880061", name:"Fresh Eggplant Triadic Gradient", type:"gradient"},
 			  {color:"#1B6FA1", name:"Matisse Triadic Gradient", type:"gradient"}];
 var colorList;
 var currentColor;
 var gradientColors = {color1:"#ffffff", color2:"#ffffff", color3:"#ffffff"};
+
+var addColor;
+var jsColor;
+var gradientCheck;
 
 function init() {
 	shuffle(colors);
@@ -41,6 +45,15 @@ function init() {
 	// pick a color to start
 	var ranColor = Math.floor(Math.random()*colors.length);
 	TweenMax.delayedCall(3, changeColor, [ranColor]);
+
+	// set add color elements
+
+	addColor = document.querySelector(".add-color");
+	jsColor = document.querySelector(".jscolor");
+	gradientCheck = document.querySelector(".gradient-check");
+
+
+	addColor.addEventListener("click", addNewColor);
 }
 
 function onColorClick(e) {
@@ -78,6 +91,31 @@ function detectBrightness(color) {
 	} else {
 		TweenMax.to("body", 2, {color:0x000000, ease:Bounce.easeOut});
 	}
+}
+
+function addNewColor() {
+	var newColor = new tinycolor(jsColor.value);
+	var isGradient = gradientCheck.checked;
+	var newColorLI = document.createElement("li");
+	colorList.appendChild(newColorLI);
+	var type;
+	var name;
+	if(isGradient) {
+		type = "gradient";
+		name = "User created triadic gradient of: #";
+		var newgradientColors = newColor.triad();
+		var gradientBackground = "linear-gradient(42deg," + newgradientColors[1].toHexString() + "," + newgradientColors[0].toHexString() + "," + newgradientColors[2].toHexString() + ")";
+		TweenMax.set(newColorLI, {background:gradientBackground});
+	} else {
+		type = "color";
+		name = "User created color: #";
+		var gradientBackground = "linear-gradient(42deg,#" + jsColor.value + ",#" + jsColor.value + ",#" + jsColor.value + ")";
+		TweenMax.set(newColorLI, {background:gradientBackground});
+	}
+	newColorLI.id = colorList.children.length - 1;
+	var colorObject = {color:"#"+jsColor.value, name:name + jsColor.value, type:type};
+	colors.push(colorObject);
+	newColorLI.addEventListener("click", onColorClick);
 }
 
 // Array shuffler
