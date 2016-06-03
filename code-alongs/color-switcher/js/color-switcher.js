@@ -7,9 +7,13 @@ var colors = [{color:"#BDFF0E", name:"Lime"},
 			  {color:"#FFA7FE", name:"Lavender Rose"},
 			  {color:"#0084EE", name:"Azure Radiance"},
 			  {color:"#FF3A00", name:"Vermilion"},
-			  {color:"#7F7F7F", name:"Tin"}] 
+			  {color:"#7F7F7F", name:"Tin"},
+			  {color:"#1E8800", name:"Japanese Laurel Triadic Gradient", type:"gradient"},
+			  {color:"#880061", name:"Fresh Eggplant Triadic Gradient", type:"gradient"},
+			  {color:"#1B6FA1", name:"Matisse Triadic Gradient", type:"gradient"}];
 var colorList;
 var currentColor;
+var gradientColors = {color1:"#ffffff", color2:"#ffffff", color3:"#ffffff"};
 
 function init() {
 	shuffle(colors);
@@ -17,7 +21,15 @@ function init() {
 	currentColor = document.querySelector(".current-color");
 	for(var i = 0; i < colors.length; i++) {
 		var newColorLI = document.createElement("li");
-		TweenMax.set(newColorLI, {backgroundColor:colors[i].color});
+		if(colors[i].type == "gradient") {
+			var myColor = new tinycolor(colors[i].color);
+			var newgradientColors = myColor.triad();
+			var gradientBackground = "linear-gradient(42deg," + newgradientColors[1].toHexString() + "," + newgradientColors[0].toHexString() + "," + newgradientColors[2].toHexString() + ")";
+			TweenMax.set(newColorLI, {background:gradientBackground});
+		} else {
+			var gradientBackground = "linear-gradient(42deg," + colors[i].color + "," + colors[i].color + "," + colors[i].color + ")";
+			TweenMax.set(newColorLI, {background:gradientBackground});
+		}
 		newColorLI.id = i;
 		colorList.appendChild(newColorLI);
 		newColorLI.addEventListener("click", onColorClick);
@@ -38,16 +50,29 @@ function onColorClick(e) {
 }
 
 function changeColor(id) {
-	TweenMax.to("body", 2, {backgroundColor:colors[id].color, ease:Bounce.easeOut});
-	detectBrightness(colors[id].color);
-	//currentColor.textContent = "Current color theme is: " + colors[id].name;
+	if(colors[id].type == "gradient") {
+		var myColor = new tinycolor(colors[id].color);
+		var newgradientColors = myColor.triad();
+		TweenMax.to(gradientColors, 2, {color1:newgradientColors[1].toHexString(), color2:newgradientColors[0].toHexString(), color3:newgradientColors[2].toHexString(), ease:Bounce.easeOut, onUpdate:updateGradient});
+		detectBrightness(newgradientColors[0].toHexString());
+	} else {
+		TweenMax.to(gradientColors, 2, {color1:colors[id].color, color2:colors[id].color, color3:colors[id].color, ease:Bounce.easeOut, onUpdate:updateGradient});
+		detectBrightness(colors[id].color);
+		//currentColor.textContent = "Current color theme is: " + colors[id].name;
+	}
+
 	TweenMax.to(currentColor, 1, {text:"Current color theme is: " + colors[id].name, ease:Linear.easeNone});
+}
+
+function updateGradient() {
+	var gradientBackground = "linear-gradient(42deg," + gradientColors.color1 + "," + gradientColors.color2 + "," + gradientColors.color3 + ")";
+	var theBody = document.querySelector("body");
+	theBody.style.background = gradientBackground;
 }
 
 function detectBrightness(color) {
 	var bColor = new tinycolor(color);
 	var brightness = bColor.getBrightness();
-	console.log(brightness);
 	if(brightness < 150) {
 		TweenMax.to("body", 2, {color:0xFFFFFF, ease:Bounce.easeOut});
 	} else {

@@ -1,6 +1,19 @@
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+}
+
 .wrapper {
+	height: 100%;
 	padding: 40px;
 	font-family: Avenir, sans-serif;
+	background-position: center center;
+	background-image: url(../img/nebula.png);
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 ul {
@@ -15,6 +28,10 @@ li {
 	border-radius: 50%;
 	cursor: pointer;
 	margin-right: 15px;
+}
+
+li:hover {
+	box-shadow: 5px 5px 10px rgba(30,30,30,0.3);
 }
 
 h1 {

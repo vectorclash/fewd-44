@@ -1,0 +1,27 @@
+body {
+	font-family: Avenir, sans-serif;
+}
+
+main {
+	margin: 40px;
+}
+
+input {
+	font-size: 20px;
+	padding: 10px;
+}
+
+button {
+	font-size: 20px;
+	padding: 11px;
+	color: #0080FF;
+}
+
+.directions {
+	margin-top: 40px;
+	font-size: 20px;
+}
+
+li {
+	margin-bottom: 10px;
+}
