@@ -4,6 +4,8 @@ html {
 
 body {
 	height: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .wrapper {
