@@ -67,7 +67,7 @@ function changeColor(id) {
 function updateGradient() {
 	var gradientBackground = "linear-gradient(42deg," + gradientColors.color1 + "," + gradientColors.color2 + "," + gradientColors.color3 + ")";
 	var theBody = document.querySelector("body");
-	theBody.style.background = gradientBackground;
+	theBody.style.background = gradientBackground + " fixed no-repeat";
 }
 
 function detectBrightness(color) {
