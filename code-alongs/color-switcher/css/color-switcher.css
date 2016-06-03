@@ -8,6 +8,10 @@ body {
     background-attachment: fixed;
 }
 
+main {
+	margin-bottom: 40px;
+}
+
 .wrapper {
 	height: 100%;
 	padding: 40px;
@@ -48,4 +52,20 @@ p {
 .current-color {
 	font-size: 20px;
 	font-weight: 700;
+}
+
+/*mobile styles*/
+@media (max-width: 450px) { 
+	h1 {
+		font-size: 60px;
+		line-height: 60px;
+	}
+
+	.wrapper {
+		text-align: center;
+	}
+
+	p {
+		font-size: 16px;
+	}
 }
