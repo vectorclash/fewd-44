@@ -1,37 +1,3 @@
-<script>
-window.onload = function() {
-
-  // 1. What's the max number?
-
-
-  // 2. What's the sum of all the numbers?
-
-
-  // 3. Which numbers are between 50 and 100?
-  
-  
-  // 4. How many numbers greater than 500?
-
-
-  // 5. How many even numbers?
-
-
-  // 6. How many odd numbers?
-
-
-  // 7. What's the largest even number?
-  
-
-  // 8. How many numbers, whose sum of digits is greater than 10?
-
-
-
-}
-</script>
-
-
-
-<script>
 var a = [
 509,
 707,
@@ -10032,5 +9998,150 @@ var a = [
 70,
 958,
 76
-]
-</script>
+];
+
+var n = [24, 42, 28, 11, 9, 17, 240, 1, -90];
+var total = 0.0;
+var maxNumber = 0;
+var sum = 0;
+var between = [];
+var greater = [];
+var even = [];
+var odd = [];
+var overTen = [];
+
+function init() {
+
+  // 1. What's the max number?
+
+  //a.forEach(getMaxNumber);
+
+  // 2. What's the sum of all the numbers?
+
+  //a.forEach(getSum);
+
+  // 3. Which numbers are between 50 and 100?
+  
+  //a.forEach(isBetween);
+  
+  // 4. How many numbers greater than 500?
+
+  //a.forEach(greaterThan);
+
+  // 5. How many even numbers?
+
+  // a.forEach(isEven);
+
+  // 6. How many odd numbers?
+
+  //a.forEach(isOdd);
+
+  // 7. What's the largest even number?
+  
+  //a.forEach(largestEven);
+
+  // 8. How many numbers, whose sum of digits is greater than 10?
+
+  a.forEach(isSumOfTen);
+
+}
+
+function getMaxNumber(item, index, array) {
+	if(maxNumber < item) {
+		maxNumber = item;
+	} 
+
+	if(index == array.length-1) {
+		console.log("the max number is:", maxNumber);
+	}
+}
+
+function getSum(item, index, array) {
+	sum += item;
+
+	if(index == array.length-1) {
+		console.log("the sum of all numbers is:", sum);
+	}
+}
+
+function isBetween(item, index, array) {
+	if(item > 50 && item < 100) {
+		between.push(index);
+	}
+
+	if(index == array.length-1) {
+		console.log("the numbers between 50 and 100:", between);
+	}
+}
+
+function greaterThan(item, index, array) {
+
+	if(item > 500) {
+		greater.push(index);
+	}
+
+	if(index == array.length-1) {
+		console.log("the numbers greater than 500:", greater.length);
+	}
+}
+
+function isEven(item, index, array) {
+
+	if(item%2 == 0) {
+		even.push(index);
+	}
+
+	if(index == array.length-1) {
+		console.log("total number of even numbers:", even.length);
+	}
+}
+
+function isOdd(item, index, array) {
+
+	if(item%2 != 0) {
+		odd.push(index);
+	}
+
+	if(index == array.length-1) {
+		console.log("total number of odd numbers:", odd.length);
+	}
+}
+
+function largestEven(item, index, array) {
+
+	if(item%2 == 0) {
+		even.push(item);
+	}
+
+	if(index == array.length-1) {
+		even.forEach(getMaxNumber);
+	}
+}
+
+function isSumOfTen(item, index, array) {
+	var sum = sumDigits(item);
+
+	if(sum > 10) {
+		overTen.push(item);
+	}
+
+	if(index == array.length-1) {
+		console.log("numbers with sum of digits is over 10:", overTen.length);
+	}
+}
+
+function sumDigits(number) {
+  var str = number.toString();
+  var sum = 0;
+
+  for (var i = 0; i < str.length; i++) {
+    sum += parseInt(str.charAt(i));
+  }
+
+  return sum;
+}
+
+function totalIt(item) {
+	total += item;
+	console.log(total);
+}

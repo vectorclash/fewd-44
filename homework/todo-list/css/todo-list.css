@@ -1,0 +1,75 @@
+/*main structure*/
+
+.wrapper {
+	text-align: center;
+}
+
+main {
+	display: inline-block;
+	text-align: left;
+	margin: 0 auto;
+	margin-top: 20px;
+	padding: 20px;
+	border: 1px solid #979BA3;
+	border-radius: 5px;
+	background: #D8DEE7;
+}
+
+/*header*/
+
+header {
+	background: #73C66F;
+}
+
+h1 {
+	padding: 10px 0;
+}
+
+/*font styles*/
+
+body {
+	font-family: Avenir, sans-serif;
+}
+
+/*form*/
+
+form {
+	margin: 10px;
+}
+
+form input {
+	font-size: 14px;
+	padding: 5px;
+	height: 40px;
+}
+
+form button {
+	padding: 11px;
+	font-size: 14px;
+}
+
+.error {
+	color: #FFFFFF;
+	background: #FF174B;
+}
+
+/*event list*/
+
+li {
+	font-size: 14px;
+	margin: 5px 10px;
+}
+
+.checked {
+	text-decoration: line-through;
+	color: grey;
+}
+
+.event-name {
+	margin: 0 10px;
+}
+
+.event-date {
+	font-style: italic;
+	color: #D52559;
+}

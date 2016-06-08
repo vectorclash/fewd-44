@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Todo List</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/todo-list.css">
+</head>
+<body>
+	<div class="wrapper">
+		<header>
+			<h1>Todo List</h1>
+		</header>
+		<main>
+			<form>
+				<input class="task-field" type="text" name="task" placeholder="Task">
+				<input class="date-field" type="date" name="date" placeholder="mm/dd/yyyy">
+				<button>Add</button>
+			</form>
+			<ol></ol>
+		</main>
+	</div>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+<script src="js/todo-list.js"></script>
+<script>
+	window.addEventListener("load", init);
+</script>
+</html>
