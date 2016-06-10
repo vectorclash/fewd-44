@@ -1,0 +1,63 @@
+/*main structure*/
+
+.wrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+}
+
+canvas {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+}
+
+header {
+	z-index: 100;
+}
+
+main {
+	z-index: 100;
+}
+
+/*logo*/
+
+.logo {
+	display: inline-block;
+	width: 150px;
+	height: 150px;
+	margin-left: 10px;
+}
+
+.logo-text {
+	display: inline-block;
+	text-align: left;
+	vertical-align: top;
+	margin: 50px 20px;
+}
+
+.logo-text-one {
+	font-size: 32px;
+	line-height: 24px;
+	font-weight: 700;
+	color: #21B2E3;
+}
+
+.logo-text-two {
+	font-size: 29px;
+	line-height: 24px;
+	font-weight: 300;
+	color: #EF1854;
+}
+
+/*font styles*/
+
+body {
+	font-family: Avenir, sans-serif;
+}

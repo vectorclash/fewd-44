@@ -1,0 +1,104 @@
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+	min-height: 100%;
+    background-repeat: no-repeat, no-repeat;
+    background-attachment: fixed, fixed;
+    background-position: top center, center center;
+    background-size: cover, cover;
+}
+
+main {
+	padding: 40px;
+	font-family: Avenir, sans-serif;
+}
+
+ul {
+	margin: 20px 0;
+}
+
+li {
+	display: inline-block;
+	width: 80px;
+	height: 80px;
+	border: 5px solid black;
+	border-radius: 50%;
+	cursor: pointer;
+	margin-right: 15px;
+}
+
+li:hover {
+	box-shadow: 5px 5px 10px rgba(30,30,30,0.3);
+}
+
+h1 {
+	font-size: 80px;
+	line-height: 80px;
+}
+
+p {
+	font-size: 20px;
+}
+
+.current-color {
+	font-size: 20px;
+	font-weight: 700;
+	margin-bottom: 20px;
+}
+
+/*add color*/
+
+.add-color-section {
+	margin: 10px 0;
+	padding: 20px 0;
+	border-top: 1px solid grey;
+}
+
+.add-color-section div {
+	margin: 10px 0;
+	font-size: 14px;
+}
+
+h2 {
+	margin-bottom: 10px;
+}
+
+.jscolor {
+	padding: 10px;
+	font-size: 16px;
+	box-shadow: 5px 5px 10px rgba(63,0,141,0.4);
+}
+
+button {
+	font-size: 16px;
+	padding: 10px;
+	background-color: #FFF5FF;
+}
+
+/*space list*/
+
+.space-list li {
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-color: #1F0A80;
+}
+
+/*mobile styles*/
+@media (max-width: 450px) { 
+	h1 {
+		font-size: 60px;
+		line-height: 60px;
+	}
+
+	.wrapper {
+		text-align: center;
+	}
+
+	p {
+		font-size: 16px;
+	}
+}

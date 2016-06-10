@@ -3,6 +3,10 @@
 var entries;
 var total;
 var input;
+var receipt = {
+	lineItems: [],
+	total: "$0.00",
+};
 
 // Setup
 // ------------------------------------------------
@@ -46,6 +50,7 @@ function addEntry(value) {
 		newEntry.textContent += ".00";
 	}
 
+	receipt.lineItems.push(Number(newEntry.textContent.replace("$", "")));
 	entries.appendChild(newEntry);
 
 	var entrySplit = new SplitText(newEntry, {type:"chars"});
@@ -66,6 +71,10 @@ function updateTotal(value) {
 
 	TweenMax.to(total, 1, {text:signedTotal, ease:Linear.easeNone});
 	//total.textContent = signedTotal;
+}
+
+function createReceipt() {
+	receipt.lineItems.forEach(addEntry);
 }
 
 // Utility functions
