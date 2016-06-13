@@ -59,9 +59,9 @@ function render() {
 	if(currentCubes < cubes.length) {
 		var cube = cubes.pop();
 		if(cube) {
-			TweenMax.to(cube.scale, 2, {x:0, y:0, z:0, ease:Bounce.easeOut, onComplete:removeObject, onCompleteParams:[cubeContainer, cube]});
-			TweenMax.to(cube.position, 2, {x:0, y:0, z:0, ease:Bounce.easeOut});
-			TweenMax.to(cube.rotation, 2, {x:0, y:0, z:0, ease:Bounce.easeOut});
+			TweenMax.to(cube.scale, 3, {x:0, y:0, z:0, ease:Bounce.easeOut, onComplete:removeObject, onCompleteParams:[cubeContainer, cube]});
+			TweenMax.to(cube.position, 3, {x:0, y:0, z:0, ease:Bounce.easeOut});
+			TweenMax.to(cube.rotation, 3, {x:0, y:0, z:0, ease:Bounce.easeOut});
 		}
 	} else if(currentCubes > cubes.length) {
 		addCube(Math.random()*100);
@@ -87,7 +87,7 @@ function addCube(offset = 0) {
 	TweenMax.delayedCall(0.5, randomMovement, [cube, offset]);
 	//randomMovement(cube, offset);
 
-	TweenMax.from(cube.scale, 2, {x:0, z:0, ease:Bounce.easeInOut});
+	TweenMax.from(cube.scale, 2, {x:0, y:0, z:0, ease:Bounce.easeInOut});
 	cubeContainer.add( cube );
 	cubes.push(cube);
 }
@@ -97,8 +97,8 @@ function randomContainerMovement(container) {
 }
 
 function randomMovement(object, offset) {
-	TweenMax.to(object.rotation, 10, {x:offset*0.05, y:offset*0.05, z:offset*0.05, ease:Back.easeInOut});
-	TweenMax.to(object.scale, 10, {y:offset*0.005, ease:Bounce.easeInOut});
+	TweenMax.to(object.rotation, 10, {x:Math.random()*5, y:Math.random()*5, z:Math.random()*5, ease:Back.easeInOut});
+	TweenMax.to(object.scale, 10, {x:Math.random()*2, y:Math.random()*2, z:Math.random()*2, ease:Bounce.easeInOut});
 	TweenMax.to(object.position, 10, {x:-10+Math.random()*20, y:-10+Math.random()*20, z:-10+Math.random()*20, ease:Back.easeInOut, onComplete:randomMovement, onCompleteParams:[object]});
 }
 
