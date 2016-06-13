@@ -2,8 +2,13 @@ var scene;
 var camera;
 var renderer;
 
-var cubes;
+var cubeContainer;
+var cubes = new Array();
 var cubeNum = 50;
+
+var sliderOne;
+var cubeNumberField;
+var currentCubes;
 
 function init() {
 	scene = new THREE.Scene();
@@ -14,6 +19,10 @@ function init() {
 	renderer.shadowMap.enabled = true;
 	renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 	document.body.appendChild( renderer.domElement );
+
+	sliderOne = document.querySelector("#slider-one");
+	sliderOne.addEventListener("input", onInputChange);
+	cubeNumberField = document.querySelector("#cube-number");
 
 	camera.position.z = -500;
 
@@ -33,32 +42,69 @@ function buildElements() {
 	directionalLight.castShadow = true;
 	scene.add( directionalLight );
 
-	cubes = new THREE.Object3D();
-	scene.add(cubes);
+	cubeContainer = new THREE.Object3D();
+	scene.add(cubeContainer);
+	randomContainerMovement(cubeContainer);
 
 	for(var i = 0; i < cubeNum; i++) {
-		var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-		var material = new THREE.MeshPhongMaterial( { color: Math.random()*0xFFFFFF, 
-													  specular: Math.random()*0xFFFFFF, 
-													  emissive: 0x000000, 
-													  shininess: Math.random()*50, 
-													  shading: THREE.FlatShading });
-		var cube = new THREE.Mesh( geometry, material );
-		cube.castShadow = true;
-		cube.receiveShadow = true;
-		TweenMax.to(cube.rotation, 10, {x:i*0.05, y:i*0.05, z:i*0.05, ease:Back.easeInOut, yoyo:true, repeat:-1});
-		TweenMax.to(cube.scale, 10, {y:i*0.005, ease:Bounce.easeInOut, yoyo:true, repeat:-1});
-		TweenMax.to(cube.position, 10, {y:-10+Math.random()*20, ease:Back.easeInOut, yoyo:true, repeat:-1});
-		cubes.add( cube );
+		addCube(i);
 	}
-
+	currentCubes = 50;
 	
-	TweenMax.to(cubes.rotation, 20, {x:Math.random()*2, y:Math.random()*2, z:Math.random()*2, ease:Quad.easeInOut, yoyo:true, repeat:-1});
 	camera.position.z = 5;
 }
 
 function render() {
 	renderer.render(scene, camera);
+	if(currentCubes < cubes.length) {
+		var cube = cubes.pop();
+		if(cube) {
+			TweenMax.to(cube.scale, 2, {x:0, y:0, z:0, ease:Bounce.easeOut, onComplete:removeObject, onCompleteParams:[cubeContainer, cube]});
+			TweenMax.to(cube.position, 2, {x:0, y:0, z:0, ease:Bounce.easeOut});
+			TweenMax.to(cube.rotation, 2, {x:0, y:0, z:0, ease:Bounce.easeOut});
+		}
+	} else if(currentCubes > cubes.length) {
+		addCube(Math.random()*100);
+	}
+}
+
+function removeObject(container, object) {
+	console.log("removing cube");
+	container.remove(object);
+}
+
+function addCube(offset = 0) {
+	var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+	var material = new THREE.MeshPhongMaterial( { color: Math.random()*0xFFFFFF, 
+												  specular: Math.random()*0xFFFFFF, 
+												  emissive: 0x000000, 
+												  shininess: Math.random()*50, 
+												  shading: THREE.FlatShading });
+	var cube = new THREE.Mesh( geometry, material );
+	cube.castShadow = true;
+	cube.receiveShadow = true;
+
+	TweenMax.delayedCall(0.5, randomMovement, [cube, offset]);
+	//randomMovement(cube, offset);
+
+	TweenMax.from(cube.scale, 2, {x:0, z:0, ease:Bounce.easeInOut});
+	cubeContainer.add( cube );
+	cubes.push(cube);
+}
+
+function randomContainerMovement(container) {
+	TweenMax.to(container.rotation, 20, {x:Math.random()*2, y:Math.random()*2, z:Math.random()*2, ease:Quad.easeInOut, onComplete:randomContainerMovement, onCompleteParams:[container]});
+}
+
+function randomMovement(object, offset) {
+	TweenMax.to(object.rotation, 10, {x:offset*0.05, y:offset*0.05, z:offset*0.05, ease:Back.easeInOut});
+	TweenMax.to(object.scale, 10, {y:offset*0.005, ease:Bounce.easeInOut});
+	TweenMax.to(object.position, 10, {x:-10+Math.random()*20, y:-10+Math.random()*20, z:-10+Math.random()*20, ease:Back.easeInOut, onComplete:randomMovement, onCompleteParams:[object]});
+}
+
+function onInputChange(e) {
+	currentCubes = parseInt(e.currentTarget.value);
+	cubeNumberField.textContent = "Cube Number: " + e.currentTarget.value;
 }
 
 function onWindowResize() {
