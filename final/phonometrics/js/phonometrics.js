@@ -47,7 +47,8 @@ function buildElements() {
 	scene.add( directionalLight );
 
 	var ambientLight = new THREE.AmbientLight( 0xFFCCFF );
-	//scene.add(ambientLight);
+	ambientLight.intensity = 0.9;
+	scene.add(ambientLight);
 
 	var geometry = new THREE.SphereGeometry(50, 64, 64);
 
