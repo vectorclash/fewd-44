@@ -6,8 +6,10 @@ var cubeContainer;
 var cubes = new Array();
 var cubeNum = 50;
 
-var sliderOne;
+var cubeNumberSlider;
 var cubeNumberField;
+var cubeRotationCheckbox;
+var cubeRotation = false;
 var currentCubes;
 
 function init() {
@@ -20,9 +22,11 @@ function init() {
 	renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 	document.body.appendChild( renderer.domElement );
 
-	sliderOne = document.querySelector("#slider-one");
-	sliderOne.addEventListener("input", onInputChange);
+	cubeNumberSlider = document.querySelector("#cube-number-slider");
+	cubeNumberSlider.addEventListener("input", onInputChange);
 	cubeNumberField = document.querySelector("#cube-number");
+	cubeRotationCheckbox = document.querySelector("#cube-rotation-checkbox");
+	cubeRotationCheckbox.addEventListener("change", onCheck);
 
 	camera.position.z = -500;
 
@@ -42,6 +46,23 @@ function buildElements() {
 	directionalLight.castShadow = true;
 	scene.add( directionalLight );
 
+	var ambientLight = new THREE.AmbientLight( 0xFFCCFF );
+	//scene.add(ambientLight);
+
+	var geometry = new THREE.SphereGeometry(50, 64, 64);
+
+	var shadowTexture = new THREE.Texture(randomGradientTexture());
+    shadowTexture.needsUpdate = true;
+
+    var material = new THREE.MeshBasicMaterial({
+        map: shadowTexture,
+        side: THREE.DoubleSide
+    });
+
+    var sphere = new THREE.Mesh(geometry, material);
+    scene.add(sphere);
+    randomContainerMovement(sphere);
+
 	cubeContainer = new THREE.Object3D();
 	scene.add(cubeContainer);
 	randomContainerMovement(cubeContainer);
@@ -59,9 +80,9 @@ function render() {
 	if(currentCubes < cubes.length) {
 		var cube = cubes.pop();
 		if(cube) {
-			TweenMax.to(cube.scale, 3, {x:0, y:0, z:0, ease:Bounce.easeOut, onComplete:removeObject, onCompleteParams:[cubeContainer, cube]});
-			TweenMax.to(cube.position, 3, {x:0, y:0, z:0, ease:Bounce.easeOut});
-			TweenMax.to(cube.rotation, 3, {x:0, y:0, z:0, ease:Bounce.easeOut});
+			TweenMax.to(cube.scale, 3, {x:0, y:0, z:0, ease:Back.easeInOut, onComplete:removeObject, onCompleteParams:[cubeContainer, cube]});
+			TweenMax.to(cube.position, 3, {x:0, y:0, z:0, ease:Back.easeInOut});
+			TweenMax.to(cube.rotation, 3, {x:0, y:0, z:0, ease:Back.easeInOut});
 		}
 	} else if(currentCubes > cubes.length) {
 		addCube(Math.random()*100);
@@ -75,11 +96,12 @@ function removeObject(container, object) {
 
 function addCube(offset = 0) {
 	var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-	var material = new THREE.MeshPhongMaterial( { color: Math.random()*0xFFFFFF, 
-												  specular: Math.random()*0xFFFFFF, 
-												  emissive: 0x000000, 
-												  shininess: Math.random()*50, 
-												  shading: THREE.FlatShading });
+
+	var material = new THREE.MeshPhongMaterial( { color: tinycolor.random().toHexString(), 
+	 											  specular: tinycolor.random().toHexString(), 
+	 											  emissive: 0x000000, 
+	 											  shininess: Math.random()*50, 
+	 											  shading: THREE.FlatShading });
 	var cube = new THREE.Mesh( geometry, material );
 	cube.castShadow = true;
 	cube.receiveShadow = true;
@@ -97,14 +119,47 @@ function randomContainerMovement(container) {
 }
 
 function randomMovement(object, offset) {
-	TweenMax.to(object.rotation, 10, {x:Math.random()*5, y:Math.random()*5, z:Math.random()*5, ease:Back.easeInOut});
+	if(cubeRotation == true) {
+		TweenMax.to(object.rotation, 10, {x:Math.random()*5, y:Math.random()*5, z:Math.random()*5, ease:Back.easeInOut});
+	} else {
+		TweenMax.to(object.rotation, 10, {x:0, y:0, z:0, ease:Back.easeInOut});
+	}
 	TweenMax.to(object.scale, 10, {x:Math.random()*2, y:Math.random()*2, z:Math.random()*2, ease:Bounce.easeInOut});
 	TweenMax.to(object.position, 10, {x:-10+Math.random()*20, y:-10+Math.random()*20, z:-10+Math.random()*20, ease:Back.easeInOut, onComplete:randomMovement, onCompleteParams:[object]});
+}
+
+function randomGradientTexture() {
+	var gradientCanvas = document.createElement("canvas");
+	gradientCanvas.width = 512;
+	gradientCanvas.height = 512;
+	var gradientCanvasContext = gradientCanvas.getContext("2d");
+
+    var gradient = gradientCanvasContext.createLinearGradient(0,0,512,0);
+
+    var color1 = tinycolor.random();
+    var color2 = tinycolor.random();
+    var color3 = tinycolor.random();
+
+    gradient.addColorStop(0, color1.toHexString());
+    gradient.addColorStop(0.25, color2.toHexString());
+    gradient.addColorStop(0.5, color3.toHexString());
+    gradient.addColorStop(0.75, color2.toHexString());
+    gradient.addColorStop(1, color1.toHexString());
+
+    gradientCanvasContext.fillStyle = gradient;
+    gradientCanvasContext.fillRect(0,0,512,512);
+
+    return gradientCanvas;
 }
 
 function onInputChange(e) {
 	currentCubes = parseInt(e.currentTarget.value);
 	cubeNumberField.textContent = "Cube Number: " + e.currentTarget.value;
+}
+
+function onCheck(e) {
+	cubeRotation = e.currentTarget.checked;
+	console.log(cubeRotation);
 }
 
 function onWindowResize() {

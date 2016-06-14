@@ -20,7 +20,9 @@
 			<section>
 				<h2>Settings</h2>
 				<span id="cube-number">Cube number: 50</span><br />
-				<input type="range" name="slider-one" min="0" max="400" value="50" id="slider-one">
+				<input type="range" min="0" max="400" value="50" id="cube-number-slider"><br />
+				<span id="cube-rotation">Cube rotation</span>
+				<input type="checkbox" id="cube-rotation-checkbox">
 			</section>
 		</main>
 	</div>
@@ -28,6 +30,7 @@
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r77/three.js"></script>
+<script src="js/tinycolor-min.js"></script>
 <script src="js/phonometrics.js"></script>
 <script>
 	window.addEventListener("load", init);
