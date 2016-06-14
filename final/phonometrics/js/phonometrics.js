@@ -94,7 +94,7 @@ function removeObject(container, object) {
 	container.remove(object);
 }
 
-function addCube(offset = 0) {
+function addCube(offset) {
 	var geometry = new THREE.BoxGeometry( 1, 1, 1 );
 
 	var material = new THREE.MeshPhongMaterial( { color: tinycolor.random().toHexString(), 
