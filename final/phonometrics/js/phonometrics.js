@@ -200,9 +200,9 @@ function onPhoneMovement(e) {
 	hY += (y - ohY) / 25;
 	hZ += (z - ohZ) / 25;
 
-	mainContainer.rotation.x = hX*0.5;
-	mainContainer.rotation.y = hY*0.5;
-	mainContainer.rotation.z = hZ*0.5;
+	mainContainer.rotation.x = hX*0.2;
+	mainContainer.rotation.y = hY*0.2;
+	mainContainer.rotation.z = hZ*0.2;
 
 	ohX = hX;
 	ohY = hY;
