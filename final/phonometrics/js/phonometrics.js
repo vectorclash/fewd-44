@@ -2,15 +2,30 @@ var scene;
 var camera;
 var renderer;
 
+var mainContainer;
+
 var cubeContainer;
 var cubes = new Array();
 var cubeNum = 50;
-
 var cubeNumberSlider;
 var cubeNumberField;
+var cubeScaleSlider;
 var cubeRotationCheckbox;
 var cubeRotation = false;
-var currentCubes;
+var cubeMovementSpeed = 10;
+var currentCubes = 50;
+var cubeSpeedSlider;
+
+
+// phone movement
+
+var hX = 0;
+var hY = 0;
+var hZ = 0;
+
+var ohX = 0;
+var ohY = 0;
+var ohZ = 0;
 
 function init() {
 	scene = new THREE.Scene();
@@ -27,11 +42,15 @@ function init() {
 	cubeNumberField = document.querySelector("#cube-number");
 	cubeRotationCheckbox = document.querySelector("#cube-rotation-checkbox");
 	cubeRotationCheckbox.addEventListener("change", onCheck);
+	cubeScaleSlider = document.querySelector("#cube-scale-slider");
+	cubeScaleSlider.addEventListener("input", onInputChange);
+	cubeSpeedSlider = document.querySelector("#cube-speed-slider");
+	cubeSpeedSlider.addEventListener("input", onInputChange);
 
 	camera.position.z = -500;
 
 	scene = new THREE.Scene();
-	scene.fog = new THREE.Fog(0xCCCCCC, 1, 5000);
+	//scene.fog = new THREE.Fog(0xCCCCCC, 1, 10);
 	scene.add(camera);
 
 	buildElements();
@@ -50,6 +69,9 @@ function buildElements() {
 	ambientLight.intensity = 0.9;
 	scene.add(ambientLight);
 
+	mainContainer = new THREE.Object3D();
+	scene.add(mainContainer);
+
 	var geometry = new THREE.SphereGeometry(50, 64, 64);
 
 	var shadowTexture = new THREE.Texture(randomGradientTexture());
@@ -61,32 +83,29 @@ function buildElements() {
     });
 
     var sphere = new THREE.Mesh(geometry, material);
-    scene.add(sphere);
+    mainContainer.add(sphere);
     randomContainerMovement(sphere);
 
 	cubeContainer = new THREE.Object3D();
-	scene.add(cubeContainer);
+	mainContainer.add(cubeContainer);
 	randomContainerMovement(cubeContainer);
 
 	for(var i = 0; i < cubeNum; i++) {
-		addCube(i);
+		addCube();
 	}
-	currentCubes = 50;
-	
+
 	camera.position.z = 5;
+	window.addEventListener("devicemotion", onPhoneMovement);
 }
 
 function render() {
 	renderer.render(scene, camera);
-	if(currentCubes < cubes.length) {
-		var cube = cubes.pop();
-		if(cube) {
-			TweenMax.to(cube.scale, 3, {x:0, y:0, z:0, ease:Back.easeInOut, onComplete:removeObject, onCompleteParams:[cubeContainer, cube]});
-			TweenMax.to(cube.position, 3, {x:0, y:0, z:0, ease:Back.easeInOut});
-			TweenMax.to(cube.rotation, 3, {x:0, y:0, z:0, ease:Back.easeInOut});
-		}
-	} else if(currentCubes > cubes.length) {
-		addCube(Math.random()*100);
+	while(currentCubes < cubeContainer.children.length) {
+		cubeContainer.children.pop();
+	} 
+
+	if(currentCubes > cubeContainer.children.length) {
+		addCube();
 	}
 }
 
@@ -95,7 +114,7 @@ function removeObject(container, object) {
 	container.remove(object);
 }
 
-function addCube(offset) {
+function addCube() {
 	var geometry = new THREE.BoxGeometry( 1, 1, 1 );
 
 	var material = new THREE.MeshPhongMaterial( { color: tinycolor.random().toHexString(), 
@@ -107,28 +126,28 @@ function addCube(offset) {
 	var cube = new THREE.Mesh( geometry, material );
 	cube.castShadow = true;
 	cube.receiveShadow = true;
+	cubes.push(cube);
+	cubeContainer.add( cube );
 
-	TweenMax.delayedCall(0.5, randomMovement, [cube, offset]);
-	//randomMovement(cube, offset);
+	TweenMax.delayedCall(0.1, randomCubeMovement, [cube]);
+	//randomCubeMovement(cube);
 
 	TweenMax.from(cube.scale, 2, {x:0, y:0, z:0, ease:Bounce.easeInOut});
-	cubeContainer.add( cube );
-	cubes.push(cube);
 }
 
 function randomContainerMovement(container) {
 	TweenMax.to(container.rotation, 20, {x:Math.random()*2, y:Math.random()*2, z:Math.random()*2, ease:Quad.easeInOut, onComplete:randomContainerMovement, onCompleteParams:[container]});
 }
 
-function randomMovement(object, offset) {
+function randomCubeMovement(object) {
 	if(cubeRotation == true) {
-		TweenMax.to(object.rotation, 10, {x:Math.random()*5, y:Math.random()*5, z:Math.random()*5, ease:Back.easeInOut});
+		TweenMax.to(object.rotation, cubeMovementSpeed, {x:Math.random()*5, y:Math.random()*5, z:Math.random()*5, ease:Back.easeInOut});
 	} else {
-		TweenMax.to(object.rotation, 10, {x:0, y:0, z:0, ease:Back.easeInOut});
+		TweenMax.to(object.rotation, cubeMovementSpeed, {x:0, y:0, z:0, ease:Back.easeInOut});
 	}
-	TweenMax.to(object.material.color, 10, {r:Math.random()*1, g:Math.random()*1, b:Math.random()*1, ease:Bounce.easeInOut});
-	TweenMax.to(object.scale, 10, {x:Math.random()*2, y:Math.random()*2, z:Math.random()*2, ease:Bounce.easeInOut});
-	TweenMax.to(object.position, 10, {x:-10+Math.random()*20, y:-10+Math.random()*20, z:-10+Math.random()*20, ease:Back.easeInOut, onComplete:randomMovement, onCompleteParams:[object]});
+	TweenMax.to(object.material.color, cubeMovementSpeed, {r:Math.random()*1, g:Math.random()*1, b:Math.random()*1, ease:Bounce.easeInOut});
+	TweenMax.to(object.scale, cubeMovementSpeed, {x:Math.random()*2, y:Math.random()*2, z:Math.random()*2, ease:Bounce.easeInOut});
+	TweenMax.to(object.position, cubeMovementSpeed, {x:-10+Math.random()*20, y:-10+Math.random()*20, z:-10+Math.random()*20, ease:Back.easeInOut, onComplete:randomCubeMovement, onCompleteParams:[object]});
 }
 
 function randomGradientTexture() {
@@ -156,13 +175,39 @@ function randomGradientTexture() {
 }
 
 function onInputChange(e) {
-	currentCubes = parseInt(e.currentTarget.value);
-	cubeNumberField.textContent = "Cube Number: " + e.currentTarget.value;
+	if(e.currentTarget == cubeNumberSlider) {
+		currentCubes = parseInt(e.currentTarget.value);
+		cubeNumberField.textContent = "Cube Number: " + e.currentTarget.value;
+	} else if(e.currentTarget == cubeScaleSlider) {
+		TweenMax.to(cubeContainer.scale, 1, {x:e.currentTarget.value, y:e.currentTarget.value, z:e.currentTarget.value, ease:Quad.easeInOut});
+	} else if(e.currentTarget == cubeSpeedSlider) {
+		cubeMovementSpeed = e.currentTarget.value;
+	}
+	
 }
 
 function onCheck(e) {
 	cubeRotation = e.currentTarget.checked;
 	console.log(cubeRotation);
+}
+
+function onPhoneMovement(e) {
+
+	var x = e.accelerationIncludingGravity.y;
+	var y = e.accelerationIncludingGravity.x;
+	var z = e.accelerationIncludingGravity.z;
+
+	hX += (x - ohX) / 25;
+	hY += (y - ohY) / 25;
+	hZ += (z - ohZ) / 25;
+
+	mainContainer.rotation.x = hX*0.5;
+	mainContainer.rotation.y = hY*0.5;
+	mainContainer.rotation.z = hZ*0.5;
+
+	ohX = hX;
+	ohY = hY;
+	ohZ = hZ;
 }
 
 function onWindowResize() {
