@@ -102,7 +102,8 @@ function addCube(offset) {
 	 											  specular: tinycolor.random().toHexString(), 
 	 											  emissive: 0x000000, 
 	 											  shininess: Math.random()*50, 
-	 											  shading: THREE.FlatShading });
+	 											  shading: THREE.FlatShading,
+	 											  needsUpdate: true });
 	var cube = new THREE.Mesh( geometry, material );
 	cube.castShadow = true;
 	cube.receiveShadow = true;
@@ -125,6 +126,7 @@ function randomMovement(object, offset) {
 	} else {
 		TweenMax.to(object.rotation, 10, {x:0, y:0, z:0, ease:Back.easeInOut});
 	}
+	TweenMax.to(object.material.color, 10, {r:Math.random()*1, g:Math.random()*1, b:Math.random()*1, ease:Bounce.easeInOut});
 	TweenMax.to(object.scale, 10, {x:Math.random()*2, y:Math.random()*2, z:Math.random()*2, ease:Bounce.easeInOut});
 	TweenMax.to(object.position, 10, {x:-10+Math.random()*20, y:-10+Math.random()*20, z:-10+Math.random()*20, ease:Back.easeInOut, onComplete:randomMovement, onCompleteParams:[object]});
 }
@@ -137,9 +139,9 @@ function randomGradientTexture() {
 
     var gradient = gradientCanvasContext.createLinearGradient(0,0,512,0);
 
-    var color1 = tinycolor.random();
-    var color2 = tinycolor.random();
-    var color3 = tinycolor.random();
+    var color1 = new tinycolor("#EAE0FF");
+    var color2 = new tinycolor("#FFD5F5");
+    var color3 = new tinycolor("#E6FFA0");
 
     gradient.addColorStop(0, color1.toHexString());
     gradient.addColorStop(0.25, color2.toHexString());
