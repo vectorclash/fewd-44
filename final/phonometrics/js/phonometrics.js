@@ -177,7 +177,7 @@ function randomGradientTexture() {
 function onInputChange(e) {
 	if(e.currentTarget == cubeNumberSlider) {
 		currentCubes = parseInt(e.currentTarget.value);
-		cubeNumberField.textContent = "Cube Number: " + e.currentTarget.value;
+		cubeNumberField.textContent = "Cube number: " + e.currentTarget.value;
 	} else if(e.currentTarget == cubeScaleSlider) {
 		TweenMax.to(cubeContainer.scale, 1, {x:e.currentTarget.value, y:e.currentTarget.value, z:e.currentTarget.value, ease:Quad.easeInOut});
 	} else if(e.currentTarget == cubeSpeedSlider) {
@@ -188,7 +188,6 @@ function onInputChange(e) {
 
 function onCheck(e) {
 	cubeRotation = e.currentTarget.checked;
-	console.log(cubeRotation);
 }
 
 function onPhoneMovement(e) {
