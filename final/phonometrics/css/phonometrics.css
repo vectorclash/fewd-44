@@ -30,8 +30,13 @@ main {
 section {
 	background: #EEEEEF;
 	padding: 20px;
-	opacity: 0.8;
-	border-radius: 20px 0 0 0;
+	opacity: 0.9;
+	border-left: 0px solid #224577;
+}
+
+.module-settings {
+	position: relative;
+	overflow: hidden;
 }
 
 h1 {
@@ -42,6 +47,10 @@ h1 {
 h2 {
 	color: #370D77;
 	margin-bottom: 10px;
+}
+
+.small-text {
+	font-size: 10px;
 }
 
 /*logo*/

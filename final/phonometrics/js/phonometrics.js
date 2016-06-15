@@ -7,6 +7,7 @@ var mainContainer;
 var cubeContainer;
 var cubes = new Array();
 var cubeNum = 50;
+var chaoticCubesSwitch;
 var cubeNumberSlider;
 var cubeNumberField;
 var cubeScaleSlider;
@@ -15,7 +16,7 @@ var cubeRotation = false;
 var cubeMovementSpeed = 10;
 var currentCubes = 50;
 var cubeSpeedSlider;
-
+var cubeSpeedField;
 
 // phone movement
 
@@ -37,6 +38,9 @@ function init() {
 	renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 	document.body.appendChild( renderer.domElement );
 
+
+	chaoticCubesSwitch = document.querySelector("#chaotic-cubes-switch");
+	chaoticCubesSwitch.addEventListener("change", onCheck);
 	cubeNumberSlider = document.querySelector("#cube-number-slider");
 	cubeNumberSlider.addEventListener("input", onInputChange);
 	cubeNumberField = document.querySelector("#cube-number");
@@ -46,6 +50,7 @@ function init() {
 	cubeScaleSlider.addEventListener("input", onInputChange);
 	cubeSpeedSlider = document.querySelector("#cube-speed-slider");
 	cubeSpeedSlider.addEventListener("input", onInputChange);
+	cubeSpeedField = document.querySelector("#cube-speed");
 
 	camera.position.z = -500;
 
@@ -98,6 +103,8 @@ function buildElements() {
 	window.addEventListener("devicemotion", onPhoneMovement);
 }
 
+// the render loop
+
 function render() {
 	renderer.render(scene, camera);
 	while(currentCubes < cubeContainer.children.length) {
@@ -107,11 +114,6 @@ function render() {
 	if(currentCubes > cubeContainer.children.length) {
 		addCube();
 	}
-}
-
-function removeObject(container, object) {
-	console.log("removing cube");
-	container.remove(object);
 }
 
 function addCube() {
@@ -150,6 +152,13 @@ function randomCubeMovement(object) {
 	TweenMax.to(object.position, cubeMovementSpeed, {x:-10+Math.random()*20, y:-10+Math.random()*20, z:-10+Math.random()*20, ease:Back.easeInOut, onComplete:randomCubeMovement, onCompleteParams:[object]});
 }
 
+// utility functions
+
+function removeObject(container, object) {
+	console.log("removing cube");
+	container.remove(object);
+}
+
 function randomGradientTexture() {
 	var gradientCanvas = document.createElement("canvas");
 	gradientCanvas.width = 512;
@@ -174,6 +183,21 @@ function randomGradientTexture() {
     return gradientCanvas;
 }
 
+function enableModule(module) {
+	TweenMax.to(module, 0.5, {css:{opacity:0.9, borderLeft:"0px solid #224577"}});
+	var moduleSettings = module.querySelector(".module-settings");
+	TweenMax.set(moduleSettings, {height:"auto"});
+	TweenMax.from(moduleSettings, 1, {height:0, ease:Back.easeOut});
+}
+
+function disableModule(module) {
+	TweenMax.to(module, 0.5, {css:{opacity:0.4, borderLeft:"20px solid black"}});
+	var moduleSettings = module.querySelector(".module-settings");
+	TweenMax.to(moduleSettings, 1, {height:0, ease:Expo.easeOut});
+}
+
+// event listeners
+
 function onInputChange(e) {
 	if(e.currentTarget == cubeNumberSlider) {
 		currentCubes = parseInt(e.currentTarget.value);
@@ -182,12 +206,22 @@ function onInputChange(e) {
 		TweenMax.to(cubeContainer.scale, 1, {x:e.currentTarget.value, y:e.currentTarget.value, z:e.currentTarget.value, ease:Quad.easeInOut});
 	} else if(e.currentTarget == cubeSpeedSlider) {
 		cubeMovementSpeed = e.currentTarget.value;
+		cubeSpeedField.textContent = "Cube movement speed: " + e.currentTarget.value;
 	}
 	
 }
 
 function onCheck(e) {
-	cubeRotation = e.currentTarget.checked;
+	if(e.currentTarget == chaoticCubesSwitch) {
+		cubeContainer.visible = e.currentTarget.checked;
+		if(e.currentTarget.checked == false) {
+			disableModule(e.currentTarget.parentNode);
+		} else {
+			enableModule(e.currentTarget.parentNode);
+		}
+	} else if(e.currentTarget == cubeRotationCheckbox) {
+		cubeRotation = e.currentTarget.checked;
+	}
 }
 
 function onPhoneMovement(e) {
@@ -209,7 +243,7 @@ function onPhoneMovement(e) {
 	ohZ = hZ;
 }
 
-function onWindowResize() {
+function onWindowResize(e) {
 	camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
 

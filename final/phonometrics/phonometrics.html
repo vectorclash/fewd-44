@@ -22,17 +22,23 @@
 			<h1>Settings</h1>
 			<section>
 				<h2>Chaotic Cubes</h2>
-				<span id="cube-number">Cube number: 50</span><br />
-				<input type="range" min="0" max="400" value="50" id="cube-number-slider"><br />
+				<input class='tgl tgl-flat' id='chaotic-cubes-switch' type='checkbox' checked="true">
+    			<label class='tgl-btn' for='chaotic-cubes-switch'></label>
 
-				<span id="cube-rotation">Cube rotation</span>
-				<input class='tgl tgl-flat' id='cube-rotation-checkbox' type='checkbox'>
-    			<label class='tgl-btn' for='cube-rotation-checkbox'></label>
+    			<div class="module-settings">
+					<span id="cube-number">Cube number: 50</span><br />
+					<input type="range" min="0" max="400" value="50" id="cube-number-slider"><br />
 
-				<span id="cube-scale">Cube container scale</span><br />
-				<input type="range" min="0.05" max="2.0" value="1.0" step="0.01" id="cube-scale-slider"><br />
-				<span id="cube-speed">Cube movement speed</span><br />
-				<input type="range" min="1.0" max="20.0" value="10.0" step="0.01" id="cube-speed-slider"><br />
+					<span id="cube-rotation">Cube rotation</span>
+					<input class='tgl tgl-flat' id='cube-rotation-checkbox' type='checkbox'>
+	    			<label class='tgl-btn' for='cube-rotation-checkbox'></label>
+
+					<span id="cube-scale">Cube container scale</span><br />
+					<input type="range" min="0.05" max="2.0" value="1.0" step="0.01" id="cube-scale-slider"><br />
+
+					<span id="cube-speed">Cube movement speed: 10.0</span><br />
+					<input type="range" min="1.0" max="20.0" value="10.0" step="0.01" id="cube-speed-slider"><br />
+				</div>
 			</section>
 		</main>
 	</div>
