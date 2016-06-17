@@ -137,7 +137,6 @@ function init() {
 		function(mediaStream) {
 			context = new AudioContext();
 			microphone = context.createMediaStreamSource(mediaStream);
-			//microphone.connect(context.destination);
 
 			sourceJs = context.createScriptProcessor(2048, 1, 1);
 			sourceJs.connect(context.destination);
@@ -171,6 +170,7 @@ function buildElements() {
 	var directionalLight = new THREE.DirectionalLight( 0xffCCff, 1 );
 	directionalLight.position.set( 0, 1, 1 );
 	directionalLight.castShadow = true;
+	//directionalLight.intensity = 1;
 	scene.add( directionalLight );
 
 	var ambientLight = new THREE.AmbientLight( 0xFFCCFF );
@@ -210,6 +210,8 @@ function render() {
 
 	// sound reactivity
 
+	// chaotic cubes
+
 	for(var i = 0; i < byteArray.length; i++) {
 		var cube = cubeContainer.children[i];
 		var scale = 1 + byteArray[i] * 0.009;
@@ -220,6 +222,8 @@ function render() {
 		}
 	}
 }
+
+// animation and geometry functions
 
 function addCube() {
 	var geometry = new THREE.BoxGeometry( 1, 1, 1 );
@@ -261,12 +265,17 @@ function updateGradientSphere() {
     }
 
     gradientSphereContainer.add(gradientSphere);
+
+    gradientSphere.rotation.x = Math.random() * 20;
+    gradientSphere.rotation.y = Math.random() * 20;
+    gradientSphere.rotation.z = Math.random() * 20;
+
     randomContainerMovement(gradientSphere);
     gradientSphereCurrent++;
 }
 
 function randomContainerMovement(container) {
-	TweenMax.to(container.rotation, 20, {x:Math.random()*2, y:Math.random()*2, z:Math.random()*2, ease:Quad.easeInOut, onComplete:randomContainerMovement, onCompleteParams:[container]});
+	TweenMax.to(container.rotation, 20, {x:Math.random()*5, y:Math.random()*5, z:Math.random()*5, ease:Quad.easeInOut, onComplete:randomContainerMovement, onCompleteParams:[container]});
 }
 
 function randomCubeMovement(object) {
@@ -337,7 +346,7 @@ function disableInterface() {
 	TweenMax.to(window, 1, {scrollTo:{y:0}});
 }
 
-// event listeners
+// event handlers
 
 function onInputChange(e) {
 	if(e.currentTarget == cubeNumberSlider) {
@@ -397,7 +406,6 @@ function fuckyouApple(e) {
 }
 
 function onPhoneMovement(e) {
-
 	var x = e.accelerationIncludingGravity.y;
 	var y = e.accelerationIncludingGravity.x;
 	var z = e.accelerationIncludingGravity.z;
