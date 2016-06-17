@@ -19,8 +19,8 @@ var cubeNumberField;
 var cubeScaleSlider;
 var cubeRotationCheckbox;
 var cubeRotation = false;
-var cubeMovementSpeed = 10;
-var currentCubes = 50;
+var cubeMovementSpeed = 5;
+var currentCubes = 100;
 var cubeSpeedSlider;
 var cubeSpeedField;
 
@@ -51,6 +51,15 @@ var hZ = 0;
 var ohX = 0;
 var ohY = 0;
 var ohZ = 0;
+
+// sound reactivity
+
+var context;
+var source, sourceJs;
+var microphone;
+var analyser;
+var buffer;
+var byteArray = new Array();
 
 function init() {
 	scene = new THREE.Scene();
@@ -118,6 +127,42 @@ function init() {
 
 	buildElements();
 
+	// begin audio
+
+	navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+	navigator.getUserMedia({
+			audio: true,
+			video: false
+		},
+		function(mediaStream) {
+			context = new AudioContext();
+			microphone = context.createMediaStreamSource(mediaStream);
+			//microphone.connect(context.destination);
+
+			sourceJs = context.createScriptProcessor(2048, 1, 1);
+			sourceJs.connect(context.destination);
+			analyser = context.createAnalyser();
+			analyser.smoothingTimeConstant = 0.5;
+			analyser.fftSize = 512;
+
+			microphone.connect(analyser);
+			analyser.connect(sourceJs);
+			sourceJs.connect(context.destination);
+
+			sourceJs.onaudioprocess = function(e) {
+					byteArray = new Uint8Array(analyser.frequencyBinCount);
+					analyser.getByteFrequencyData(byteArray);
+					var total = 0;
+					for (var i = 0; i < byteArray.length; i++) {
+						total += byteArray[i];
+					}
+			};
+		},
+		function(error) {
+			console.log("There was an error when getting microphone input: " + err);
+		}
+	);
+
 	window.addEventListener("resize", onWindowResize);
 	TweenMax.ticker.addEventListener("tick", render);
 }
@@ -147,7 +192,7 @@ function buildElements() {
 		addCube();
 	}
 
-	camera.position.z = 5;
+	camera.position.z = 50;
 	window.addEventListener("devicemotion", onPhoneMovement);
 }
 
@@ -161,6 +206,18 @@ function render() {
 
 	if(currentCubes > cubeContainer.children.length) {
 		addCube();
+	}
+
+	// sound reactivity
+
+	for(var i = 0; i < byteArray.length; i++) {
+		var cube = cubeContainer.children[i];
+		var scale = 1 + byteArray[i] * 0.009;
+		if(cube) {
+			cube.scale.x = scale;
+			cube.scale.y = scale;
+			cube.scale.z = scale;
+		}
 	}
 }
 
@@ -219,7 +276,7 @@ function randomCubeMovement(object) {
 		TweenMax.to(object.rotation, cubeMovementSpeed, {x:0, y:0, z:0, ease:Back.easeInOut});
 	}
 	TweenMax.to(object.material.color, cubeMovementSpeed, {r:Math.random()*1, g:Math.random()*1, b:Math.random()*1, ease:Bounce.easeInOut});
-	TweenMax.to(object.scale, cubeMovementSpeed, {x:Math.random()*2, y:Math.random()*2, z:Math.random()*2, ease:Bounce.easeInOut});
+	//TweenMax.to(object.scale, cubeMovementSpeed, {x:Math.random()*2, y:Math.random()*2, z:Math.random()*2, ease:Bounce.easeInOut});
 	TweenMax.to(object.position, cubeMovementSpeed, {x:-10+Math.random()*20, y:-10+Math.random()*20, z:-10+Math.random()*20, ease:Back.easeInOut, onComplete:randomCubeMovement, onCompleteParams:[object]});
 }
 
