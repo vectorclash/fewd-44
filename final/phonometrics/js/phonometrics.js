@@ -222,7 +222,7 @@ function init() {
 	}
 
 	// turn this on to test non sound reactive experiences
-	//soundReactive = false;
+	// soundReactive = false;
 
 	window.addEventListener("resize", onWindowResize);
 	TweenMax.ticker.addEventListener("tick", render);
@@ -300,9 +300,9 @@ function render() {
 			var torus = torusContainer.children[i];
 
 			if(torus) {
-				torus.rotation.x += noise.perlin2(i, time) * 0.05;
-				torus.rotation.y += noise.perlin2(i, time) * 0.05;
-				torus.rotation.z += noise.perlin2(i, time) * 0.05;
+				torus.rotation.x += noise.perlin2(100, time) * (0.05 * i);
+				torus.rotation.y += noise.perlin2(100, time) * (0.05 * i);
+				torus.rotation.z += noise.perlin2(100, time) * (0.05 * i);
 			}
 		}
 	} else {
@@ -381,7 +381,7 @@ function rebuildToroids() {
 }
 
 function updateGradientSphere() {
-	var geometry = new THREE.SphereGeometry(500, 64, 64);
+	var geometry = new THREE.SphereGeometry(500, 24, 24);
 
 	var newGradientTexture = new THREE.Texture(gradientTexture());
     newGradientTexture.needsUpdate = true;
