@@ -67,13 +67,17 @@ function init() {
 
 	chaoticCubesSwitch = document.querySelector("#chaotic-cubes-switch");
 	chaoticCubesSwitch.addEventListener("change", onCheck);
+
 	cubeNumberSlider = document.querySelector("#cube-number-slider");
 	cubeNumberSlider.addEventListener("input", onInputChange);
 	cubeNumberField = document.querySelector("#cube-number");
+
 	cubeRotationCheckbox = document.querySelector("#cube-rotation-checkbox");
 	cubeRotationCheckbox.addEventListener("change", onCheck);
+
 	cubeScaleSlider = document.querySelector("#cube-scale-slider");
 	cubeScaleSlider.addEventListener("input", onInputChange);
+
 	cubeSpeedSlider = document.querySelector("#cube-speed-slider");
 	cubeSpeedSlider.addEventListener("input", onInputChange);
 	cubeSpeedField = document.querySelector("#cube-speed");
@@ -82,14 +86,18 @@ function init() {
 
 	gradientSphereSwitch = document.querySelector("#gradient-sphere-switch");
     gradientSphereSwitch.addEventListener("change", onCheck);
+
     gradientPickerOne = document.querySelector("#gradient-picker-one");
     gradientPickerOne.addEventListener("change", onInputChange);
+    gradientPickerOne.addEventListener("mousedown", fuckyouApple);
 
     gradientPickerTwo = document.querySelector("#gradient-picker-two");
     gradientPickerTwo.addEventListener("change", onInputChange);
+    gradientPickerTwo.addEventListener("mousedown", fuckyouApple);
 
     gradientPickerThree = document.querySelector("#gradient-picker-three");
     gradientPickerThree.addEventListener("change", onInputChange);
+    gradientPickerThree.addEventListener("mousedown", fuckyouApple);
 
 	camera.position.z = -500;
 
@@ -289,6 +297,10 @@ function onCheck(e) {
 			TweenMax.to(".wrapper", 0.5, {alpha:1, ease:Quad.easeOut});
 		}
 	}
+}
+
+function fuckyouApple(e) {
+	e.preventDefault();
 }
 
 function onPhoneMovement(e) {

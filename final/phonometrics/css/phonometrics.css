@@ -98,7 +98,7 @@ h2 {
 
 /*individual text tweaks*/
 
-#cube-rotation {
+.text-space-bottom {
   display: block;
   margin-bottom: 5px;
 }
