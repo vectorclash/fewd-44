@@ -128,39 +128,40 @@ function init() {
 	buildElements();
 
 	// begin audio
+	if(navigator.getUserMedia) {
+		navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+		navigator.getUserMedia({
+				audio: true,
+				video: false
+			},
+			function(mediaStream) {
+				context = new AudioContext();
+				microphone = context.createMediaStreamSource(mediaStream);
 
-	navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
-	navigator.getUserMedia({
-			audio: true,
-			video: false
-		},
-		function(mediaStream) {
-			context = new AudioContext();
-			microphone = context.createMediaStreamSource(mediaStream);
+				sourceJs = context.createScriptProcessor(2048, 1, 1);
+				sourceJs.connect(context.destination);
+				analyser = context.createAnalyser();
+				analyser.smoothingTimeConstant = 0.5;
+				analyser.fftSize = 512;
 
-			sourceJs = context.createScriptProcessor(2048, 1, 1);
-			sourceJs.connect(context.destination);
-			analyser = context.createAnalyser();
-			analyser.smoothingTimeConstant = 0.5;
-			analyser.fftSize = 512;
+				microphone.connect(analyser);
+				analyser.connect(sourceJs);
+				sourceJs.connect(context.destination);
 
-			microphone.connect(analyser);
-			analyser.connect(sourceJs);
-			sourceJs.connect(context.destination);
-
-			sourceJs.onaudioprocess = function(e) {
-					byteArray = new Uint8Array(analyser.frequencyBinCount);
-					analyser.getByteFrequencyData(byteArray);
-					var total = 0;
-					for (var i = 0; i < byteArray.length; i++) {
-						total += byteArray[i];
-					}
-			};
-		},
-		function(error) {
-			console.log("There was an error when getting microphone input: " + err);
-		}
-	);
+				sourceJs.onaudioprocess = function(e) {
+						byteArray = new Uint8Array(analyser.frequencyBinCount);
+						analyser.getByteFrequencyData(byteArray);
+						var total = 0;
+						for (var i = 0; i < byteArray.length; i++) {
+							total += byteArray[i];
+						}
+				};
+			},
+			function(error) {
+				console.log("There was an error when getting microphone input: " + err);
+			}
+		);
+	}
 
 	window.addEventListener("resize", onWindowResize);
 	TweenMax.ticker.addEventListener("tick", render);
