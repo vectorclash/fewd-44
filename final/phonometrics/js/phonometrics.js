@@ -251,6 +251,7 @@ function buildElements() {
 
 	cubeContainer = new THREE.Object3D();
 	mainContainer.add(cubeContainer);
+	TweenMax.set(cubeContainer.rotation, {x:Math.random()*5, x:Math.random()*5, x:Math.random()*5});
 	randomContainerMovement(cubeContainer);
 
 	for(var i = 0; i < cubeNum; i++) {
@@ -262,6 +263,7 @@ function buildElements() {
 	torusContainer.visible = false;
 	mainContainer.add(torusContainer);
 	randomContainerMovement(torusContainer);
+	TweenMax.set(torusContainer.rotation, {x:Math.random()*5, x:Math.random()*5, x:Math.random()*5});
 
 	buildToroids();
 
@@ -402,10 +404,7 @@ function updateGradientSphere() {
 
     gradientSphereContainer.add(gradientSphere);
 
-    gradientSphere.rotation.x = Math.random() * 20;
-    gradientSphere.rotation.y = Math.random() * 20;
-    gradientSphere.rotation.z = Math.random() * 20;
-
+    TweenMax.set(gradientSphere.rotation, {x:Math.random()*5, x:Math.random()*5, x:Math.random()*5});
     randomContainerMovement(gradientSphere);
     gradientSphereCurrent++;
 }
