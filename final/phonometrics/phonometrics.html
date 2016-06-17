@@ -32,30 +32,46 @@
     			<label class='tgl-btn' for='chaotic-cubes-switch'></label>
 
     			<div class="module-settings">
-					<span id="cube-number">Cube number: 50</span><br />
-					<input type="range" min="0" max="400" value="50" id="cube-number-slider"><br />
-
-					<span id="cube-rotation" class="text-space-bottom">Cube rotation</span>
-					<input class='tgl tgl-flat' id='cube-rotation-checkbox' type='checkbox'>
-	    			<label class='tgl-btn' for='cube-rotation-checkbox'></label>
-
-					<span id="cube-scale">Cube container scale</span><br />
-					<input type="range" min="0.05" max="2.0" value="1.0" step="0.01" id="cube-scale-slider"><br />
-
-					<span id="cube-speed">Cube movement speed: 10.0</span><br />
-					<input type="range" min="1.0" max="20.0" value="10.0" step="0.01" id="cube-speed-slider"><br />
+    				<ul>
+    					<li>
+							<span id="cube-number">Cube number: 50</span>
+							<input type="range" min="0" max="400" value="50" id="cube-number-slider">
+						</li>
+						<li>
+							<span id="cube-rotation">Cube rotation</span>
+							<input class='tgl tgl-flat' id='cube-rotation-checkbox' type='checkbox'>
+			    			<label class='tgl-btn' for='cube-rotation-checkbox'></label>
+		    			</li>
+		    			<li>
+							<span id="cube-scale">Cube container scale</span>
+							<input type="range" min="0.05" max="2.0" value="1.0" step="0.01" id="cube-scale-slider">
+						</li>
+						<li>
+							<span id="cube-speed">Cube movement speed: 10.0</span>
+							<input type="range" min="1.0" max="20.0" value="10.0" step="0.01" id="cube-speed-slider">
+						</li>
+					</ul>
 				</div>
 			</section>
 			<section>
-				<h2>Background Gradient Sphere</h2>
+				<h2>Gradient Sphere</h2>
 				<input class='tgl tgl-flat' id='gradient-sphere-switch' type='checkbox' checked="true">
     			<label class='tgl-btn' for='gradient-sphere-switch'></label>
 
     			<div class="module-settings">
-    				<span id="gradient-color-one">Gradient colors</span><br />
-					<input class="jscolor" id="gradient-picker-one" value="EAE0FF" readonly="true">
-					<input class="jscolor" id="gradient-picker-two" value ="B9FFFD" readonly="true">
-					<input class="jscolor" id="gradient-picker-three" value="E6FFA0" readonly="true">
+    				<ul>
+    				<li>
+	    				<span id="gradient-color-one">Gradient colors</span>
+						<input class="jscolor" id="gradient-picker-one" value="EAE0FF" readonly="true">
+						<input class="jscolor" id="gradient-picker-two" value ="B9FFFD" readonly="true">
+						<input class="jscolor" id="gradient-picker-three" value="E6FFA0" readonly="true">
+					</li>
+					<li>
+						<span id="gradient-voroni">Voronoi pattern</span>
+						<input class='tgl tgl-flat' id='voronoi-switch' type='checkbox'>
+	    				<label class='tgl-btn' for='voronoi-switch'></label>
+    				</li>
+    			</ul>
 				</div>
 			</section>
 		</main>

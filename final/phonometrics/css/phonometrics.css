@@ -38,6 +38,11 @@ section {
 	overflow: hidden;
 }
 
+.module-settings ul {
+  border-top: 1px solid grey;
+  padding-top: 10px;
+}
+
 h1 {
 	color: #370D77;
 	margin-bottom: 20px;
@@ -96,9 +101,18 @@ h2 {
   border: none;
 }
 
-/*individual text tweaks*/
+/*module lists*/
 
-.text-space-bottom {
+section ul {
+  margin-top: 15px;
+}
+
+section li {
+  display: block;
+  margin-bottom: 15px;
+}
+
+li span {
   display: block;
   margin-bottom: 5px;
 }
@@ -114,7 +128,7 @@ body {
 
 input[type=range] {
   -webkit-appearance: none;
-  margin: 10px 0;
+  margin: 0;
   width: 100%;
 }
 
@@ -236,7 +250,7 @@ input[type=range]:focus::-ms-fill-upper {
   display: block;
   width: 4em;
   height: 2em;
-  margin-bottom: 10px;
+  /*margin-bottom: 10px;*/
   position: relative;
   cursor: pointer;
   -webkit-user-select: none;

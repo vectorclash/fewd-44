@@ -26,6 +26,7 @@ var cubeSpeedField;
 
 // gradient sphere module
 
+var gradientSphereContainer;
 var gradientSphere;
 var gradientSpherePicker;
 var gradientSphereSwitch;
@@ -36,6 +37,10 @@ var gradientPickerOne,
 var gradientColorOne,
 	gradientColorTwo,
 	gradientColorThree;
+
+var voronoiSwitch;
+var gradientSphereMax = 1;
+var gradientSphereCurrent = 0;
 
 // phone movement
 
@@ -102,6 +107,9 @@ function init() {
     gradientPickerThree.addEventListener("change", onInputChange);
     gradientPickerThree.addEventListener("mousedown", fuckyouApple);
 
+    voronoiSwitch = document.querySelector("#voronoi-switch");
+    voronoiSwitch.addEventListener("change", onCheck);
+
 	camera.position.z = -500;
 
 	scene = new THREE.Scene();
@@ -127,6 +135,8 @@ function buildElements() {
 	mainContainer = new THREE.Object3D();
 	scene.add(mainContainer);
 
+	gradientSphereContainer = new THREE.Object3D();
+	scene.add(gradientSphereContainer);
 	updateGradientSphere();
 
 	cubeContainer = new THREE.Object3D();
@@ -176,22 +186,26 @@ function addCube() {
 }
 
 function updateGradientSphere() {
-	if(gradientSphere) {
-		mainContainer.remove(gradientSphere);
-	}
 	var geometry = new THREE.SphereGeometry(50, 64, 64);
 
-	var shadowTexture = new THREE.Texture(gradientTexture());
-    shadowTexture.needsUpdate = true;
+	var newGradientTexture = new THREE.Texture(gradientTexture());
+    newGradientTexture.needsUpdate = true;
 
     var material = new THREE.MeshBasicMaterial({
-        map: shadowTexture,
-        side: THREE.DoubleSide
+        map: newGradientTexture,
+        side: THREE.DoubleSide,
     });
 
     gradientSphere = new THREE.Mesh(geometry, material);
-    mainContainer.add(gradientSphere);
+    
+    while(gradientSphereCurrent >= gradientSphereMax) {
+    	gradientSphereContainer.remove(gradientSphereContainer.children[0]);
+    	gradientSphereCurrent--;
+    }
+
+    gradientSphereContainer.add(gradientSphere);
     randomContainerMovement(gradientSphere);
+    gradientSphereCurrent++;
 }
 
 function randomContainerMovement(container) {
@@ -248,7 +262,7 @@ function enableModule(module) {
 }
 
 function disableModule(module) {
-	TweenMax.to(module, 0.4, {css:{opacity:0.4, borderLeft:"20px solid black"}});
+	TweenMax.to(module, 0.4, {css:{opacity:0.4, borderLeft:"5px solid black"}});
 	var moduleSettings = module.querySelector(".module-settings");
 	TweenMax.to(moduleSettings, 0.5, {height:0, ease:Expo.easeOut});
 }
@@ -298,7 +312,7 @@ function onCheck(e) {
 	} else if(e.currentTarget == cubeRotationCheckbox) {
 		cubeRotation = e.currentTarget.checked;
 	} else if(e.currentTarget == gradientSphereSwitch) {
-		gradientSphere.visible = e.currentTarget.checked;
+		gradientSphereContainer.visible = e.currentTarget.checked;
 		if(e.currentTarget.checked == false) {
 			disableModule(e.currentTarget.parentNode);
 		} else {
@@ -309,6 +323,14 @@ function onCheck(e) {
 			disableInterface();
 		} else {
 			enableInterface();
+		}
+	} else if(e.currentTarget == voronoiSwitch) {
+		if(e.currentTarget.checked == false) {
+			gradientSphereMax = 1;
+			updateGradientSphere();
+		} else {
+			gradientSphereMax = 4;
+			updateGradientSphere();
 		}
 	}
 }
