@@ -5,6 +5,7 @@ var renderer;
 var mainContainer;
 var mainSwitch;
 
+var logo;
 var interfaceContiner;
 
 // chaotic cube module
@@ -57,6 +58,8 @@ function init() {
 	var threeRendererElement = renderer.domElement;
 	threeRendererElement.id = "phonometrics";
 	document.body.appendChild( threeRendererElement );
+
+	logo = document.querySelector(".logo-container");
 
 	interfaceContiner = document.querySelector("main");
 
@@ -250,6 +253,19 @@ function disableModule(module) {
 	TweenMax.to(moduleSettings, 0.5, {height:0, ease:Expo.easeOut});
 }
 
+function enableInterface() {
+	TweenMax.to(interfaceContiner, 0.5, {alpha:1, x:0, ease:Quad.easeOut});
+	TweenMax.to(logo, 0.5, {alpha:1, ease:Quad.easeIn});
+	TweenMax.to(".wrapper", 0.5, {alpha:1, ease:Quad.easeOut});
+}
+
+function disableInterface() {
+	TweenMax.to(interfaceContiner, 0.5, {alpha:0, x:100, ease:Quad.easeOut});
+	TweenMax.to(logo, 0.5, {alpha:0, ease:Back.easeIn});
+	TweenMax.to(".wrapper", 0.5, {alpha:0.2, ease:Quad.easeOut});
+	TweenMax.to(window, 1, {scrollTo:{y:0}});
+}
+
 // event listeners
 
 function onInputChange(e) {
@@ -290,13 +306,9 @@ function onCheck(e) {
 		}
 	} else if(e.currentTarget == mainSwitch) {
 		if(e.currentTarget.checked == false) {
-			TweenMax.to(interfaceContiner, 0.5, {alpha:0, x:100, ease:Quad.easeOut});
-			TweenMax.to(".wrapper", 0.5, {alpha:0.2, ease:Quad.easeOut});
-			TweenMax.to(window, 1, {scrollTo:{y:0}});
+			disableInterface();
 		} else {
-			TweenMax.to(interfaceContiner, 0.5, {alpha:1, x:0, ease:Quad.easeOut});
-			TweenMax.to(".wrapper", 0.5, {alpha:1, ease:Quad.easeOut});
-			TweenMax.to(window, 1, {scrollTo:{y:0}});
+			enableInterface();
 		}
 	}
 }
