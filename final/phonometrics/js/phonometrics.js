@@ -42,6 +42,24 @@ var voronoiSwitch;
 var gradientSphereMax = 1;
 var gradientSphereCurrent = 0;
 
+// toroids
+
+var torusContainer;
+var torusNum = 10;
+var torusRotation = 0;
+var torusThickness = 0.5;
+var torusSides = 6;
+
+var torusSwitch,
+	torusNumberSlider,
+	torusSidesSlider,
+	torusThicknessSlider,
+	torusScaleSlider;
+
+var torusNumberField,
+	torusSidesField,
+	torusThicknessField;
+
 // phone movement
 
 var hX = 0;
@@ -54,12 +72,19 @@ var ohZ = 0;
 
 // sound reactivity
 
+var soundReactive = false;
 var context;
 var source, sourceJs;
 var microphone;
 var analyser;
 var buffer;
 var byteArray = new Array();
+var total;
+
+// temporal
+
+var time = 0.0;
+var interval = 0.001;
 
 function init() {
 	scene = new THREE.Scene();
@@ -119,17 +144,50 @@ function init() {
     voronoiSwitch = document.querySelector("#voronoi-switch");
     voronoiSwitch.addEventListener("change", onCheck);
 
+    // set torus elements
+
+    torusSwitch = document.querySelector("#torus-switch");
+    torusSwitch.addEventListener("change", onCheck);
+
+    torusNumberSlider = document.querySelector("#torus-number-slider");
+    torusNumberSlider.addEventListener("input", onInputChange);
+
+    torusSidesSlider = document.querySelector("#torus-sides-slider");
+    torusSidesSlider.addEventListener("input", onInputChange);
+
+    torusThicknessSlider = document.querySelector("#torus-thickness-slider");
+    torusThicknessSlider.addEventListener("input", onInputChange);
+
+    torusScaleSlider = document.querySelector("#torus-scale-slider");
+    torusScaleSlider.addEventListener("input", onInputChange);
+
+    torusNumberField = document.querySelector("#torus-number");
+    torusSidesField = document.querySelector("#torus-sides");
+    torusThicknessField = document.querySelector("#torus-thickness");
+
 	camera.position.z = -500;
 
 	scene = new THREE.Scene();
 	//scene.fog = new THREE.Fog(0xCCCCCC, 1, 10);
 	scene.add(camera);
 
+	// close modules
+
+	var modules = document.querySelectorAll("section");
+	for(var i = 0; i < modules.length; i++) {
+		var module = modules[i];
+		if(module.className == "module-closed") {
+			disableModule(module);
+		}
+	}
+
 	buildElements();
 
 	// begin audio
+
+	navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
 	if(navigator.getUserMedia) {
-		navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+		soundReactive = true;
 		navigator.getUserMedia({
 				audio: true,
 				video: false
@@ -141,7 +199,7 @@ function init() {
 				sourceJs = context.createScriptProcessor(2048, 1, 1);
 				sourceJs.connect(context.destination);
 				analyser = context.createAnalyser();
-				analyser.smoothingTimeConstant = 0.5;
+				analyser.smoothingTimeConstant = 0.6;
 				analyser.fftSize = 512;
 
 				microphone.connect(analyser);
@@ -151,7 +209,7 @@ function init() {
 				sourceJs.onaudioprocess = function(e) {
 						byteArray = new Uint8Array(analyser.frequencyBinCount);
 						analyser.getByteFrequencyData(byteArray);
-						var total = 0;
+						total = 0;
 						for (var i = 0; i < byteArray.length; i++) {
 							total += byteArray[i];
 						}
@@ -162,6 +220,9 @@ function init() {
 			}
 		);
 	}
+
+	// turn this on to test non sound reactive experiences
+	//soundReactive = false;
 
 	window.addEventListener("resize", onWindowResize);
 	TweenMax.ticker.addEventListener("tick", render);
@@ -182,6 +243,7 @@ function buildElements() {
 	scene.add(mainContainer);
 
 	gradientSphereContainer = new THREE.Object3D();
+	gradientSphereContainer.visible = false;
 	mainContainer.add(gradientSphereContainer);
 	updateGradientSphere();
 
@@ -192,6 +254,14 @@ function buildElements() {
 	for(var i = 0; i < cubeNum; i++) {
 		addCube();
 	}
+
+	torusContainer = new THREE.Object3D();
+	torusContainer.rotation.x = 90;
+	torusContainer.visible = false;
+	mainContainer.add(torusContainer);
+	randomContainerMovement(torusContainer);
+
+	buildToroids();
 
 	camera.position.z = 50;
 	window.addEventListener("devicemotion", onPhoneMovement);
@@ -222,6 +292,38 @@ function render() {
 			cube.scale.z = scale;
 		}
 	}
+
+	// torus
+
+	if(!soundReactive) {
+		for(var i = 0; i < torusContainer.children.length; i++) {
+			var torus = torusContainer.children[i];
+
+			if(torus) {
+				torus.rotation.x += noise.perlin2(i, time) * 0.05;
+				torus.rotation.y += noise.perlin2(i, time) * 0.05;
+				torus.rotation.z += noise.perlin2(i, time) * 0.05;
+			}
+		}
+	} else {
+		for(var i = 0; i < byteArray.length; i++) {
+			var torus = torusContainer.children[i];
+			var rotation = (total * 0.00002) * i;
+			var scale = 1 + byteArray[i] * 0.002;
+
+			if(torus) {
+				torus.rotation.x = rotation;
+				torus.rotation.y = rotation;
+				torus.rotation.z = rotation;
+
+				torus.scale.x = scale;
+				torus.scale.y = scale;
+				torus.scale.z = scale;
+			}
+		}
+	}
+
+	time += interval;
 }
 
 // animation and geometry functions
@@ -247,8 +349,39 @@ function addCube() {
 	TweenMax.from(cube.scale, 2, {x:0, y:0, z:0, ease:Bounce.easeInOut});
 }
 
+function addTorus() {
+	var num = 1 + torusContainer.children.length;
+
+	var geometry = new THREE.TorusGeometry( num*2, torusThickness, 20, torusSides );
+
+	var material = new THREE.MeshPhongMaterial( { color: tinycolor({ h: num/torusNum*350, s: 100, v: 100 }).toHexString(), 
+	 											  specular: tinycolor.random().toHexString(), 
+	 											  emissive: 0x000000, 
+	 											  shininess: Math.random()*50, 
+	 											  shading: THREE.FlatShading,
+	 											  needsUpdate: true });
+	var torus = new THREE.Mesh( geometry, material );
+	torus.castShadow = true;
+	torus.receiveShadow = true;
+	torusContainer.add( torus );
+}
+
+function buildToroids() {
+	for(var i = 0; i < torusNum; i++) {
+		addTorus();
+	}
+}
+
+function rebuildToroids() {
+	while(torusContainer.children.length > 0) {
+		torusContainer.children.pop();
+	}
+
+	buildToroids();
+}
+
 function updateGradientSphere() {
-	var geometry = new THREE.SphereGeometry(50, 64, 64);
+	var geometry = new THREE.SphereGeometry(500, 64, 64);
 
 	var newGradientTexture = new THREE.Texture(gradientTexture());
     newGradientTexture.needsUpdate = true;
@@ -286,7 +419,6 @@ function randomCubeMovement(object) {
 		TweenMax.to(object.rotation, cubeMovementSpeed, {x:0, y:0, z:0, ease:Back.easeInOut});
 	}
 	TweenMax.to(object.material.color, cubeMovementSpeed, {r:Math.random()*1, g:Math.random()*1, b:Math.random()*1, ease:Bounce.easeInOut});
-	//TweenMax.to(object.scale, cubeMovementSpeed, {x:Math.random()*2, y:Math.random()*2, z:Math.random()*2, ease:Bounce.easeInOut});
 	TweenMax.to(object.position, cubeMovementSpeed, {x:-10+Math.random()*20, y:-10+Math.random()*20, z:-10+Math.random()*20, ease:Back.easeInOut, onComplete:randomCubeMovement, onCompleteParams:[object]});
 }
 
@@ -322,14 +454,14 @@ function gradientTexture() {
 }
 
 function enableModule(module) {
-	TweenMax.to(module, 0.4, {css:{opacity:0.9, borderLeft:"0px solid #224577"}});
+	TweenMax.to(module, 0.4, {className:"module-open"});
 	var moduleSettings = module.querySelector(".module-settings");
 	TweenMax.set(moduleSettings, {height:"auto"});
 	TweenMax.from(moduleSettings, 0.5, {height:0, ease:Back.easeOut});
 }
 
 function disableModule(module) {
-	TweenMax.to(module, 0.4, {css:{opacity:0.4, borderLeft:"5px solid black"}});
+	TweenMax.to(module, 0.4, {className:"module-closed"});
 	var moduleSettings = module.querySelector(".module-settings");
 	TweenMax.to(moduleSettings, 0.5, {height:0, ease:Expo.easeOut});
 }
@@ -364,8 +496,21 @@ function onInputChange(e) {
 		updateGradientSphere();
 	} else  if(e.currentTarget == gradientPickerThree) {
 		updateGradientSphere();
-	}
-	
+	} else if(e.currentTarget == torusNumberSlider) {
+		torusNum = e.currentTarget.value;
+		torusNumberField.textContent = "Torus number: " + e.currentTarget.value;
+		rebuildToroids();
+	} else if(e.currentTarget == torusSidesSlider) {
+		torusSides = e.currentTarget.value;
+		torusSidesField.textContent = "Torus sides: " + e.currentTarget.value;
+		rebuildToroids();
+	} else if(e.currentTarget == torusThicknessSlider) {
+		torusThickness = e.currentTarget.value;
+		torusThicknessField.textContent = "Torus thickness: " + e.currentTarget.value;
+		rebuildToroids();
+	} else if(e.currentTarget == torusScaleSlider) {
+		TweenMax.to(torusContainer.scale, 1, {x:e.currentTarget.value, y:e.currentTarget.value, z:e.currentTarget.value, ease:Quad.easeInOut});
+	} 
 }
 
 function onCheck(e) {
@@ -398,6 +543,13 @@ function onCheck(e) {
 		} else {
 			gradientSphereMax = 4;
 			updateGradientSphere();
+		}
+	} else if(e.currentTarget == torusSwitch) {
+		torusContainer.visible = e.currentTarget.checked;
+		if(e.currentTarget.checked == false) {
+			disableModule(e.currentTarget.parentNode);
+		} else {
+			enableModule(e.currentTarget.parentNode);
 		}
 	}
 }

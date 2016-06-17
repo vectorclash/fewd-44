@@ -38,6 +38,20 @@ section {
 	overflow: hidden;
 }
 
+/*module states*/
+
+.module-closed {
+  opacity: 0.4;
+  border-left: 5px solid black;
+}
+
+.module-open {
+  opacity: 0.9;
+  border-left: 0px solid #224577;
+}
+
+/*-------------------*/
+
 .module-settings ul {
   border-top: 1px solid grey;
   padding-top: 10px;

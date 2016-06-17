@@ -53,24 +53,50 @@
 					</ul>
 				</div>
 			</section>
-			<section>
+			<section class="module-closed">
+				<h2>Haxagonal Toroids</h2>
+				<input class='tgl tgl-flat' id='torus-switch' type='checkbox'>
+    			<label class='tgl-btn' for='torus-switch'></label>
+
+    			<div class="module-settings" id="torus-module">
+    				<ul>
+    					<li>
+							<span id="torus-number">Torus number: 10</span>
+							<input type="range" min="1" max="20" value="10" step="1" id="torus-number-slider">
+						</li>
+						<li>
+							<span id="torus-sides">Torus sides: 6</span>
+							<input type="range" min="3" max="12" value="6" id="torus-sides-slider">
+		    			</li>
+		    			<li>
+							<span id="torus-thickness">Torus thickness: 0.5</span>
+							<input type="range" min="0.1" max="3.0" value="0.5" step="0.1" id="torus-thickness-slider">
+						</li>
+						<li>
+							<span id="torus-scale">Torus container scale</span>
+							<input type="range" min="0.2" max="3.0" value="1.0" step="0.01" id="torus-scale-slider">
+						</li>
+					</ul>
+				</div>
+			</section>
+			<section class="module-closed">
 				<h2>Gradient Sphere</h2>
-				<input class='tgl tgl-flat' id='gradient-sphere-switch' type='checkbox' checked="true">
+				<input class='tgl tgl-flat' id='gradient-sphere-switch' type='checkbox'>
     			<label class='tgl-btn' for='gradient-sphere-switch'></label>
 
     			<div class="module-settings" id="gradient-sphere-module">
     				<ul>
-    				<li>
-	    				<span id="gradient-color-one">Gradient colors</span>
-						<input class="jscolor" id="gradient-picker-one" value="EAE0FF" readonly="true">
-						<input class="jscolor" id="gradient-picker-two" value ="B9FFFD" readonly="true">
-						<input class="jscolor" id="gradient-picker-three" value="E6FFA0" readonly="true">
-					</li>
-					<li>
-						<span id="gradient-voroni">Voronoi pattern</span>
-						<input class='tgl tgl-flat' id='voronoi-switch' type='checkbox'>
-	    				<label class='tgl-btn' for='voronoi-switch'></label>
-    				</li>
+	    				<li>
+		    				<span id="gradient-color-one">Gradient colors</span>
+							<input class="jscolor" id="gradient-picker-one" value="EAE0FF" readonly="true">
+							<input class="jscolor" id="gradient-picker-two" value ="B9FFFD" readonly="true">
+							<input class="jscolor" id="gradient-picker-three" value="E6FFA0" readonly="true">
+						</li>
+						<li>
+							<span id="gradient-voroni">Voronoi pattern</span>
+							<input class='tgl tgl-flat' id='voronoi-switch' type='checkbox'>
+		    				<label class='tgl-btn' for='voronoi-switch'></label>
+	    				</li>
     			</ul>
 				</div>
 			</section>
