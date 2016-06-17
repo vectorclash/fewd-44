@@ -9,11 +9,19 @@
 			text-align: center;
 		}
 
+		div {
+			transition: all 0.5s cubic-bezier(.65,-0.47,.44,1.72);
+		}
+
 		.square {
 			display: inline-block;
 			width: 100px;
 			height: 100px;
 			background: #FF4A4D;
+		}
+
+		.yellow {
+			background: #D8FF06;
 		}
 
 		.circle {
@@ -24,12 +32,79 @@
 			border-radius: 50%;
 		}
 
+		.oval {
+			border-radius: 0;
+		}
+
+		.close {
+			transform: translateY(-250px);
+		}
+
+		.blog-tab {
+			display: inline-block;
+			padding: 10px;
+			background: #EBFF08;
+		}
+
+		.blog-content {
+			display: block;
+			padding: 10px;
+			background: #EBFF08;
+		}
+
+		.blog-close {
+			/*opacity:0;*/
+			transform: rotate(180deg);
+		}
+
+		img {
+			width: 200px;
+		}
+
 	</style>
 </head>
 <body>
 	<main>
+		<img src="9.png">
 		<div class="square"></div>
 		<div class="circle"></div>
+		<section class="blog-tab">Blog</section>
+		<div class="blog-container">
+			<div class="blog-content">
+				<p>Take root and flourish Rig Veda, rich in mystery Drake Equation. Another world, Apollonius of Perga descended from astronomers. Vanquish the impossible laws of physics tendrils of gossamer clouds kindling the energy hidden in matter extraplanetary made in the interiors of collapsing stars cosmic fugue, rich in mystery with pretty stories for which there's little good evidence light years. Cosmic ocean courage of our questions Cambrian explosion circumnavigated science extraordinary claims require extraordinary evidence? Made in the interiors of collapsing stars Sea of Tranquility, billions upon billions Euclid two ghostly white figures in coveralls and helmets are soflty dancing kindling the energy hidden in matter.</p>
+			</div>
+		</div>
 	</main>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+<script type="text/javascript">
+	var square = document.querySelector(".square");
+	square.addEventListener("click", onSquareClick);
+
+	var circle = document.querySelector(".circle");
+	circle.addEventListener("click", onCircleClick);
+
+	var blogTab = document.querySelector(".blog-tab");
+	var blogContent = document.querySelector(".blog-content");
+	blogTab.addEventListener("click", onBlogClick);
+
+	var warriors = document.querySelector("img");
+	warriors.addEventListener("click", onWarriorsClick);
+
+	function onSquareClick(event) {
+		square.classList.toggle("yellow");
+	}
+
+	function onCircleClick(event) {
+		circle.classList.toggle("oval");
+	}
+
+	function onBlogClick(event) {
+		blogContent.classList.toggle("blog-close");
+	}
+
+	function onWarriorsClick(event) {
+		TweenMax.to(event.currentTarget, 2, {y:window.innerHeight-180, rotation:360, ease:Bounce.easeOut});
+	}
+</script>
 </html>

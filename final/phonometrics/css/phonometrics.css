@@ -52,6 +52,12 @@ h2 {
 	font-size: 10px;
 }
 
+.main-switch-container {
+  position: absolute;
+  top: 50px;
+  right: 20px;
+}
+
 /*logo*/
 
 .logo {

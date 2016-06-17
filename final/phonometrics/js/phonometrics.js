@@ -3,7 +3,9 @@ var camera;
 var renderer;
 
 var mainContainer;
+var mainSwitch;
 
+var interfaceContiner;
 
 // chaotic cube module
 
@@ -55,6 +57,11 @@ function init() {
 	var threeRendererElement = renderer.domElement;
 	threeRendererElement.id = "phonometrics";
 	document.body.appendChild( threeRendererElement );
+
+	interfaceContiner = document.querySelector("main");
+
+	mainSwitch = document.querySelector("#main-switch");
+	mainSwitch.addEventListener("change", onCheck);
 
 	// set chaotic cube elements
 
@@ -223,16 +230,16 @@ function gradientTexture() {
 }
 
 function enableModule(module) {
-	TweenMax.to(module, 0.5, {css:{opacity:0.9, borderLeft:"0px solid #224577"}});
+	TweenMax.to(module, 0.4, {css:{opacity:0.9, borderLeft:"0px solid #224577"}});
 	var moduleSettings = module.querySelector(".module-settings");
 	TweenMax.set(moduleSettings, {height:"auto"});
-	TweenMax.from(moduleSettings, 1, {height:0, ease:Back.easeOut});
+	TweenMax.from(moduleSettings, 0.5, {height:0, ease:Back.easeOut});
 }
 
 function disableModule(module) {
-	TweenMax.to(module, 0.5, {css:{opacity:0.4, borderLeft:"20px solid black"}});
+	TweenMax.to(module, 0.4, {css:{opacity:0.4, borderLeft:"20px solid black"}});
 	var moduleSettings = module.querySelector(".module-settings");
-	TweenMax.to(moduleSettings, 1, {height:0, ease:Expo.easeOut});
+	TweenMax.to(moduleSettings, 0.5, {height:0, ease:Expo.easeOut});
 }
 
 // event listeners
@@ -272,6 +279,14 @@ function onCheck(e) {
 			disableModule(e.currentTarget.parentNode);
 		} else {
 			enableModule(e.currentTarget.parentNode);
+		}
+	} else if(e.currentTarget == mainSwitch) {
+		if(e.currentTarget.checked == false) {
+			TweenMax.to(interfaceContiner, 0.5, {alpha:0, x:100, ease:Quad.easeOut});
+			TweenMax.to(".wrapper", 0.5, {alpha:0.2, ease:Quad.easeOut});
+		} else {
+			TweenMax.to(interfaceContiner, 0.5, {alpha:1, x:0, ease:Quad.easeOut});
+			TweenMax.to(".wrapper", 0.5, {alpha:1, ease:Quad.easeOut});
 		}
 	}
 }
