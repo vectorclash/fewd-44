@@ -4,6 +4,9 @@ var renderer;
 
 var mainContainer;
 
+
+// chaotic cube module
+
 var cubeContainer;
 var cubes = new Array();
 var cubeNum = 50;
@@ -17,6 +20,19 @@ var cubeMovementSpeed = 10;
 var currentCubes = 50;
 var cubeSpeedSlider;
 var cubeSpeedField;
+
+// gradient sphere module
+
+var gradientSphere;
+var gradientSpherePicker;
+var gradientSphereSwitch;
+var gradientPickerOne,
+	gradientPickerTwo,
+	gradientPickerThree;
+
+var gradientColorOne,
+	gradientColorTwo,
+	gradientColorThree;
 
 // phone movement
 
@@ -36,8 +52,11 @@ function init() {
 	renderer.setClearColor(0xE3E3E3);
 	renderer.shadowMap.enabled = true;
 	renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-	document.body.appendChild( renderer.domElement );
+	var threeRendererElement = renderer.domElement;
+	threeRendererElement.id = "phonometrics";
+	document.body.appendChild( threeRendererElement );
 
+	// set chaotic cube elements
 
 	chaoticCubesSwitch = document.querySelector("#chaotic-cubes-switch");
 	chaoticCubesSwitch.addEventListener("change", onCheck);
@@ -51,6 +70,19 @@ function init() {
 	cubeSpeedSlider = document.querySelector("#cube-speed-slider");
 	cubeSpeedSlider.addEventListener("input", onInputChange);
 	cubeSpeedField = document.querySelector("#cube-speed");
+
+	// set gradient sphere elements
+
+	gradientSphereSwitch = document.querySelector("#gradient-sphere-switch");
+    gradientSphereSwitch.addEventListener("change", onCheck);
+    gradientPickerOne = document.querySelector("#gradient-picker-one");
+    gradientPickerOne.addEventListener("change", onInputChange);
+
+    gradientPickerTwo = document.querySelector("#gradient-picker-two");
+    gradientPickerTwo.addEventListener("change", onInputChange);
+
+    gradientPickerThree = document.querySelector("#gradient-picker-three");
+    gradientPickerThree.addEventListener("change", onInputChange);
 
 	camera.position.z = -500;
 
@@ -77,19 +109,7 @@ function buildElements() {
 	mainContainer = new THREE.Object3D();
 	scene.add(mainContainer);
 
-	var geometry = new THREE.SphereGeometry(50, 64, 64);
-
-	var shadowTexture = new THREE.Texture(randomGradientTexture());
-    shadowTexture.needsUpdate = true;
-
-    var material = new THREE.MeshBasicMaterial({
-        map: shadowTexture,
-        side: THREE.DoubleSide
-    });
-
-    var sphere = new THREE.Mesh(geometry, material);
-    mainContainer.add(sphere);
-    randomContainerMovement(sphere);
+	updateGradientSphere();
 
 	cubeContainer = new THREE.Object3D();
 	mainContainer.add(cubeContainer);
@@ -137,6 +157,25 @@ function addCube() {
 	TweenMax.from(cube.scale, 2, {x:0, y:0, z:0, ease:Bounce.easeInOut});
 }
 
+function updateGradientSphere() {
+	if(gradientSphere) {
+		mainContainer.remove(gradientSphere);
+	}
+	var geometry = new THREE.SphereGeometry(50, 64, 64);
+
+	var shadowTexture = new THREE.Texture(gradientTexture());
+    shadowTexture.needsUpdate = true;
+
+    var material = new THREE.MeshBasicMaterial({
+        map: shadowTexture,
+        side: THREE.DoubleSide
+    });
+
+    gradientSphere = new THREE.Mesh(geometry, material);
+    mainContainer.add(gradientSphere);
+    randomContainerMovement(gradientSphere);
+}
+
 function randomContainerMovement(container) {
 	TweenMax.to(container.rotation, 20, {x:Math.random()*2, y:Math.random()*2, z:Math.random()*2, ease:Quad.easeInOut, onComplete:randomContainerMovement, onCompleteParams:[container]});
 }
@@ -159,7 +198,7 @@ function removeObject(container, object) {
 	container.remove(object);
 }
 
-function randomGradientTexture() {
+function gradientTexture() {
 	var gradientCanvas = document.createElement("canvas");
 	gradientCanvas.width = 512;
 	gradientCanvas.height = 512;
@@ -167,9 +206,9 @@ function randomGradientTexture() {
 
     var gradient = gradientCanvasContext.createLinearGradient(0,0,512,0);
 
-    var color1 = new tinycolor("#EAE0FF");
-    var color2 = new tinycolor("#FFD5F5");
-    var color3 = new tinycolor("#E6FFA0");
+    var color1 = new tinycolor(gradientPickerOne.value);
+    var color2 = new tinycolor(gradientPickerTwo.value);
+    var color3 = new tinycolor(gradientPickerThree.value);
 
     gradient.addColorStop(0, color1.toHexString());
     gradient.addColorStop(0.25, color2.toHexString());
@@ -207,6 +246,12 @@ function onInputChange(e) {
 	} else if(e.currentTarget == cubeSpeedSlider) {
 		cubeMovementSpeed = e.currentTarget.value;
 		cubeSpeedField.textContent = "Cube movement speed: " + e.currentTarget.value;
+	} else  if(e.currentTarget == gradientPickerOne) {
+		updateGradientSphere();
+	} else  if(e.currentTarget == gradientPickerTwo) {
+		updateGradientSphere();
+	} else  if(e.currentTarget == gradientPickerThree) {
+		updateGradientSphere();
 	}
 	
 }
@@ -221,6 +266,13 @@ function onCheck(e) {
 		}
 	} else if(e.currentTarget == cubeRotationCheckbox) {
 		cubeRotation = e.currentTarget.checked;
+	} else if(e.currentTarget == gradientSphereSwitch) {
+		gradientSphere.visible = e.currentTarget.checked;
+		if(e.currentTarget.checked == false) {
+			disableModule(e.currentTarget.parentNode);
+		} else {
+			enableModule(e.currentTarget.parentNode);
+		}
 	}
 }
 

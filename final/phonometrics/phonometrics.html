@@ -40,11 +40,24 @@
 					<input type="range" min="1.0" max="20.0" value="10.0" step="0.01" id="cube-speed-slider"><br />
 				</div>
 			</section>
+			<section>
+				<h2>Background Gradient Sphere</h2>
+				<input class='tgl tgl-flat' id='gradient-sphere-switch' type='checkbox' checked="true">
+    			<label class='tgl-btn' for='gradient-sphere-switch'></label>
+
+    			<div class="module-settings">
+    				<span id="gradient-color-one">Gradient colors</span><br />
+					<input class="jscolor" id="gradient-picker-one" value="EAE0FF">
+					<input class="jscolor" id="gradient-picker-two" value ="B9FFFD">
+					<input class="jscolor" id="gradient-picker-three" value="E6FFA0">
+				</div>
+			</section>
 		</main>
 	</div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r77/three.js"></script>
+<script src="js/jscolor.min.js"></script>
 <script src="js/tinycolor-min.js"></script>
 <script src="js/phonometrics.js"></script>
 <script>

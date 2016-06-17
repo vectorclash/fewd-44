@@ -9,13 +9,12 @@
 	z-index: 100;
 }
 
-canvas {
+#phonometrics {
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
-	z-index: 10;
 }
 
 header {
@@ -81,6 +80,21 @@ h2 {
 	line-height: 24px;
 	font-weight: 300;
 	color: #EF1854;
+}
+
+/*color picker*/
+
+.jscolor {
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+}
+
+/*individual text tweaks*/
+
+#cube-rotation {
+  display: block;
+  margin-bottom: 5px;
 }
 
 /*font styles*/
@@ -216,7 +230,7 @@ input[type=range]:focus::-ms-fill-upper {
   display: block;
   width: 4em;
   height: 2em;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   position: relative;
   cursor: pointer;
   -webkit-user-select: none;
