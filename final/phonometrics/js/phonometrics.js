@@ -292,9 +292,11 @@ function onCheck(e) {
 		if(e.currentTarget.checked == false) {
 			TweenMax.to(interfaceContiner, 0.5, {alpha:0, x:100, ease:Quad.easeOut});
 			TweenMax.to(".wrapper", 0.5, {alpha:0.2, ease:Quad.easeOut});
+			TweenMax.to(window, 1, {scrollTo:{y:0}});
 		} else {
 			TweenMax.to(interfaceContiner, 0.5, {alpha:1, x:0, ease:Quad.easeOut});
 			TweenMax.to(".wrapper", 0.5, {alpha:1, ease:Quad.easeOut});
+			TweenMax.to(window, 1, {scrollTo:{y:0}});
 		}
 	}
 }
