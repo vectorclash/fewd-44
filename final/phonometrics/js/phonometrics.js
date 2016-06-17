@@ -345,13 +345,13 @@ function onPhoneMovement(e) {
 	var y = e.accelerationIncludingGravity.x;
 	var z = e.accelerationIncludingGravity.z;
 
-	hX += (x - ohX) / 25;
-	hY += (y - ohY) / 25;
-	hZ += (z - ohZ) / 25;
+	hX += (x - ohX) / 50;
+	hY += (y - ohY) / 50;
+	hZ += (z - ohZ) / 50;
 
-	mainContainer.rotation.x = hX*0.5;
-	mainContainer.rotation.y = hY*0.5;
-	mainContainer.rotation.z = hZ*0.5;
+	mainContainer.rotation.x = hX*0.4;
+	mainContainer.rotation.y = hY*0.4;
+	mainContainer.rotation.z = hZ*0.4;
 
 	ohX = hX;
 	ohY = hY;
