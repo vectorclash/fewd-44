@@ -187,7 +187,6 @@ function init() {
 
 	navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
 	if(navigator.getUserMedia) {
-		soundReactive = true;
 		navigator.getUserMedia({
 				audio: true,
 				video: false
@@ -195,6 +194,9 @@ function init() {
 			function(mediaStream) {
 				context = new AudioContext();
 				microphone = context.createMediaStreamSource(mediaStream);
+				if(microphone) {
+					soundReactive = true;
+				}
 
 				sourceJs = context.createScriptProcessor(2048, 1, 1);
 				sourceJs.connect(context.destination);
