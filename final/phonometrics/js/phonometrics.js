@@ -60,6 +60,11 @@ var torusNumberField,
 	torusSidesField,
 	torusThicknessField;
 
+// nebula sphere
+
+var nebulaSphere;
+var nebulaSwitch;
+
 // phone movement
 
 var hX = 0;
@@ -165,6 +170,11 @@ function init() {
     torusSidesField = document.querySelector("#torus-sides");
     torusThicknessField = document.querySelector("#torus-thickness");
 
+    // nebula sphere elements
+
+    nebulaSwitch = document.querySelector("#nebula-sphere-switch");
+    nebulaSwitch.addEventListener("change", onCheck);
+
 	camera.position.z = -500;
 
 	scene = new THREE.Scene();
@@ -266,6 +276,13 @@ function buildElements() {
 	TweenMax.set(torusContainer.rotation, {x:Math.random()*5, x:Math.random()*5, x:Math.random()*5});
 
 	buildToroids();
+
+	var nebulaMaterial = new THREE.MeshLambertMaterial({map:THREE.ImageUtils.loadTexture('img/space_texture_large.png'), transparent:true, side: THREE.BackSide});
+	var nebulaSphereGeometry = new THREE.SphereGeometry(480, 36, 36);
+	nebulaSphere = new THREE.Mesh(nebulaSphereGeometry, nebulaMaterial);
+	nebulaSphere.visible = false;
+	mainContainer.add(nebulaSphere);
+	randomContainerMovement(nebulaSphere);
 
 	camera.position.z = 50;
 	window.addEventListener("devicemotion", onPhoneMovement);
@@ -547,6 +564,13 @@ function onCheck(e) {
 		}
 	} else if(e.currentTarget == torusSwitch) {
 		torusContainer.visible = e.currentTarget.checked;
+		if(e.currentTarget.checked == false) {
+			disableModule(e.currentTarget.parentNode);
+		} else {
+			enableModule(e.currentTarget.parentNode);
+		}
+	} else if(e.currentTarget == nebulaSwitch) {
+		nebulaSphere.visible = e.currentTarget.checked;
 		if(e.currentTarget.checked == false) {
 			disableModule(e.currentTarget.parentNode);
 		} else {
