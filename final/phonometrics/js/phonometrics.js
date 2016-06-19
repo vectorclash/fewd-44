@@ -70,9 +70,19 @@ var nebulaSwitch;
 var dodecahedronContainer;
 var dodecahedronSize = 1;
 var dodecahedronNum = 250;
-var dodecahedronXWidth = 250;
-var dodecahedronYWidth = 250;
-var dodecahedronZWidth = 250;
+var dodecahedronXSize = 250;
+var dodecahedronYSize = 250;
+var dodecahedronZSize = 100;
+
+var dodecahedronSwitch,
+	dodecahedronNumberSlider,
+	dodecahedronNumberField,
+	dodecahedronXSizeSlider,
+	dodecahedronXSizeField,
+	dodecahedronYSizeSlider,
+	dodecahedronYSizeField,
+	dodecahedronZSizeSlider,
+	dodecahedronZSizeField;
 
 // phone movement
 
@@ -183,6 +193,31 @@ function init() {
 
     nebulaSwitch = document.querySelector("#nebula-sphere-switch");
     nebulaSwitch.addEventListener("change", onCheck);
+
+    // dodecahedron flow elements
+
+    dodecahedronSwitch = document.querySelector("#dodecahedron-switch");
+    dodecahedronSwitch.addEventListener("change", onCheck);
+
+    dodecahedronNumberSlider = document.querySelector("#dodecahedron-number-slider");
+    dodecahedronNumberSlider.addEventListener("input", onInputChange);
+
+    dodecahedronNumberField = document.querySelector("#dodecahedron-number");
+
+    dodecahedronXSizeSlider = document.querySelector("#dodecahedron-xsize-slider");
+    dodecahedronXSizeSlider.addEventListener("input", onInputChange);
+
+    dodecahedronXSizeField = document.querySelector("#dodecahedron-xsize");
+
+    dodecahedronYSizeSlider = document.querySelector("#dodecahedron-ysize-slider");
+    dodecahedronYSizeSlider.addEventListener("input", onInputChange);
+
+    dodecahedronYSizeField = document.querySelector("#dodecahedron-ysize");
+
+    dodecahedronZSizeSlider = document.querySelector("#dodecahedron-zsize-slider");
+    dodecahedronZSizeSlider.addEventListener("input", onInputChange);
+
+    dodecahedronZSizeField = document.querySelector("#dodecahedron-zsize");
 
 	camera.position.z = -500;
 
@@ -317,11 +352,19 @@ function render() {
 
 	// dodecahedrons
 
+	while(dodecahedronNum < dodecahedronContainer.children.length) {
+		cubeContainer.children.pop();
+	} 
+
+	if(dodecahedronNum > dodecahedronContainer.children.length) {
+		addDodecahedron();
+	}
+
 	for (var i = 0; i < dodecahedronContainer.children.length; i++) {
 		var dodecahedron = dodecahedronContainer.children[i];
-		dodecahedron.position.x = dodecahedronXWidth * (i * 0.0005) * Math.sin(time / (i * 0.005));
-		dodecahedron.position.y = dodecahedronYWidth * (i * 0.0005) * Math.cos(time / (i * 0.005));
-		dodecahedron.position.z = dodecahedronZWidth * (i * 0.005) * Math.cos(time / (i * 0.05));
+		dodecahedron.position.x = dodecahedronXSize * (i * 0.0005) * Math.sin(time / (i * 0.005));
+		dodecahedron.position.y = dodecahedronYSize * (i * 0.0005) * Math.cos(time / (i * 0.005));
+		dodecahedron.position.z = dodecahedronZSize * (i * 0.005) * Math.cos(time / (i * 0.05));
 
 		dodecahedron.rotation.x = (i * 0.005) * Math.sin(time / (i * 0.005));
 		dodecahedron.rotation.y = (i * 0.005) * Math.cos(time / (i * 0.005));
@@ -579,7 +622,19 @@ function onInputChange(e) {
 		rebuildToroids();
 	} else if(e.currentTarget == torusScaleSlider) {
 		TweenMax.to(torusContainer.scale, 1, {x:e.currentTarget.value, y:e.currentTarget.value, z:e.currentTarget.value, ease:Quad.easeInOut});
-	} 
+	} else if(e.currentTarget == dodecahedronNumberSlider) {
+		dodecahedronNumberField.textContent = "Dodecahedron number: " + e.currentTarget.value;
+		dodecahedronNum = e.currentTarget.value;
+	} else if(e.currentTarget == dodecahedronXSizeSlider) {
+		dodecahedronXSizeField.textContent = "Dodecahedron X size: " + e.currentTarget.value;
+		dodecahedronXSize = e.currentTarget.value;
+	} else if(e.currentTarget == dodecahedronYSizeSlider) {
+		dodecahedronYSizeField.textContent = "Dodecahedron Y size: " + e.currentTarget.value;
+		dodecahedronYSize = e.currentTarget.value;
+	} else if(e.currentTarget == dodecahedronZSizeSlider) {
+		dodecahedronZSizeField.textContent = "Dodecahedron Z size: " + e.currentTarget.value;
+		dodecahedronZSize = e.currentTarget.value;
+	}
 }
 
 function onCheck(e) {
@@ -622,6 +677,13 @@ function onCheck(e) {
 		}
 	} else if(e.currentTarget == nebulaSwitch) {
 		nebulaSphere.visible = e.currentTarget.checked;
+		if(e.currentTarget.checked == false) {
+			disableModule(e.currentTarget.parentNode);
+		} else {
+			enableModule(e.currentTarget.parentNode);
+		}
+	} else if(e.currentTarget == dodecahedronSwitch) {
+		dodecahedronContainer.visible = e.currentTarget.checked;
 		if(e.currentTarget.checked == false) {
 			disableModule(e.currentTarget.parentNode);
 		} else {
