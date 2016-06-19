@@ -65,6 +65,15 @@ var torusNumberField,
 var nebulaSphere;
 var nebulaSwitch;
 
+// dodecahedron flow
+
+var dodecahedronContainer;
+var dodecahedronSize = 1;
+var dodecahedronNum = 250;
+var dodecahedronXWidth = 250;
+var dodecahedronYWidth = 250;
+var dodecahedronZWidth = 250;
+
 // phone movement
 
 var hX = 0;
@@ -89,7 +98,7 @@ var total;
 // temporal
 
 var time = 0.0;
-var interval = 0.001;
+var interval = 0.01;
 
 function init() {
 	scene = new THREE.Scene();
@@ -284,6 +293,12 @@ function buildElements() {
 	mainContainer.add(nebulaSphere);
 	randomContainerMovement(nebulaSphere);
 
+
+	dodecahedronContainer = new THREE.Object3D();
+	mainContainer.add(dodecahedronContainer);
+	randomContainerMovement(dodecahedronContainer);
+	buildDodecahedrons();
+
 	camera.position.z = 50;
 	window.addEventListener("devicemotion", onPhoneMovement);
 }
@@ -298,6 +313,19 @@ function render() {
 
 	if(currentCubes > cubeContainer.children.length) {
 		addCube();
+	}
+
+	// dodecahedrons
+
+	for (var i = 0; i < dodecahedronContainer.children.length; i++) {
+		var dodecahedron = dodecahedronContainer.children[i];
+		dodecahedron.position.x = dodecahedronXWidth * (i * 0.0005) * Math.sin(time / (i * 0.005));
+		dodecahedron.position.y = dodecahedronYWidth * (i * 0.0005) * Math.cos(time / (i * 0.005));
+		dodecahedron.position.z = dodecahedronZWidth * (i * 0.005) * Math.cos(time / (i * 0.05));
+
+		dodecahedron.rotation.x = (i * 0.005) * Math.sin(time / (i * 0.005));
+		dodecahedron.rotation.y = (i * 0.005) * Math.cos(time / (i * 0.005));
+		dodecahedron.rotation.z = (i * 0.005) * Math.cos(time * (i * 0.00005));
 	}
 
 	// sound reactivity
@@ -321,9 +349,9 @@ function render() {
 			var torus = torusContainer.children[i];
 
 			if(torus) {
-				torus.rotation.x += noise.perlin2(100, time) * (0.05 * i);
-				torus.rotation.y += noise.perlin2(100, time) * (0.05 * i);
-				torus.rotation.z += noise.perlin2(100, time) * (0.05 * i);
+				torus.rotation.x += noise.perlin2(100, time) * (0.05 * (i * 0.05));
+				torus.rotation.y += noise.perlin2(100, time) * (0.05 * (i * 0.05));
+				torus.rotation.z += noise.perlin2(100, time) * (0.05 * (i * 0.05));
 			}
 		}
 	} else {
@@ -385,6 +413,29 @@ function addTorus() {
 	torus.castShadow = true;
 	torus.receiveShadow = true;
 	torusContainer.add( torus );
+}
+
+function addDodecahedron() {
+	var num = 1 + dodecahedronContainer.children.length;
+
+	var geometry = new THREE.DodecahedronGeometry( dodecahedronSize );
+
+	var material = new THREE.MeshPhongMaterial( { color: tinycolor({ h: num/dodecahedronNum*350, s: 100, v: 100 }).toHexString(), 
+	 											  specular: tinycolor.random().toHexString(), 
+	 											  emissive: 0x000000, 
+	 											  shininess: Math.random()*50, 
+	 											  shading: THREE.FlatShading,
+	 											  needsUpdate: true });
+	var dodecahedron = new THREE.Mesh( geometry, material );
+	dodecahedron.castShadow = true;
+	dodecahedron.receiveShadow = true;
+	dodecahedronContainer.add( dodecahedron );
+}
+
+function buildDodecahedrons() {
+	for(var i = 0; i < dodecahedronNum; i++) {
+		addDodecahedron();
+	}
 }
 
 function buildToroids() {
