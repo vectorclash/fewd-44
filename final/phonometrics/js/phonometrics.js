@@ -340,7 +340,7 @@ function buildElements() {
 
 	loader.load('img/space_texture_large.png', function(texture){
 		nebulaMaterial = new THREE.MeshLambertMaterial({map:texture, transparent:true, side: THREE.BackSide});
-		var nebulaSphereGeometry = new THREE.SphereGeometry(480, 36, 36);
+		var nebulaSphereGeometry = new THREE.SphereGeometry(450, 64, 64);
 		nebulaSphere = new THREE.Mesh(nebulaSphereGeometry, nebulaMaterial);
 		nebulaSphere.visible = false;
 		mainContainer.add(nebulaSphere);
@@ -375,7 +375,7 @@ function render() {
 				dodecahedron.scale.y = scale;
 				dodecahedron.scale.z = scale;
 
-				dodecahedron.position.z = (total * (i * 0.000002)) * Math.cos(dodecahedronTime / (i * 0.05));
+				dodecahedronZSize = total * 0.0009;
 			}
 		}
 	}
@@ -384,7 +384,7 @@ function render() {
 		var dodecahedron = dodecahedronContainer.children[i];
 		dodecahedron.position.x = dodecahedronXSize * (i * 0.0005) * Math.sin(dodecahedronTime / (i * 0.005));
 		dodecahedron.position.y = dodecahedronYSize * (i * 0.0005) * Math.cos(dodecahedronTime / (i * 0.005));
-		//dodecahedron.position.z = dodecahedronZSize * (i * 0.005) * Math.cos(dodecahedronTime / (i * 0.05));
+		dodecahedron.position.z = dodecahedronZSize * (i * 0.005) * Math.cos(dodecahedronTime / (i * 0.05));
 
 		dodecahedron.rotation.x = (i * 0.005) * Math.sin(dodecahedronTime / (i * 0.005));
 		dodecahedron.rotation.y = (i * 0.005) * Math.cos(dodecahedronTime / (i * 0.005));
@@ -536,7 +536,7 @@ function rebuildToroids() {
 }
 
 function updateGradientSphere() {
-	var geometry = new THREE.SphereGeometry(500, 24, 24);
+	var geometry = new THREE.SphereGeometry(500, 12, 12);
 
 	var newGradientTexture = new THREE.Texture(gradientTexture());
     newGradientTexture.needsUpdate = true;
