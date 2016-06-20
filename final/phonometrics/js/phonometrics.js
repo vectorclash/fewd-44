@@ -1,7 +1,7 @@
 var scene;
 var camera;
 var renderer;
-
+var isMobile = false;
 var mainContainer;
 var mainSwitch;
 
@@ -118,6 +118,10 @@ var time = 0.0;
 var interval = 0.01;
 
 function init() {
+	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+ 		isMobile = true;
+	}
+
 	scene = new THREE.Scene();
 	camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 5000);
 	renderer = new THREE.WebGLRenderer();
@@ -370,6 +374,8 @@ function render() {
 				dodecahedron.scale.x = scale;
 				dodecahedron.scale.y = scale;
 				dodecahedron.scale.z = scale;
+
+				dodecahedron.position.z = (total * (i * 0.000005)) * Math.cos(dodecahedronTime / (i * 0.05));
 			}
 		}
 	}
@@ -378,7 +384,7 @@ function render() {
 		var dodecahedron = dodecahedronContainer.children[i];
 		dodecahedron.position.x = dodecahedronXSize * (i * 0.0005) * Math.sin(dodecahedronTime / (i * 0.005));
 		dodecahedron.position.y = dodecahedronYSize * (i * 0.0005) * Math.cos(dodecahedronTime / (i * 0.005));
-		dodecahedron.position.z = dodecahedronZSize * (i * 0.005) * Math.cos(dodecahedronTime / (i * 0.05));
+		//dodecahedron.position.z = dodecahedronZSize * (i * 0.005) * Math.cos(dodecahedronTime / (i * 0.05));
 
 		dodecahedron.rotation.x = (i * 0.005) * Math.sin(dodecahedronTime / (i * 0.005));
 		dodecahedron.rotation.y = (i * 0.005) * Math.cos(dodecahedronTime / (i * 0.005));
@@ -618,9 +624,12 @@ function enableInterface() {
 	TweenMax.to(interfaceContiner, 0.5, {alpha:1, x:0, ease:Quad.easeOut});
 	TweenMax.to(logo, 0.5, {alpha:1, ease:Quad.easeIn});
 	TweenMax.to(".wrapper", 0.5, {alpha:1, ease:Quad.easeOut});
-	window.clearTimeout(resetTimer);
-	unHideMainSwitch();
-	window.removeEventListener("mousemove", resetHideTimer);
+
+	if(isMobile == false) {
+		window.clearTimeout(resetTimer);
+		unHideMainSwitch();
+		window.removeEventListener("mousemove", resetHideTimer);
+	}
 }
 
 function disableInterface() {
@@ -629,8 +638,10 @@ function disableInterface() {
 	TweenMax.to(".wrapper", 0.5, {alpha:0.2, ease:Quad.easeOut});
 	TweenMax.to(window, 1, {scrollTo:{y:0}});
 
-	resetTimer = window.setTimeout(hideMainSwitch, 2000);
-	window.addEventListener("mousemove", resetHideTimer);
+	if(isMobile == false) {
+		resetTimer = window.setTimeout(hideMainSwitch, 2000);
+		window.addEventListener("mousemove", resetHideTimer);
+	}
 }
 
 function resetHideTimer() {
