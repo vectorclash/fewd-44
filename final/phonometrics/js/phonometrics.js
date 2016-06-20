@@ -5,6 +5,9 @@ var renderer;
 var mainContainer;
 var mainSwitch;
 
+var resetTimer;
+var switchHidden = false;
+
 var logo;
 var interfaceContiner;
 
@@ -357,13 +360,17 @@ function render() {
 
 	// dodecahedrons
 
-	for(var i = 0; i < byteArray.length; i++) {
-		var dodecahedron = dodecahedronContainer.children[i];
-		var scale = 1 + byteArray[i] * 0.02;
-		if(dodecahedron) {
-			dodecahedron.scale.x = scale;
-			dodecahedron.scale.y = scale;
-			dodecahedron.scale.z = scale;
+	if(!soundReactive) {
+		dodecahedronZSize = noise.perlin2(100, dodecahedronTime) * 100;
+	} else {
+		for(var i = 0; i < byteArray.length; i++) {
+			var dodecahedron = dodecahedronContainer.children[i];
+			var scale = 1 + byteArray[i] * 0.02;
+			if(dodecahedron) {
+				dodecahedron.scale.x = scale;
+				dodecahedron.scale.y = scale;
+				dodecahedron.scale.z = scale;
+			}
 		}
 	}
 
@@ -594,6 +601,7 @@ function gradientTexture() {
 
 function enableModule(module) {
 	TweenMax.to(module, 0.4, {className:"module-open"});
+	TweenMax.to(module, 0.4, {css:{padding:"20px"}});
 	var moduleSettings = module.querySelector(".module-settings");
 	TweenMax.set(moduleSettings, {height:"auto"});
 	TweenMax.from(moduleSettings, 0.5, {height:0, ease:Back.easeOut});
@@ -601,6 +609,7 @@ function enableModule(module) {
 
 function disableModule(module) {
 	TweenMax.to(module, 0.4, {className:"module-closed"});
+	TweenMax.to(module, 0.4, {css:{padding:"5px 20px"}});
 	var moduleSettings = module.querySelector(".module-settings");
 	TweenMax.to(moduleSettings, 0.5, {height:0, ease:Expo.easeOut});
 }
@@ -609,6 +618,9 @@ function enableInterface() {
 	TweenMax.to(interfaceContiner, 0.5, {alpha:1, x:0, ease:Quad.easeOut});
 	TweenMax.to(logo, 0.5, {alpha:1, ease:Quad.easeIn});
 	TweenMax.to(".wrapper", 0.5, {alpha:1, ease:Quad.easeOut});
+	window.clearTimeout(resetTimer);
+	unHideMainSwitch();
+	window.removeEventListener("mousemove", resetHideTimer);
 }
 
 function disableInterface() {
@@ -616,6 +628,30 @@ function disableInterface() {
 	TweenMax.to(logo, 0.5, {alpha:0, ease:Back.easeIn});
 	TweenMax.to(".wrapper", 0.5, {alpha:0.2, ease:Quad.easeOut});
 	TweenMax.to(window, 1, {scrollTo:{y:0}});
+
+	resetTimer = window.setTimeout(hideMainSwitch, 2000);
+	window.addEventListener("mousemove", resetHideTimer);
+}
+
+function resetHideTimer() {
+	if(switchHidden) {
+		unHideMainSwitch();
+	}
+
+	window.clearTimeout(resetTimer);
+	resetTimer = window.setTimeout(hideMainSwitch, 2000);
+}
+
+function hideMainSwitch() {
+	if(switchHidden == false) {
+		TweenMax.to(mainSwitch.parentNode, 1, {alpha:0});
+		switchHidden = true;
+	}
+}
+
+function unHideMainSwitch() {
+	TweenMax.to(mainSwitch.parentNode, 1, {alpha:1});
+	switchHidden = false;
 }
 
 // event handlers

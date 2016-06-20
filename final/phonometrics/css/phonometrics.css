@@ -111,8 +111,11 @@ h2 {
 
 .jscolor {
   padding: 10px;
+  font-family: 'Biryani', sans-serif;
+  font-weight: 700;
   font-size: 16px;
   border: none;
+  border-radius: 10px;
 }
 
 /*module lists*/
@@ -144,6 +147,7 @@ input[type=range] {
   -webkit-appearance: none;
   margin: 0;
   width: 100%;
+  max-width: 600px;
 }
 
 input[type=range]:focus {
@@ -152,6 +156,7 @@ input[type=range]:focus {
 
 input[type=range]::-webkit-slider-runnable-track {
   width: 100%;
+  max-width: 600px;
   height: 12.8px;
   cursor: pointer;
   animate: 0.2s;
@@ -210,7 +215,7 @@ input[type=range]::-ms-track {
 }
 
 input[type=range]::-ms-fill-lower {
-  background: #37D8FF;
+  background: #FF3252;
   border: 0px solid #000101;
   border-radius: 50px;
   box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
