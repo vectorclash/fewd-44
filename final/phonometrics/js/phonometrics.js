@@ -225,10 +225,10 @@ function init() {
 
     dodecahedronYSizeField = document.querySelector("#dodecahedron-ysize");
 
-    dodecahedronZSizeSlider = document.querySelector("#dodecahedron-zsize-slider");
-    dodecahedronZSizeSlider.addEventListener("input", onInputChange);
+    //dodecahedronZSizeSlider = document.querySelector("#dodecahedron-zsize-slider");
+    //dodecahedronZSizeSlider.addEventListener("input", onInputChange);
 
-    dodecahedronZSizeField = document.querySelector("#dodecahedron-zsize");
+    //dodecahedronZSizeField = document.querySelector("#dodecahedron-zsize");
 
     dodecahedronSpeedSlider = document.querySelector("#dodecahedron-speed-slider");
     dodecahedronSpeedSlider.addEventListener("input", onInputChange);
@@ -236,7 +236,7 @@ function init() {
 	camera.position.z = -500;
 
 	scene = new THREE.Scene();
-	//scene.fog = new THREE.Fog(0xCCCCCC, 1, 10);
+	//scene.fog = new THREE.Fog(0xCCCCCC, 1, 80);
 	scene.add(camera);
 
 	// close modules
@@ -375,7 +375,7 @@ function render() {
 				dodecahedron.scale.y = scale;
 				dodecahedron.scale.z = scale;
 
-				dodecahedron.position.z = (total * (i * 0.000005)) * Math.cos(dodecahedronTime / (i * 0.05));
+				dodecahedron.position.z = (total * (i * 0.000002)) * Math.cos(dodecahedronTime / (i * 0.05));
 			}
 		}
 	}
@@ -615,7 +615,7 @@ function enableModule(module) {
 
 function disableModule(module) {
 	TweenMax.to(module, 0.4, {className:"module-closed"});
-	TweenMax.to(module, 0.4, {css:{padding:"5px 20px"}});
+	TweenMax.to(module, 0.4, {css:{padding:"5px 20px 10px 20px"}});
 	var moduleSettings = module.querySelector(".module-settings");
 	TweenMax.to(moduleSettings, 0.5, {height:0, ease:Expo.easeOut});
 }
