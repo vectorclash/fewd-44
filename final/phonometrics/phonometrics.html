@@ -79,16 +79,16 @@
 					</ul>
 				</div>
 			</section>
-			<section>
+			<section class="module-closed">
 				<h2>Dodecahedron Flow</h2>
-				<input class='tgl tgl-flat' id='dodecahedron-switch' type='checkbox' checked="true">
+				<input class='tgl tgl-flat' id='dodecahedron-switch' type='checkbox'>
     			<label class='tgl-btn' for='dodecahedron-switch'></label>
 
     			<div class="module-settings" id="dodecahedron-module">
     				<ul>
     					<li>
 							<span id="dodecahedron-number">Dodecahedron number: 150</span>
-							<input type="range" min="0" max="1000" value="150" id="dodecahedron-number-slider">
+							<input type="range" min="0" max="500" value="150" id="dodecahedron-number-slider">
 						</li>
 						<li>
 							<span id="dodecahedron-xsize">Dodecahedron x size: 250</span>
@@ -99,8 +99,12 @@
 							<input type="range" min="10" max="500" value="250" id="dodecahedron-ysize-slider">
 		    			</li>
 		    			<li>
-							<span id="dodecahedron-zsize">Dodecahedron z size: 250</span>
-							<input type="range" min="10" max="500" value="100" id="dodecahedron-zsize-slider">
+							<span id="dodecahedron-zsize">Dodecahedron z size: 100</span>
+							<input type="range" min="0" max="500" value="100" id="dodecahedron-zsize-slider">
+		    			</li>
+		    			<li>
+							<span id="dodecahedron-speed">Dodecahedron speed</span>
+							<input type="range" min="0.00002" max="0.2" value="0.02" step="0.000001" id="dodecahedron-speed-slider">
 		    			</li>
 					</ul>
 				</div>

@@ -68,7 +68,7 @@ var nebulaSwitch;
 // dodecahedron flow
 
 var dodecahedronContainer;
-var dodecahedronSize = 1;
+var dodecahedronSize = 0.5;
 var dodecahedronNum = 250;
 var dodecahedronXSize = 250;
 var dodecahedronYSize = 250;
@@ -82,7 +82,11 @@ var dodecahedronSwitch,
 	dodecahedronYSizeSlider,
 	dodecahedronYSizeField,
 	dodecahedronZSizeSlider,
-	dodecahedronZSizeField;
+	dodecahedronZSizeField,
+	dodecahedronSpeedSlider;
+
+var dodecahedronTime = 0.0;
+var dodecahedronInterval = 0.02;
 
 // phone movement
 
@@ -219,6 +223,9 @@ function init() {
 
     dodecahedronZSizeField = document.querySelector("#dodecahedron-zsize");
 
+    dodecahedronSpeedSlider = document.querySelector("#dodecahedron-speed-slider");
+    dodecahedronSpeedSlider.addEventListener("input", onInputChange);
+
 	camera.position.z = -500;
 
 	scene = new THREE.Scene();
@@ -256,7 +263,7 @@ function init() {
 				sourceJs.connect(context.destination);
 				analyser = context.createAnalyser();
 				analyser.smoothingTimeConstant = 0.6;
-				analyser.fftSize = 512;
+				analyser.fftSize = 1024;
 
 				microphone.connect(analyser);
 				analyser.connect(sourceJs);
@@ -321,15 +328,20 @@ function buildElements() {
 
 	buildToroids();
 
-	var nebulaMaterial = new THREE.MeshLambertMaterial({map:THREE.ImageUtils.loadTexture('img/space_texture_large.png'), transparent:true, side: THREE.BackSide});
-	var nebulaSphereGeometry = new THREE.SphereGeometry(480, 36, 36);
-	nebulaSphere = new THREE.Mesh(nebulaSphereGeometry, nebulaMaterial);
-	nebulaSphere.visible = false;
-	mainContainer.add(nebulaSphere);
-	randomContainerMovement(nebulaSphere);
+	var nebulaMaterial;
+	var loader = new THREE.TextureLoader();
 
+	loader.load('img/space_texture_large.png', function(texture){
+		nebulaMaterial = new THREE.MeshLambertMaterial({map:texture, transparent:true, side: THREE.BackSide});
+		var nebulaSphereGeometry = new THREE.SphereGeometry(480, 36, 36);
+		nebulaSphere = new THREE.Mesh(nebulaSphereGeometry, nebulaMaterial);
+		nebulaSphere.visible = false;
+		mainContainer.add(nebulaSphere);
+		randomContainerMovement(nebulaSphere);
+	});
 
 	dodecahedronContainer = new THREE.Object3D();
+	dodecahedronContainer.visible = false;
 	mainContainer.add(dodecahedronContainer);
 	randomContainerMovement(dodecahedronContainer);
 	buildDodecahedrons();
@@ -342,6 +354,35 @@ function buildElements() {
 
 function render() {
 	renderer.render(scene, camera);
+
+	// dodecahedrons
+
+	for(var i = 0; i < byteArray.length; i++) {
+		var dodecahedron = dodecahedronContainer.children[i];
+		var scale = 1 + byteArray[i] * 0.02;
+		if(dodecahedron) {
+			dodecahedron.scale.x = scale;
+			dodecahedron.scale.y = scale;
+			dodecahedron.scale.z = scale;
+		}
+	}
+
+	for (var i = 0; i < dodecahedronContainer.children.length; i++) {
+		var dodecahedron = dodecahedronContainer.children[i];
+		dodecahedron.position.x = dodecahedronXSize * (i * 0.0005) * Math.sin(dodecahedronTime / (i * 0.005));
+		dodecahedron.position.y = dodecahedronYSize * (i * 0.0005) * Math.cos(dodecahedronTime / (i * 0.005));
+		dodecahedron.position.z = dodecahedronZSize * (i * 0.005) * Math.cos(dodecahedronTime / (i * 0.05));
+
+		dodecahedron.rotation.x = (i * 0.005) * Math.sin(dodecahedronTime / (i * 0.005));
+		dodecahedron.rotation.y = (i * 0.005) * Math.cos(dodecahedronTime / (i * 0.005));
+		dodecahedron.rotation.z = (i * 0.005) * Math.cos(dodecahedronTime * (i * 0.00005));
+	}
+
+	dodecahedronTime += dodecahedronInterval;
+
+
+	// chaotic cubes
+
 	while(currentCubes < cubeContainer.children.length) {
 		cubeContainer.children.pop();
 	} 
@@ -349,31 +390,6 @@ function render() {
 	if(currentCubes > cubeContainer.children.length) {
 		addCube();
 	}
-
-	// dodecahedrons
-
-	while(dodecahedronNum < dodecahedronContainer.children.length) {
-		cubeContainer.children.pop();
-	} 
-
-	if(dodecahedronNum > dodecahedronContainer.children.length) {
-		addDodecahedron();
-	}
-
-	for (var i = 0; i < dodecahedronContainer.children.length; i++) {
-		var dodecahedron = dodecahedronContainer.children[i];
-		dodecahedron.position.x = dodecahedronXSize * (i * 0.0005) * Math.sin(time / (i * 0.005));
-		dodecahedron.position.y = dodecahedronYSize * (i * 0.0005) * Math.cos(time / (i * 0.005));
-		dodecahedron.position.z = dodecahedronZSize * (i * 0.005) * Math.cos(time / (i * 0.05));
-
-		dodecahedron.rotation.x = (i * 0.005) * Math.sin(time / (i * 0.005));
-		dodecahedron.rotation.y = (i * 0.005) * Math.cos(time / (i * 0.005));
-		dodecahedron.rotation.z = (i * 0.005) * Math.cos(time * (i * 0.00005));
-	}
-
-	// sound reactivity
-
-	// chaotic cubes
 
 	for(var i = 0; i < byteArray.length; i++) {
 		var cube = cubeContainer.children[i];
@@ -400,7 +416,10 @@ function render() {
 	} else {
 		for(var i = 0; i < byteArray.length; i++) {
 			var torus = torusContainer.children[i];
-			var rotation = (total * 0.00002) * i;
+			//var rotation = (total * 0.000008) * i;
+
+			var rotation = noise.perlin2(i, time) * (total * 0.00008);
+
 			var scale = 1 + byteArray[i] * 0.002;
 
 			if(torus) {
@@ -479,6 +498,14 @@ function buildDodecahedrons() {
 	for(var i = 0; i < dodecahedronNum; i++) {
 		addDodecahedron();
 	}
+}
+
+function rebuildDodecahedrons() {
+	while(dodecahedronContainer.children.length > 0) {
+		dodecahedronContainer.children.pop();
+	}
+
+	buildDodecahedrons();
 }
 
 function buildToroids() {
@@ -623,17 +650,20 @@ function onInputChange(e) {
 	} else if(e.currentTarget == torusScaleSlider) {
 		TweenMax.to(torusContainer.scale, 1, {x:e.currentTarget.value, y:e.currentTarget.value, z:e.currentTarget.value, ease:Quad.easeInOut});
 	} else if(e.currentTarget == dodecahedronNumberSlider) {
+		rebuildDodecahedrons();
 		dodecahedronNumberField.textContent = "Dodecahedron number: " + e.currentTarget.value;
 		dodecahedronNum = e.currentTarget.value;
 	} else if(e.currentTarget == dodecahedronXSizeSlider) {
-		dodecahedronXSizeField.textContent = "Dodecahedron X size: " + e.currentTarget.value;
+		dodecahedronXSizeField.textContent = "Dodecahedron x size: " + e.currentTarget.value;
 		dodecahedronXSize = e.currentTarget.value;
 	} else if(e.currentTarget == dodecahedronYSizeSlider) {
-		dodecahedronYSizeField.textContent = "Dodecahedron Y size: " + e.currentTarget.value;
+		dodecahedronYSizeField.textContent = "Dodecahedron y size: " + e.currentTarget.value;
 		dodecahedronYSize = e.currentTarget.value;
 	} else if(e.currentTarget == dodecahedronZSizeSlider) {
-		dodecahedronZSizeField.textContent = "Dodecahedron Z size: " + e.currentTarget.value;
+		dodecahedronZSizeField.textContent = "Dodecahedron z size: " + e.currentTarget.value;
 		dodecahedronZSize = e.currentTarget.value;
+	} else if(e.currentTarget == dodecahedronSpeedSlider) {
+		dodecahedronInterval = parseFloat(e.currentTarget.value);
 	}
 }
 
