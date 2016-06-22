@@ -67,6 +67,12 @@ var torusNumberField,
 
 var nebulaSphere;
 var nebulaSwitch;
+var textureURLs = ["img/space_texture_one.png", 
+				   "img/space_texture_two.png", 
+				   "img/space_texture_three.png", 
+				   "img/space_texture_four.png", 
+				   "img/space_texture_five.png"];
+var loadedTextures = new Array();
 
 // dodecahedron flow
 
@@ -335,17 +341,11 @@ function buildElements() {
 
 	buildToroids();
 
-	var nebulaMaterial;
 	var loader = new THREE.TextureLoader();
 
-	loader.load('img/space_texture_large.png', function(texture){
-		nebulaMaterial = new THREE.MeshLambertMaterial({map:texture, transparent:true, side: THREE.BackSide});
-		var nebulaSphereGeometry = new THREE.SphereGeometry(450, 64, 64);
-		nebulaSphere = new THREE.Mesh(nebulaSphereGeometry, nebulaMaterial);
-		nebulaSphere.visible = false;
-		mainContainer.add(nebulaSphere);
-		randomContainerMovement(nebulaSphere);
-	});
+	for(var i = 0; i < textureURLs.length; i++) {
+		loader.load(textureURLs[i], loadSpaceTextures);
+	}
 
 	dodecahedronContainer = new THREE.Object3D();
 	dodecahedronContainer.visible = false;
@@ -576,8 +576,38 @@ function randomCubeMovement(object) {
 
 // utility functions
 
+function loadSpaceTextures(texture) {
+	var nebulaSphereModule = document.querySelector("#nebula-sphere-module");
+	var nebulaSphereModuleUL = nebulaSphereModule.querySelector("ul").querySelector("li");
+	var newSpaceButton = document.createElement("div");
+	newSpaceButton.myID = loadedTextures.length;
+	newSpaceButton.addEventListener("click", changeNebula);
+	newSpaceButton.addEventListener("mouseover", onNebulaOver);
+	newSpaceButton.addEventListener("mouseout", onNebulaOut);
+	TweenMax.set(newSpaceButton, {css:{backgroundImage:"url(" + texture.image.currentSrc + ")"}});
+	newSpaceButton.classList.add("space-texture");
+	nebulaSphereModuleUL.appendChild(newSpaceButton);
+
+	loadedTextures.push(texture);
+	if(loadedTextures.length == textureURLs.length) {
+		buildNebulaSphere(texture);
+	}
+}
+
+function buildNebulaSphere(texture) {
+	var nebulaMaterial = new THREE.MeshLambertMaterial({map:texture, transparent:true, side: THREE.BackSide});
+	var nebulaSphereGeometry = new THREE.SphereGeometry(450, 64, 64);
+	nebulaSphere = new THREE.Mesh(nebulaSphereGeometry, nebulaMaterial);
+	nebulaSphere.visible = false;
+	mainContainer.add(nebulaSphere);
+	randomContainerMovement(nebulaSphere);
+}
+
+function changeNebula(event) {
+	nebulaSphere.material.map = loadedTextures[event.currentTarget.myID];
+}
+
 function removeObject(container, object) {
-	console.log("removing cube");
 	container.remove(object);
 }
 
@@ -767,6 +797,14 @@ function onCheck(e) {
 			enableModule(e.currentTarget.parentNode);
 		}
 	}
+}
+
+function onNebulaOver(e) {
+	TweenMax.to(e.currentTarget, 0.2, {css:{border:"6px solid #FF2959"}, ease:Quad.easeOut});
+}
+
+function onNebulaOut(e) {
+	TweenMax.to(e.currentTarget, 0.2, {css:{border:"1px solid #FF2959"}, ease:Quad.easeOut});
 }
 
 function fuckyouApple(e) {

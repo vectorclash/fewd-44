@@ -135,6 +135,18 @@ li span {
   margin-bottom: 5px;
 }
 
+.space-texture {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+  border: 1px solid #FF2959;
+  border-radius: 10px;
+  background-size: cover;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
 /*font styles*/
 
 body {
