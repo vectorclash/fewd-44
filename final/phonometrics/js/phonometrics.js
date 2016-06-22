@@ -159,6 +159,7 @@ function init() {
 
 	backgroundColorPicker = document.querySelector("#main-background-picker");
 	backgroundColorPicker.addEventListener("change", onInputChange);
+	backgroundColorPicker.addEventListener("mousedown", fuckyouApple);
 	
 	ambientLightField = document.querySelector("#ambient-light-intensity");
 	ambientLightSlider = document.querySelector("#ambient-light-slider");
@@ -169,6 +170,7 @@ function init() {
 
 	fogColorPicker = document.querySelector("#fog-color-picker");
 	fogColorPicker.addEventListener("change", onInputChange);
+	fogColorPicker.addEventListener("mousedown", fuckyouApple);
 
 	// set chaotic cube elements
 
