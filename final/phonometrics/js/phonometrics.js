@@ -1000,7 +1000,7 @@ function onPhoneMovement(e) {
 	mainContainer.rotation.z = hZ*0.4;
 
 	for(var i = 0; i < icosahedronContainer.length; i++) {
-		var icosahedron = icosahedronContainer[i];
+		var icosahedron = icosahedronContainer.children[i];
 		icosahedron.rotation.x = hX*(i*0.02);
 		icosahedron.rotation.y = hY*(i*0.02);
 		icosahedron.rotation.z = hZ*(i*0.02);
