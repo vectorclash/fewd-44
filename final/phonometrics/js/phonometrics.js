@@ -5,6 +5,17 @@ var isMobile = false;
 var mainContainer;
 var mainSwitch;
 
+var ambientLight,
+	directionalLight;
+
+var backgroundColorPicker;
+var ambientLightSlider,
+	ambientLightField;
+
+var fogSwitch,
+	fogColorPicker,
+	fogLi;
+
 var resetTimer;
 var switchHidden = false;
 
@@ -146,6 +157,19 @@ function init() {
 	mainSwitch = document.querySelector("#main-switch");
 	mainSwitch.addEventListener("change", onCheck);
 
+	backgroundColorPicker = document.querySelector("#main-background-picker");
+	backgroundColorPicker.addEventListener("change", onInputChange);
+	
+	ambientLightField = document.querySelector("#ambient-light-intensity");
+	ambientLightSlider = document.querySelector("#ambient-light-slider");
+	ambientLightSlider.addEventListener("input", onInputChange);
+
+	fogSwitch = document.querySelector("#fog-switch");
+	fogSwitch.addEventListener("change", onCheck);
+
+	fogColorPicker = document.querySelector("#fog-color-picker");
+	fogColorPicker.addEventListener("change", onInputChange);
+
 	// set chaotic cube elements
 
 	chaoticCubesSwitch = document.querySelector("#chaotic-cubes-switch");
@@ -242,7 +266,7 @@ function init() {
 	camera.position.z = -500;
 
 	scene = new THREE.Scene();
-	//scene.fog = new THREE.Fog(0xCCCCCC, 1, 80);
+	scene.fog = new THREE.Fog(0xCCCCCC, 1, 5000);
 	scene.add(camera);
 
 	// close modules
@@ -305,14 +329,14 @@ function init() {
 }
 
 function buildElements() {
-	var directionalLight = new THREE.DirectionalLight( 0xffCCff, 1 );
+	directionalLight = new THREE.DirectionalLight( 0xffCCff, 1 );
 	directionalLight.position.set( 0, 1, 1 );
 	directionalLight.castShadow = true;
 	//directionalLight.intensity = 1;
 	scene.add( directionalLight );
 
-	var ambientLight = new THREE.AmbientLight( 0xFFCCFF );
-	ambientLight.intensity = 0.9;
+	ambientLight = new THREE.AmbientLight( 0xFFCCFF );
+	ambientLight.intensity = 0.7;
 	scene.add(ambientLight);
 
 	mainContainer = new THREE.Object3D();
@@ -375,7 +399,7 @@ function render() {
 				dodecahedron.scale.y = scale;
 				dodecahedron.scale.z = scale;
 
-				dodecahedronZSize = total * 0.0009;
+				dodecahedronZSize = noise.perlin2(100, dodecahedronTime) * (total * 0.009);
 			}
 		}
 	}
@@ -741,6 +765,13 @@ function onInputChange(e) {
 		dodecahedronZSize = e.currentTarget.value;
 	} else if(e.currentTarget == dodecahedronSpeedSlider) {
 		dodecahedronInterval = parseFloat(e.currentTarget.value);
+	} else if(e.currentTarget == backgroundColorPicker) {
+		renderer.setClearColor(tinycolor(e.currentTarget.value).toHexString());
+	} else if(e.currentTarget == ambientLightSlider) {
+		ambientLightField.textContent = "Ambient light intensity: " + e.currentTarget.value;
+		ambientLight.intensity = e.currentTarget.value;
+	} else if(e.currentTarget == fogColorPicker) {
+		scene.fog.color = new THREE.Color(tinycolor(e.currentTarget.value).toHexString());
 	}
 }
 
@@ -760,6 +791,12 @@ function onCheck(e) {
 			disableModule(e.currentTarget.parentNode);
 		} else {
 			enableModule(e.currentTarget.parentNode);
+		}
+
+		if(fogSwitch.checked == true) {
+			fogSwitch.checked = false;
+			scene.fog.far = 5000;
+			TweenMax.to("#fog-li", 0.5, {height:0, ease:Expo.easeOut});
 		}
 	} else if(e.currentTarget == mainSwitch) {
 		if(e.currentTarget.checked == false) {
@@ -795,6 +832,20 @@ function onCheck(e) {
 			disableModule(e.currentTarget.parentNode);
 		} else {
 			enableModule(e.currentTarget.parentNode);
+		}
+	} else if(e.currentTarget == fogSwitch) {
+		if(e.currentTarget.checked == false) {
+			scene.fog.far = 5000;
+			TweenMax.to("#fog-li", 0.5, {height:0, ease:Expo.easeOut});
+		} else {
+			scene.fog.far = 70;
+			TweenMax.set("#fog-li", {height:"auto"});
+			TweenMax.from("#fog-li", 0.5, {height:0, ease:Back.easeOut});
+			if(gradientSphereSwitch.checked == true) {
+				gradientSphereContainer.visible = false;
+				gradientSphereSwitch.checked = false;
+				disableModule(gradientSphereSwitch.parentNode);
+			}
 		}
 	}
 }

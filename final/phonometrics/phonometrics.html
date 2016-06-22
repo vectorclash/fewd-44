@@ -27,6 +27,30 @@
 		<main>
 			<h1>Settings</h1>
 			<section>
+				<h2>General</h2>
+    			<div class="module-settings" id="general module">
+    				<ul>
+    					<li>
+							<span id="background-color">Background color</span>
+							<input class="jscolor" id="main-background-picker" value="E3E3E3" readonly="true">
+						</li>
+						<li>
+							<span id="ambient-light-intensity">Ambient light intensity: 0.7</span>
+							<input type="range" min="0.0" max="1.0" value="0.7" step="0.01" id="ambient-light-slider">
+		    			</li>
+		    			<li>
+							<span id="scene-fog">Fog</span>
+							<input class='tgl tgl-flat' id='fog-switch' type='checkbox'>
+			    			<label class='tgl-btn' for='fog-switch'></label>
+		    			</li>
+		    			<li id="fog-li">
+							<span id="fog-color">Fog color</span>
+							<input class="jscolor" id="fog-color-picker" value="E3E3E3" readonly="true">
+						</li>
+					</ul>
+				</div>
+			</section>
+			<section>
 				<h2>Chaotic Cubes</h2>
 				<input class='tgl tgl-flat' id='chaotic-cubes-switch' type='checkbox' checked="true">
     			<label class='tgl-btn' for='chaotic-cubes-switch'></label>
