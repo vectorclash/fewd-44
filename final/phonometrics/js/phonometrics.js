@@ -411,7 +411,7 @@ function buildElements() {
 
 	icosahedronContainer = new THREE.Object3D();
 	icosahedronContainer.visible = false;
-	mainContainer.add(icosahedronContainer);
+	scene.add(icosahedronContainer);
 	buildIcosahedrons();
 	randomContainerMovement(icosahedronContainer);
 
