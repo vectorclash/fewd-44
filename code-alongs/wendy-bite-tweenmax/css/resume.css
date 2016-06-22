@@ -1,0 +1,151 @@
+/* Reset */
+/* ------------------------ */
+
+* {
+	margin: 0;
+	padding: 0;	
+}
+
+p {
+	line-height: 1.5;
+	font-family: serif;
+	letter-spacing: 1px;
+}
+
+/* Layout */
+/* ------------------------ */
+
+body {
+	background-color: #444;
+}
+
+header {
+	margin-bottom: 40px;
+	padding-bottom: 40px;
+	border-bottom: 1px solid #878787;
+	text-align: center;
+}
+
+footer {
+	margin-top: 40px;
+	padding-top: 40px;
+	border-top: 1px solid #878787;
+	text-align: center;
+}
+
+main {
+	overflow: hidden;
+}
+
+.container {
+	font-family: Arial;
+	color: #fff;
+	padding: 50px;
+	margin: 30px;
+	border: 5px solid #878787;
+}
+
+.name {
+	font-family: serif;
+	font-size: 42px;
+	font-style: italic;
+	font-weight: 600;
+	padding-bottom: 20px;
+}
+
+/* Headings */
+/* ------------------------ */
+
+h1 {
+	margin-bottom: 30px;
+}
+
+h2 {
+	color: #999;
+	padding-bottom: 30px;
+	padding-top: 30px;
+	text-transform: uppercase;
+	font-size: 16px;
+	letter-spacing: 1px;
+}
+
+/* Navigation Lists */
+/* ------------------------ */
+
+nav li {
+	display: inline;
+	font-weight: bold;
+}
+
+nav li:not(:last-child) {
+	padding-right: 5px;
+	border-right: 1px solid #999;
+}
+
+.nav {
+	list-style-type: none;
+}
+
+/* Links */
+/* ------------------------ */
+
+a {
+	color: #23D39E;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+/* About Me page */
+/* ------------------------ */
+
+.wendy {
+	max-height: 90%;
+	float: right;
+	padding: 5px;
+	margin-left: 20px;
+	margin-bottom: 5px;
+	border: 1px solid #878787;
+}
+
+#about-main p {
+	padding-bottom: 20px;
+}
+
+/* Resume page */
+/* ------------------------ */
+
+.education {
+	padding-left: 20px;
+	list-style-type: disc;
+	font-family: serif;
+	letter-spacing: 1px;
+	line-height: 25px;
+	color: #F72052;
+}
+
+.education span {
+	color: #E0E0E0;
+}
+
+/* Resume page - Experience */
+/* ------------------------ */
+
+.experience {
+	padding-left: 20px;
+	list-style-type: square;
+}
+
+.experience p {
+	color: #999;
+}
+
+.experience em {
+	font-size: 14px;
+	color: #CCC;
+}
+
+.experience li:not(:last-child) {
+	padding-bottom: 20px;
+}
