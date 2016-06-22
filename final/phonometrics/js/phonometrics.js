@@ -630,7 +630,7 @@ function buildIcosahedrons() {
 function addIcosahedron() {
 	var num = 1 + icosahedronContainer.children.length;
 
-	var geometry = new THREE.IcosahedronGeometry( num );
+	var geometry = new THREE.IcosahedronGeometry( num * 0.5 );
 
 	var hue = num/icosahedronNum*350 + icosahedronCollorOffset;
 	if(hue > 350) {
