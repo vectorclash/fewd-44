@@ -108,6 +108,20 @@ var dodecahedronSwitch,
 var dodecahedronTime = 0.0;
 var dodecahedronInterval = 0.02;
 
+// icosahedron rotation
+
+var icosahedronContainer;
+var icosahedronNum = 20;
+var icosahedronCollorOffset = 120;
+var icosahedronContainerScale = 1;
+
+var icosahedronSwitch,
+	icosahedronNumberSlider,
+	icosahedronNumberField,
+	icosahedronColorSlider,
+	icosahedronScaleSlider;
+	
+
 // phone movement
 
 var hX = 0;
@@ -265,6 +279,22 @@ function init() {
     dodecahedronSpeedSlider = document.querySelector("#dodecahedron-speed-slider");
     dodecahedronSpeedSlider.addEventListener("input", onInputChange);
 
+    // icosahedron elements
+
+    icosahedronSwitch = document.querySelector("#icosahedron-switch");
+    icosahedronSwitch.addEventListener("change", onCheck);
+
+    icosahedronNumberSlider = document.querySelector("#icosahedron-number-slider");
+    icosahedronNumberSlider.addEventListener("input", onInputChange);
+
+    icosahedronNumberField = document.querySelector("#icosahedron-number");
+
+    icosahedronColorSlider = document.querySelector("#icosahedron-color-slider");
+    icosahedronColorSlider.addEventListener("input", onInputChange);
+
+    icosahedronScaleSlider = document.querySelector("#icosahedron-scale-slider");
+    icosahedronScaleSlider.addEventListener("input", onInputChange);
+
 	camera.position.z = -500;
 
 	scene = new THREE.Scene();
@@ -379,6 +409,12 @@ function buildElements() {
 	randomContainerMovement(dodecahedronContainer);
 	buildDodecahedrons();
 
+	icosahedronContainer = new THREE.Object3D();
+	icosahedronContainer.visible = false;
+	mainContainer.add(icosahedronContainer);
+	buildIcosahedrons();
+	randomContainerMovement(icosahedronContainer);
+
 	camera.position.z = 50;
 	window.addEventListener("devicemotion", onPhoneMovement);
 }
@@ -418,7 +454,6 @@ function render() {
 	}
 
 	dodecahedronTime += dodecahedronInterval;
-
 
 	// chaotic cubes
 
@@ -469,6 +504,31 @@ function render() {
 				torus.scale.x = scale;
 				torus.scale.y = scale;
 				torus.scale.z = scale;
+			}
+		}
+	}
+
+	// icosahedrons
+
+	if(!soundReactive) {
+		// do a thing maybe?
+	} else {
+		for(var i = 0; i < byteArray.length; i++) {
+			var icosahedron = icosahedronContainer.children[i];
+			//var rotation = (total * 0.000008) * i;
+
+			var rotation = noise.perlin2(i, time) * (total * 0.00008);
+
+			var scale = 1 + byteArray[i] * 0.002;
+
+			if(icosahedron) {
+				icosahedron.rotation.x = rotation;
+				icosahedron.rotation.y = rotation;
+				icosahedron.rotation.z = rotation;
+
+				icosahedron.scale.x = scale;
+				icosahedron.scale.y = scale;
+				icosahedron.scale.z = scale;
 			}
 		}
 	}
@@ -559,6 +619,52 @@ function rebuildToroids() {
 	}
 
 	buildToroids();
+}
+
+function buildIcosahedrons() {
+	for(var i = 0; i < icosahedronNum; i++) {
+		addIcosahedron();
+	}
+}
+
+function addIcosahedron() {
+	var num = 1 + icosahedronContainer.children.length;
+
+	var geometry = new THREE.IcosahedronGeometry( num );
+
+	var hue = num/icosahedronNum*350 + icosahedronCollorOffset;
+	if(hue > 350) {
+		hue -= 350;
+	}
+
+	var material = new THREE.MeshPhongMaterial( { color: tinycolor({ h: hue, s: 100, v: 100 }).toHexString(), 
+	 											  wireframe: true,
+	 											  wireframeLinewidth: 1.5,
+	 											  shading: THREE.FlatShading,
+	 											  needsUpdate: true });
+	var icosahedron = new THREE.Mesh( geometry, material );
+	icosahedron.castShadow = true;
+	icosahedron.receiveShadow = true;
+	icosahedronContainer.add( icosahedron );
+}
+
+function rebuildIcosahedrons() {
+	while(icosahedronContainer.children.length > 0) {
+		icosahedronContainer.children.pop();
+	}
+
+	buildIcosahedrons();
+}
+
+function adjustIcosahedronColor() {
+	for(var i = 0; i < icosahedronContainer.children.length; i++) {
+		var icosahedron = icosahedronContainer.children[i];
+		var hue = i/icosahedronNum*350 + icosahedronCollorOffset;
+		if(hue > 350) {
+			hue -= 350;
+		}
+		icosahedron.material.color = new THREE.Color(tinycolor({ h: hue, s: 100, v: 100 }).toHexString());
+	}
 }
 
 function updateGradientSphere() {
@@ -774,6 +880,15 @@ function onInputChange(e) {
 		ambientLight.intensity = e.currentTarget.value;
 	} else if(e.currentTarget == fogColorPicker) {
 		scene.fog.color = new THREE.Color(tinycolor(e.currentTarget.value).toHexString());
+	} else if(e.currentTarget == icosahedronNumberSlider) {
+		rebuildIcosahedrons();
+		icosahedronNumberField.textContent = "Icosahedron number: " + e.currentTarget.value;
+		icosahedronNum = e.currentTarget.value;
+	} else if(e.currentTarget == icosahedronColorSlider) {
+		icosahedronCollorOffset = parseInt(e.currentTarget.value);
+		adjustIcosahedronColor();
+	} else if(e.currentTarget == icosahedronScaleSlider) {
+		TweenMax.to(icosahedronContainer.scale, 1, {x:e.currentTarget.value, y:e.currentTarget.value, z:e.currentTarget.value, ease:Quad.easeInOut});
 	}
 }
 
@@ -849,6 +964,13 @@ function onCheck(e) {
 				disableModule(gradientSphereSwitch.parentNode);
 			}
 		}
+	} else if(e.currentTarget == icosahedronSwitch) {
+		icosahedronContainer.visible = e.currentTarget.checked;
+		if(e.currentTarget.checked == false) {
+			disableModule(e.currentTarget.parentNode);
+		} else {
+			enableModule(e.currentTarget.parentNode);
+		}
 	}
 }
 
@@ -876,6 +998,13 @@ function onPhoneMovement(e) {
 	mainContainer.rotation.x = hX*0.4;
 	mainContainer.rotation.y = hY*0.4;
 	mainContainer.rotation.z = hZ*0.4;
+
+	for(var i = 0; i < icosahedronContainer.length; i++) {
+		var icosahedron = icosahedronContainer[i];
+		icosahedron.rotation.x = hX*(i*0.02);
+		icosahedron.rotation.y = hY*(i*0.02);
+		icosahedron.rotation.z = hZ*(i*0.02);
+	}
 
 	ohX = hX;
 	ohY = hY;
