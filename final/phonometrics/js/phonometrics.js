@@ -785,7 +785,7 @@ function disableModule(module) {
 function enableInterface() {
 	TweenMax.to(interfaceContiner, 0.5, {alpha:1, x:0, ease:Quad.easeOut});
 	TweenMax.to(logo, 0.5, {alpha:1, ease:Quad.easeIn});
-	TweenMax.to(".wrapper", 0.5, {alpha:1, ease:Quad.easeOut});
+	TweenMax.to(".wrapper", 0.5, {alpha:1, ease:Quad.easeOut, onComplete:setInterfacePosition, onCompleteParams:["absolute"]});
 
 	if(isMobile == false) {
 		window.clearTimeout(resetTimer);
@@ -795,7 +795,7 @@ function enableInterface() {
 }
 
 function disableInterface() {
-	TweenMax.to(interfaceContiner, 0.5, {alpha:0, x:100, ease:Quad.easeOut});
+	TweenMax.to(interfaceContiner, 0.5, {alpha:0, x:100, ease:Quad.easeOut, onComplete:setInterfacePosition, onCompleteParams:["fixed"]});
 	TweenMax.to(logo, 0.5, {alpha:0, ease:Back.easeIn});
 	TweenMax.to(".wrapper", 0.5, {alpha:0.2, ease:Quad.easeOut});
 	TweenMax.to(window, 1, {scrollTo:{y:0}});
@@ -804,6 +804,11 @@ function disableInterface() {
 		resetTimer = window.setTimeout(hideMainSwitch, 2000);
 		window.addEventListener("mousemove", resetHideTimer);
 	}
+}
+
+function setInterfacePosition(position) {
+	console.log("setting interface to:", position);
+	TweenMax.set(".wrapper", {css:{position:position}});
 }
 
 function resetHideTimer() {
