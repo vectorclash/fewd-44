@@ -22,8 +22,9 @@ header {
 }
 
 main {
+  position: relative;
 	z-index: 100;
-	margin: 0 0 0 40px;
+	margin-left: 40px;
 }
 
 section {
@@ -37,6 +38,67 @@ section {
 .module-settings {
 	position: relative;
 	overflow: hidden;
+}
+
+/*navigation*/
+
+nav {
+  margin-left: 40px;
+}
+
+nav ol {
+  color: #370D77;
+}
+
+nav li {
+  display: inline-block;
+  font-size: 30px;
+  margin-right: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  border-right: 1px solid white;
+  cursor: pointer;
+}
+
+nav li:last-child {
+  margin-right: 0px;
+  padding-right: 0px;
+  border-right: 0px;
+}
+
+.active {
+  color: #FF1340;
+}
+
+
+/*about page*/
+
+#about-page {
+  position: absolute;
+  display: none;
+  top: 0;
+  left: 0;
+  padding: 40px;
+  z-index: 1000;
+  background-image: linear-gradient(42deg, #3DF1FF, #FF2959);
+}
+
+.about-main {
+  flex: 4;
+  margin-right: 40px;
+}
+
+#about-page p {
+  font-family: "Biryani", sans-serif;
+  font-weight: 100;
+  line-height: 24px;
+  color: white;
+  margin-bottom: 20px;
+}
+
+#about-page aside {
+  flex: 1;
+  margin-top: 45px;
 }
 
 /*module states*/
@@ -343,8 +405,15 @@ input[type=range]:focus::-ms-fill-upper {
 
 /*mobile*/
 
+@media (max-width: 800px) { 
+	#about-page {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+}
+
 @media (max-width: 300px) { 
-	.logo-text {
-		display: none;
-	}
+  .logo-text {
+    display: none;
+  }
 }

@@ -4,6 +4,11 @@ var renderer;
 var isMobile = false;
 var mainContainer;
 var mainSwitch;
+var aboutPage;
+
+var nav;
+var settingsButton,
+	aboutButton;
 
 var ambientLight,
 	directionalLight;
@@ -152,6 +157,14 @@ function init() {
 	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
  		isMobile = true;
 	}
+
+	nav = document.querySelector("nav");
+	nav.addEventListener("click", onNavClick);
+	settingsButton = document.querySelector(".settings-button");
+	aboutButton = document.querySelector(".about-button");
+
+	aboutPage = document.querySelector("#about-page");
+	TweenMax.to(aboutPage, 0.5, {x:200, alpha:0, ease:Quad.easeOut});
 
 	scene = new THREE.Scene();
 	camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 5000);
@@ -735,10 +748,6 @@ function buildNebulaSphere(texture) {
 	randomContainerMovement(nebulaSphere);
 }
 
-function changeNebula(event) {
-	nebulaSphere.material.map = loadedTextures[event.currentTarget.myID];
-}
-
 function removeObject(container, object) {
 	container.remove(object);
 }
@@ -785,7 +794,8 @@ function disableModule(module) {
 function enableInterface() {
 	TweenMax.to(interfaceContiner, 0.5, {alpha:1, x:0, ease:Quad.easeOut});
 	TweenMax.to(logo, 0.5, {alpha:1, ease:Quad.easeIn});
-	TweenMax.to(".wrapper", 0.5, {alpha:1, ease:Quad.easeOut, onComplete:setInterfacePosition, onCompleteParams:["absolute"]});
+	TweenMax.to(".wrapper", 0.5, {alpha:1, ease:Quad.easeInOut, onComplete:setInterfacePosition, onCompleteParams:["absolute"]});
+	TweenMax.to(nav, 0.5, {alpha:1, ease:Quad.easeInOut});
 
 	if(isMobile == false) {
 		window.clearTimeout(resetTimer);
@@ -797,7 +807,8 @@ function enableInterface() {
 function disableInterface() {
 	TweenMax.to(interfaceContiner, 0.5, {alpha:0, x:100, ease:Quad.easeOut, onComplete:setInterfacePosition, onCompleteParams:["fixed"]});
 	TweenMax.to(logo, 0.5, {alpha:0, ease:Back.easeIn});
-	TweenMax.to(".wrapper", 0.5, {alpha:0.2, ease:Quad.easeOut});
+	TweenMax.to(".wrapper", 0.5, {alpha:0.2, ease:Quad.easeInOut});
+	TweenMax.to(nav, 0.5, {alpha:0, ease:Quad.easeInOut});
 	TweenMax.to(window, 1, {scrollTo:{y:0}});
 
 	if(isMobile == false) {
@@ -832,7 +843,41 @@ function unHideMainSwitch() {
 	switchHidden = false;
 }
 
+function enableAbout() {
+	TweenMax.set(aboutPage, {css:{display:"flex"}});
+}
+
+function disableAbout() {
+	TweenMax.set(aboutPage, {css:{display:"none"}});
+}
+
 // event handlers
+
+function changeNebula(e) {
+	nebulaSphere.material.map = loadedTextures[e.currentTarget.myID];
+}
+
+function onNavClick(e) {
+	switch(e.target.tagName) {
+		case "LI":
+		switch(e.target.className) {
+			case "settings-button":
+			settingsButton.classList.add("active");
+			aboutButton.classList.remove("active");
+			TweenMax.to(aboutPage, 0.5, {x:200, alpha:0, ease:Quad.easeOut, onComplete:disableAbout});
+			break;
+
+			case "about-button":
+			settingsButton.classList.remove("active");
+			aboutButton.classList.add("active");
+			TweenMax.to(aboutPage, 0.5, {x:0, alpha:1, ease:Quad.easeOut, onStart:enableAbout});
+			TweenMax.staggerFrom(aboutPage.children, 1, {y:50, alpha:0, ease:Bounce.easeOut, delay:0.2}, 0.2);
+			TweenMax.staggerFrom(aboutPage.children[0].children, 1, {y:50, alpha:0, ease:Bounce.easeOut, delay:0.2}, 0.2);
+			break;
+		}
+		break;
+	}
+}
 
 function onInputChange(e) {
 	if(e.currentTarget == cubeNumberSlider) {
