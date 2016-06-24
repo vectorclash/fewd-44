@@ -410,6 +410,11 @@ input[type=range]:focus::-ms-fill-upper {
     flex-direction: column;
     justify-content: flex-start;
   }
+
+  .about-main {
+    flex: 4;
+    margin-right: 0px;
+  }
 }
 
 @media (max-width: 300px) { 
