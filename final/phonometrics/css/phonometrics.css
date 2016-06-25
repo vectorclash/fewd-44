@@ -29,7 +29,7 @@ main {
 
 section {
 	background: #EEEEEF;
-	padding: 20px;
+	padding: 40px;
 	opacity: 0.9;
 	border-left: 0px solid #224577;
   box-shadow: 5px 5px 10px rgba(100, 100, 100, 0.2);
@@ -70,7 +70,6 @@ nav li:last-child {
   color: #FF1340;
 }
 
-
 /*about page*/
 
 #about-page {
@@ -80,7 +79,8 @@ nav li:last-child {
   left: 0;
   padding: 40px;
   z-index: 1000;
-  background-image: linear-gradient(42deg, #3DF1FF, #FF2959);
+  background-image: linear-gradient(42deg, #FF0B59, #FFC705);
+  box-shadow: 20px 20px 60px rgba(108, 5, 170, 0.4);
 }
 
 .about-main {
@@ -88,17 +88,54 @@ nav li:last-child {
   margin-right: 40px;
 }
 
+.about-header-image {
+  display: inline-block;
+  width: 100%;
+  height: 60px;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 20px;
+}
+
+#header-one {
+  background-image: url(../img/about-header-one.jpg);
+}
+
+#header-two {
+  background-image: url(../img/about-header-two.jpg);
+}
+
 #about-page p {
   font-family: "Biryani", sans-serif;
   font-weight: 100;
   line-height: 24px;
-  color: white;
+  color: #fff;
   margin-bottom: 20px;
+}
+
+#about-page p:last-child {
+  margin-bottom: 0px;
 }
 
 #about-page aside {
   flex: 1;
-  margin-top: 45px;
+  margin-top: 41px;
+}
+
+footer {
+  margin-top: 20px;
+}
+
+footer ul li img {
+  width: 50px;
+}
+
+footer ul li {
+  display: inline;
+}
+
+footer li:not(:last-child) {
+  padding-right: 6px;
 }
 
 /*module states*/

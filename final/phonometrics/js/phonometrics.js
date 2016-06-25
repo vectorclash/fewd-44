@@ -778,7 +778,7 @@ function gradientTexture() {
 
 function enableModule(module) {
 	TweenMax.to(module, 0.4, {className:"module-open"});
-	TweenMax.to(module, 0.4, {css:{padding:"20px"}});
+	TweenMax.to(module, 0.4, {css:{padding:"40px"}});
 	var moduleSettings = module.querySelector(".module-settings");
 	TweenMax.set(moduleSettings, {height:"auto"});
 	TweenMax.from(moduleSettings, 0.5, {height:0, ease:Back.easeOut});
@@ -786,7 +786,7 @@ function enableModule(module) {
 
 function disableModule(module) {
 	TweenMax.to(module, 0.4, {className:"module-closed"});
-	TweenMax.to(module, 0.4, {css:{padding:"5px 20px 10px 20px"}});
+	TweenMax.to(module, 0.4, {css:{padding:"5px 0px 10px 40px"}});
 	var moduleSettings = module.querySelector(".module-settings");
 	TweenMax.to(moduleSettings, 0.5, {height:0, ease:Expo.easeOut});
 }
@@ -818,7 +818,6 @@ function disableInterface() {
 }
 
 function setInterfacePosition(position) {
-	console.log("setting interface to:", position);
 	TweenMax.set(".wrapper", {css:{position:position}});
 }
 
@@ -864,7 +863,8 @@ function onNavClick(e) {
 			case "settings-button":
 			settingsButton.classList.add("active");
 			aboutButton.classList.remove("active");
-			TweenMax.to(aboutPage, 0.5, {x:200, alpha:0, ease:Quad.easeOut, onComplete:disableAbout});
+			TweenMax.to(aboutPage, 1, {x:200, alpha:0, ease:Bounce.easeOut, onComplete:disableAbout});
+			TweenMax.to("section", 0.5, {alpha:0.9, ease:Quad.easeOut});
 			break;
 
 			case "about-button":
@@ -873,6 +873,8 @@ function onNavClick(e) {
 			TweenMax.to(aboutPage, 0.5, {x:0, alpha:1, ease:Quad.easeOut, onStart:enableAbout});
 			TweenMax.staggerFrom(aboutPage.children, 1, {y:50, alpha:0, ease:Bounce.easeOut, delay:0.2}, 0.2);
 			TweenMax.staggerFrom(aboutPage.children[0].children, 1, {y:50, alpha:0, ease:Bounce.easeOut, delay:0.2}, 0.2);
+			TweenMax.staggerFrom(aboutPage.children[1].children[1].children[0].children, 1, {alpha:0, ease:Bounce.easeOut, delay:1}, 0.2);
+			TweenMax.to("section", 0.5, {alpha:0.1, ease:Quad.easeOut});
 			break;
 		}
 		break;
