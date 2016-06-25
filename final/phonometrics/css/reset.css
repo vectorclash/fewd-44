@@ -4,7 +4,7 @@
 	box-sizing: border-box;
 }
 
-*:not(html, canvas) {
+*:not(html, canvas, body) {
 	-webkit-transform: translate3d(0,0,0);
       -ms-transform: translate3d(0,0,0);
           transform: translate3d(0,0,0);
