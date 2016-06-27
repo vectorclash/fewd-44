@@ -97,7 +97,7 @@ var dodecahedronSize = 0.5;
 var dodecahedronNum = 250;
 var dodecahedronXSize = 250;
 var dodecahedronYSize = 250;
-var dodecahedronZSize = 100;
+var dodecahedronZSize = 0;
 
 var dodecahedronSwitch,
 	dodecahedronNumberSlider,
@@ -111,7 +111,7 @@ var dodecahedronSwitch,
 	dodecahedronSpeedSlider;
 
 var dodecahedronTime = 0.0;
-var dodecahedronInterval = 0.02;
+var dodecahedronInterval = 0.002;
 
 // icosahedron rotation
 
@@ -284,10 +284,10 @@ function init() {
 
     dodecahedronYSizeField = document.querySelector("#dodecahedron-ysize");
 
-    //dodecahedronZSizeSlider = document.querySelector("#dodecahedron-zsize-slider");
-    //dodecahedronZSizeSlider.addEventListener("input", onInputChange);
+    dodecahedronZSizeSlider = document.querySelector("#dodecahedron-zsize-slider");
+    dodecahedronZSizeSlider.addEventListener("input", onInputChange);
 
-    //dodecahedronZSizeField = document.querySelector("#dodecahedron-zsize");
+    dodecahedronZSizeField = document.querySelector("#dodecahedron-zsize");
 
     dodecahedronSpeedSlider = document.querySelector("#dodecahedron-speed-slider");
     dodecahedronSpeedSlider.addEventListener("input", onInputChange);
@@ -361,7 +361,7 @@ function init() {
 				};
 			},
 			function(error) {
-				console.log("There was an error when getting microphone input: " + err);
+				console.log("There was an error when getting microphone input: " + error);
 			}
 		);
 	}
@@ -439,6 +439,16 @@ function render() {
 
 	// dodecahedrons
 
+	while(dodecahedronNum < dodecahedronContainer.children.length) {
+		dodecahedronContainer.children.pop();
+		adjustDodecahedronColor();
+	} 
+
+	if(dodecahedronNum > dodecahedronContainer.children.length) {
+		addDodecahedron();
+		adjustDodecahedronColor();
+	}
+
 	if(!soundReactive) {
 		dodecahedronZSize = noise.perlin2(100, dodecahedronTime) * 100;
 	} else {
@@ -450,7 +460,7 @@ function render() {
 				dodecahedron.scale.y = scale;
 				dodecahedron.scale.z = scale;
 
-				dodecahedronZSize = noise.perlin2(100, dodecahedronTime) * (total * 0.009);
+				//dodecahedronZSize = noise.perlin2(100, dodecahedronTime) * (total * 0.009);
 			}
 		}
 	}
@@ -465,6 +475,11 @@ function render() {
 		dodecahedron.rotation.y = (i * 0.005) * Math.cos(dodecahedronTime / (i * 0.005));
 		dodecahedron.rotation.z = (i * 0.005) * Math.cos(dodecahedronTime * (i * 0.00005));
 	}
+
+	var dScale = 0.5 + total * 0.000005;
+	dodecahedronContainer.scale.x = dScale;
+	dodecahedronContainer.scale.y = dScale;
+	dodecahedronContainer.scale.z = dScale;
 
 	dodecahedronTime += dodecahedronInterval;
 
@@ -523,6 +538,16 @@ function render() {
 
 	// icosahedrons
 
+	while(icosahedronNum < icosahedronContainer.children.length) {
+		icosahedronContainer.children.pop();
+		adjustIcosahedronColor();
+	} 
+
+	if(icosahedronNum > icosahedronContainer.children.length) {
+		addIcosahedron();
+		adjustIcosahedronColor();
+	}
+
 	if(!soundReactive) {
 		// do a thing maybe?
 	} else {
@@ -577,7 +602,7 @@ function addTorus() {
 
 	var geometry = new THREE.TorusGeometry( num*2, torusThickness, 20, torusSides );
 
-	var material = new THREE.MeshPhongMaterial( { color: tinycolor({ h: num/torusNum*350, s: 100, v: 100 }).toHexString(), 
+	var material = new THREE.MeshPhongMaterial( { color: tinycolor({ h: num/torusNum*360, s: 100, v: 100 }).toHexString(), 
 	 											  specular: tinycolor.random().toHexString(), 
 	 											  emissive: 0x000000, 
 	 											  shininess: Math.random()*50, 
@@ -594,7 +619,7 @@ function addDodecahedron() {
 
 	var geometry = new THREE.DodecahedronGeometry( dodecahedronSize );
 
-	var material = new THREE.MeshPhongMaterial( { color: tinycolor({ h: num/dodecahedronNum*350, s: 100, v: 100 }).toHexString(), 
+	var material = new THREE.MeshPhongMaterial( { color: tinycolor({ h: num/dodecahedronNum*360, s: 100, v: 100 }).toHexString(), 
 	 											  specular: tinycolor.random().toHexString(), 
 	 											  emissive: 0x000000, 
 	 											  shininess: Math.random()*50, 
@@ -618,6 +643,15 @@ function rebuildDodecahedrons() {
 	}
 
 	buildDodecahedrons();
+}
+
+function adjustDodecahedronColor() {
+	for(var i = 0; i < dodecahedronContainer.children.length; i++) {
+		var dodecahedron = dodecahedronContainer.children[i];
+		var hue = i/dodecahedronNum*360;
+
+		dodecahedron.material.color = new THREE.Color(tinycolor({ h: hue, s: 100, v: 100 }).toHexString());
+	}
 }
 
 function buildToroids() {
@@ -645,9 +679,9 @@ function addIcosahedron() {
 
 	var geometry = new THREE.IcosahedronGeometry( num * 0.5 );
 
-	var hue = num/icosahedronNum*350 + icosahedronCollorOffset;
-	if(hue > 350) {
-		hue -= 350;
+	var hue = num/icosahedronNum*360 + icosahedronCollorOffset;
+	if(hue > 360) {
+		hue -= 360;
 	}
 
 	var material = new THREE.MeshPhongMaterial( { color: tinycolor({ h: hue, s: 100, v: 100 }).toHexString(), 
@@ -661,20 +695,17 @@ function addIcosahedron() {
 	icosahedronContainer.add( icosahedron );
 }
 
-function rebuildIcosahedrons() {
-	while(icosahedronContainer.children.length > 0) {
-		icosahedronContainer.children.pop();
-	}
-
-	buildIcosahedrons();
-}
+// function rebuildIcosahedrons() {
+// 	while(icosahedronContainer.children.length > 0) {
+// 		icosahedronContainer.children.pop();
+// 	}
 
 function adjustIcosahedronColor() {
 	for(var i = 0; i < icosahedronContainer.children.length; i++) {
 		var icosahedron = icosahedronContainer.children[i];
-		var hue = i/icosahedronNum*350 + icosahedronCollorOffset;
-		if(hue > 350) {
-			hue -= 350;
+		var hue = i/icosahedronNum*360 + icosahedronCollorOffset;
+		if(hue > 360) {
+			hue -= 360;
 		}
 		icosahedron.material.color = new THREE.Color(tinycolor({ h: hue, s: 100, v: 100 }).toHexString());
 	}
@@ -911,7 +942,7 @@ function onInputChange(e) {
 	} else if(e.currentTarget == torusScaleSlider) {
 		TweenMax.to(torusContainer.scale, 1, {x:e.currentTarget.value, y:e.currentTarget.value, z:e.currentTarget.value, ease:Quad.easeInOut});
 	} else if(e.currentTarget == dodecahedronNumberSlider) {
-		rebuildDodecahedrons();
+		//rebuildDodecahedrons();
 		dodecahedronNumberField.textContent = "Dodecahedron number: " + e.currentTarget.value;
 		dodecahedronNum = e.currentTarget.value;
 	} else if(e.currentTarget == dodecahedronXSizeSlider) {
@@ -933,7 +964,6 @@ function onInputChange(e) {
 	} else if(e.currentTarget == fogColorPicker) {
 		scene.fog.color = new THREE.Color(tinycolor(e.currentTarget.value).toHexString());
 	} else if(e.currentTarget == icosahedronNumberSlider) {
-		rebuildIcosahedrons();
 		icosahedronNumberField.textContent = "Icosahedron number: " + e.currentTarget.value;
 		icosahedronNum = e.currentTarget.value;
 	} else if(e.currentTarget == icosahedronColorSlider) {

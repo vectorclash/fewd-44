@@ -40,10 +40,49 @@
 					<p>The last framework that I rely on heavily here is of course <a href="http://greensock.com/" target="_blank">GSAP</a>. Tweenmax along with Three JS make up the core of Phonometrics. I can't state enough how grateful I am that such a thing exists. With just one line of code you can animate an entire webpage.</p>
 					<h2>Instructions</h2>
 					<div class="about-header-image" id="header-two"></div>
-					<p>Rich in mystery Euclid radio telescope gathered by gravity, science rogue Cambrian explosion, citizens of distant epochs radio telescope a very small stage in a vast cosmic arena, Apollonius of Perga. Cosmos! Worldlets! Something incredible is waiting to be known, Sea of Tranquility are creatures of the cosmos concept of the number one Apollonius of Perga descended from astronomers Sea of Tranquility a still more glorious dawn awaits with pretty stories for which there's little good evidence cosmic fugue, intelligent beings dream of the mind's eye. Hypatia, consciousness tendrils of gossamer clouds bits of moving fluff!</p>
-					<p>Concept of the number one Rig Veda, Flatland? As a patch of light a very small stage in a vast cosmic arena stirred by starlight hearts of the stars? Made in the interiors of collapsing stars extraordinary claims require extraordinary evidence. Explorations colonies explorations, cosmos? Star stuff harvesting star light dispassionate extraterrestrial observer Tunguska event shores of the cosmic ocean Hypatia. Astonishment, birth? Trillion light years encyclopaedia galactica hydrogen atoms. A mote of dust suspended in a sunbeam science. Rogue intelligent beings?</p>
-					<p>Brain is the seed of intelligence kindling the energy hidden in matter! How far away circumnavigated Rig Veda descended from astronomers star stuff harvesting star light trillion consciousness preserve and cherish that pale blue dot extraordinary claims require extraordinary evidence explorations ship of the imagination, rich in mystery permanence of the stars? Not a sunrise but a galaxyrise cosmic ocean paroxysm of global death permanence of the stars light years. Globular star cluster rich in mystery, citizens of distant epochs rich in mystery culture shores of the cosmic ocean of brilliant syntheses! Astonishment, across the centuries.</p>
-
+					<h3>General settings</h3>
+					<ol>
+						<li><span class="instruction-highlight">Background color</span> will adjust the color of the main webgl container. When the gradient sphere is active that background color will not be visible.</li>
+						<li><span class="instruction-highlight">Ambient light intensity</span> increases the brightness of the ambient light. This is very important for the icosahedron module due to it being wireframe. There is a directional spotlight also so if the ambient light is turned all the way down that light will be the only one currently lighting the scene.</li>
+						<li><span class="instruction-highlight">Fog</span> can be turned on or off for the scene. Activating the fog will allow you to choose its color. Turning it on will also deactivate the gradient sphere as it would just be obscured by the fog.</li>
+					</ol>
+					<h3>Chaotic Cubes</h3>
+					<ol>
+						<li><span class="instruction-highlight">Cube number</span> is fairly stratight forward. Simply increase or decrese to add or remove cubes. Removal is instantaneous but adding is done slowly depending on movement speed.</li>
+						<li><span class="instruction-highlight">Cube rotation</span> is a toggle between random cube rotation and having their rotation all being aligned. Default is off.</li>
+						<li><span class="instruction-highlight">Cube container scale</span> is simple. Increase or decrease the size of the overall container of all cubes.</li>
+						<li><span class="instruction-highlight">Cube movement speed</span> is a bit odd. Lower numbers increase the speed of movement. Another important note, The movement speed determines how quickly changes happen. If the movement speed was set to its slowest, then making a change to rotation or speed again won't take effect until a cube has finished that movement.</li>
+					</ol>
+					<h3>Icosahedrons</h3>
+					<ol>
+						<li><span class="instruction-highlight">Icosahedron number</span> is fairly stratight forward. Simply increase or decrese to add or remove wireframe icosahedrons. Removal is instantaneous but adding is done slowly per frame</li>
+						<li><span class="instruction-highlight">Icosahedron color offset</span> is the amount the color is offset from the base. Adjusting this will change the color spectrum shift of all icosahedrons</li>
+						<li><span class="instruction-highlight">Icosahedron container scale</span> is simple. Increase or decrease the size of the overall container of all icosahedrons.</li>
+					</ol>
+					<h3>Toroids</h3>
+					<ol>
+						<li><span class="instruction-highlight">Torus number</span> is fairly stratight forward. Simply increase or decrese to add or remove toroids.</li>
+						<li><span class="instruction-highlight">Torus sides</span> will adjust the number of sides each toroid shape has. Default is 6 for a hexagonal toroid shape.</li>
+						<li><span class="instruction-highlight">Torus thickness</span> adjusts the overall thickness of all toroids.</li>
+						<li><span class="instruction-highlight">Torus container scale</span> increases or decreases the size of the overall container of all toroids.</li>
+					</ol>
+					<h3>Dodecahedron Flow</h3>
+					<ol>
+						<li><span class="instruction-highlight">Dodecahedron number</span> is fairly stratight forward. Simply increase or decrese to add or remove dodecahedrons. Simply increase or decrese to add or remove dodecahedrons. Removal is instantaneous but adding is done slowly per frame</li>
+						<li><span class="instruction-highlight">Dodecahedron x size</span> adjusts the outer limit along the x axis.</li>
+						<li><span class="instruction-highlight">Dodecahedron y size</span> adjusts the outer limit along the y axis.</li>
+						<li><span class="instruction-highlight">Dodecahedron z size</span> adjusts the outer limit along the z axis.</li>
+						<li><span class="instruction-highlight">Dodecahedron speed</span> changes the rotation speed of all dodecahedrons. Moving the slider to the left will decrease the speed and to the right will make everything spin faster.</li>
+					</ol>
+					<h3>Gradient Sphere</h3>
+					<ol>
+						<li><span class="instruction-highlight">Gradient colors</span> will allow you to pick three colors for the gradient texture. As you choose colors they are added to the sphere</li>
+						<li><span class="instruction-highlight">Voronoi pattern</span> creates a faux voronoi effect by interlacing low polygon spheres. This adds up to 4 together as you change colors.</li>
+					</ol>
+					<h3>Nebula Sphere</h3>
+					<ol>
+						<li>This creates a textured transparent sphere. You may choose from a small selection of space scene textures. When fog is turned on this sphere is colored by the fog.</li>
+					</ol>
 				</div>
 				<aside>
 					<iframe src="https://embed.spotify.com/?uri=spotify:user:aaronezra:playlist:7fTJ3ZcQmZUcgrnvOOwPsP" width="300" height="400" frameborder="0" allowtransparency="true"></iframe>
@@ -166,7 +205,7 @@
     				<ul>
     					<li>
 							<span id="dodecahedron-number">Dodecahedron number: 150</span>
-							<input type="range" min="0" max="500" value="150" id="dodecahedron-number-slider">
+							<input type="range" min="10" max="500" value="150" id="dodecahedron-number-slider">
 						</li>
 						<li>
 							<span id="dodecahedron-xsize">Dodecahedron x size: 250</span>
@@ -176,13 +215,13 @@
 							<span id="dodecahedron-ysize">Dodecahedron y size: 250</span>
 							<input type="range" min="10" max="500" value="250" id="dodecahedron-ysize-slider">
 		    			</li>
-		    			<!-- <li>
-							<span id="dodecahedron-zsize">Dodecahedron z size: 100</span>
-							<input type="range" min="0" max="500" value="100" id="dodecahedron-zsize-slider">
-		    			</li> -->
+		    			<li>
+							<span id="dodecahedron-zsize">Dodecahedron z size: 0</span>
+							<input type="range" min="0" max="500" value="0" id="dodecahedron-zsize-slider">
+		    			</li>
 		    			<li>
 							<span id="dodecahedron-speed">Dodecahedron speed</span>
-							<input type="range" min="0.00002" max="0.09" value="0.02" step="0.000001" id="dodecahedron-speed-slider">
+							<input type="range" min="0.00002" max="0.02" value="0.002" step="0.000001" id="dodecahedron-speed-slider">
 		    			</li>
 					</ul>
 				</div>

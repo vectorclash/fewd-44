@@ -167,6 +167,11 @@ h2 {
 	margin-bottom: 10px;
 }
 
+h3 {
+  color: #370D77;
+  margin-bottom: 10px;
+}
+
 .small-text {
 	font-size: 10px;
 }
@@ -234,7 +239,7 @@ section li {
   margin-bottom: 15px;
 }
 
-li span {
+section li span {
   display: block;
   margin-bottom: 5px;
 }
@@ -249,6 +254,44 @@ li span {
   background-size: cover;
   cursor: pointer;
   margin-bottom: 0;
+}
+
+/*link styles*/
+
+a {
+  color: #1DBEFF;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #FF2658;
+}
+
+a:active {
+
+}
+
+/*instruction styles*/
+
+#about-page ol {
+  color: #fff;
+  font-family: "Biryani", sans-serif;
+  font-weight: 100;
+  line-height: 24px;
+  list-style-type: decimal-leading-zero;
+}
+
+#about-page ol li {
+  margin-left: 28px;
+  margin-bottom: 5px;
+}
+
+.instruction-highlight {
+  color: #00FAFF;
 }
 
 /*font styles*/
