@@ -461,9 +461,9 @@ function render() {
 	if(!soundReactive) {
 		for(var i = 0; i < dodecahedronContainer.children.length; i++) {
 			var dodecahedron = dodecahedronContainer.children[i];
-			var scaleX = noise.perlin2(i, dodecahedronTimeX) * 5;
-			var scaleY = noise.perlin2(i, dodecahedronTimeY) * 5;
-			var scaleZ = noise.perlin2(i, dodecahedronTimeZ) * 5;
+			var scaleX = 1 + (noise.perlin3(i, dodecahedronTimeX, dodecahedronTime) * 200);
+			var scaleY = 1 + (noise.perlin3(i, dodecahedronTimeY, dodecahedronTime) * 200);
+			var scaleZ = 1 + (noise.perlin3(i, dodecahedronTimeZ, dodecahedronTime) * 200);
 			dodecahedron.scale.x = scaleX;
 			dodecahedron.scale.y = scaleY;
 			dodecahedron.scale.z = scaleZ;
