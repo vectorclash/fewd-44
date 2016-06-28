@@ -113,6 +113,15 @@ var dodecahedronSwitch,
 var dodecahedronTime = 0.0;
 var dodecahedronInterval = 0.002;
 
+var dodecahedronTimeX = 0.0;
+var dodecahedronIntervalX = 0.003;
+
+var dodecahedronTimeY = 0.0;
+var dodecahedronIntervalY = 0.001;
+
+var dodecahedronTimeZ = 0.0;
+var dodecahedronIntervalZ = 0.0009;
+
 // icosahedron rotation
 
 var icosahedronContainer;
@@ -452,10 +461,12 @@ function render() {
 	if(!soundReactive) {
 		for(var i = 0; i < dodecahedronContainer.children.length; i++) {
 			var dodecahedron = dodecahedronContainer.children[i];
-			var scale = noise.perlin2(i, dodecahedronTime) * 5;
-			dodecahedron.scale.x = scale;
-			dodecahedron.scale.y = scale;
-			dodecahedron.scale.z = scale;
+			var scaleX = noise.perlin2(i, dodecahedronTimeX) * 5;
+			var scaleY = noise.perlin2(i, dodecahedronTimeY) * 5;
+			var scaleZ = noise.perlin2(i, dodecahedronTimeZ) * 5;
+			dodecahedron.scale.x = scaleX;
+			dodecahedron.scale.y = scaleY;
+			dodecahedron.scale.z = scaleZ;
 		}
 	} else {
 		for(var i = 0; i < byteArray.length; i++) {
@@ -488,6 +499,10 @@ function render() {
 	}
 
 	dodecahedronTime += dodecahedronInterval;
+
+	dodecahedronTimeX += dodecahedronIntervalX;
+	dodecahedronTimeY += dodecahedronIntervalY;
+	dodecahedronTimeZ += dodecahedronIntervalZ;
 
 	// chaotic cubes
 
