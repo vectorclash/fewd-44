@@ -894,7 +894,7 @@ function onNavClick(e) {
 			case "settings-button":
 			settingsButton.classList.add("active");
 			aboutButton.classList.remove("active");
-			TweenMax.to(aboutPage, 1, {x:200, alpha:0, ease:Bounce.easeOut, onComplete:disableAbout});
+			TweenMax.to(aboutPage, 1, {x:window.innerWidth, alpha:0, ease:Bounce.easeOut, onComplete:disableAbout});
 			TweenMax.to("section", 0.5, {alpha:0.9, ease:Quad.easeOut});
 			break;
 
@@ -903,7 +903,7 @@ function onNavClick(e) {
 			aboutButton.classList.add("active");
 			TweenMax.to(aboutPage, 0.5, {x:0, alpha:1, ease:Quad.easeOut, onStart:enableAbout});
 			TweenMax.staggerFrom(aboutPage.children, 1, {y:50, alpha:0, ease:Bounce.easeOut, delay:0.2}, 0.2);
-			TweenMax.staggerFrom(aboutPage.children[0].children, 1, {y:50, alpha:0, ease:Bounce.easeOut, delay:0.2}, 0.2);
+			TweenMax.staggerFrom(aboutPage.children[0].children, 1, {y:50, alpha:0, ease:Bounce.easeOut, delay:0.2}, 0.08);
 			TweenMax.staggerFrom(aboutPage.children[1].children[1].children[0].children, 1, {alpha:0, ease:Bounce.easeOut, delay:1}, 0.2);
 			TweenMax.to("section", 0.5, {alpha:0.1, ease:Quad.easeOut});
 			break;
