@@ -450,7 +450,7 @@ function render() {
 	}
 
 	if(!soundReactive) {
-		dodecahedronZSize = noise.perlin2(100, dodecahedronTime) * 100;
+		//dodecahedronZSize = noise.perlin2(100, dodecahedronTime) * 100;
 	} else {
 		for(var i = 0; i < byteArray.length; i++) {
 			var dodecahedron = dodecahedronContainer.children[i];
