@@ -450,7 +450,13 @@ function render() {
 	}
 
 	if(!soundReactive) {
-		//dodecahedronZSize = noise.perlin2(100, dodecahedronTime) * 100;
+		for(var i = 0; i < dodecahedronContainer.children.length; i++) {
+			var dodecahedron = dodecahedronContainer.children[i];
+			var scale = noise.perlin2(i, dodecahedronTime) * 5;
+			dodecahedron.scale.x = scale;
+			dodecahedron.scale.y = scale;
+			dodecahedron.scale.z = scale;
+		}
 	} else {
 		for(var i = 0; i < byteArray.length; i++) {
 			var dodecahedron = dodecahedronContainer.children[i];
@@ -459,6 +465,11 @@ function render() {
 				dodecahedron.scale.x = scale;
 				dodecahedron.scale.y = scale;
 				dodecahedron.scale.z = scale;
+
+				var dScale = 0.5 + total * 0.000005;
+				dodecahedronContainer.scale.x = dScale;
+				dodecahedronContainer.scale.y = dScale;
+				dodecahedronContainer.scale.z = dScale;
 
 				//dodecahedronZSize = noise.perlin2(100, dodecahedronTime) * (total * 0.009);
 			}
@@ -475,11 +486,6 @@ function render() {
 		dodecahedron.rotation.y = (i * 0.005) * Math.cos(dodecahedronTime / (i * 0.005));
 		dodecahedron.rotation.z = (i * 0.005) * Math.cos(dodecahedronTime * (i * 0.00005));
 	}
-
-	var dScale = 0.5 + total * 0.000005;
-	dodecahedronContainer.scale.x = dScale;
-	dodecahedronContainer.scale.y = dScale;
-	dodecahedronContainer.scale.z = dScale;
 
 	dodecahedronTime += dodecahedronInterval;
 
