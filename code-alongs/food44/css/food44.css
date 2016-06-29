@@ -1,0 +1,41 @@
+body {
+	font-family: 'Slabo 27px', serif;
+	margin: 20px;
+	background-image: linear-gradient(42deg, #77F0FF, #FF3668);
+}
+
+main {
+	
+}
+
+h1 {
+	font-size: 58px;
+}
+
+h2 {
+	font-size: 42px;
+}
+
+.results li {
+	padding: 15px 0;
+	border-bottom: 1px solid grey;
+	color: #333;
+}
+
+li p {
+	font-size: 22px;
+	color: #E6E6E6;
+}
+
+li a:link {
+	text-decoration: none;
+	color: white;
+}
+
+input {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	padding: 10px;
+	font-size: 14px;
+}
