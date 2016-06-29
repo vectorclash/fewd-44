@@ -485,7 +485,7 @@ input[type=range]:focus::-ms-fill-upper {
 
 /*mobile*/
 
-@media (max-width: 800px) { 
+@media (max-width: 825px) { 
 	#about-page {
     flex-direction: column;
     justify-content: flex-start;

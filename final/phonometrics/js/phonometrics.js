@@ -134,7 +134,6 @@ var icosahedronSwitch,
 	icosahedronNumberField,
 	icosahedronColorSlider,
 	icosahedronScaleSlider;
-	
 
 // phone movement
 
@@ -157,7 +156,7 @@ var buffer;
 var byteArray = new Array();
 var total;
 
-// temporal
+// general temporal
 
 var time = 0.0;
 var interval = 0.01;
@@ -771,8 +770,6 @@ function randomCubeMovement(object) {
 	TweenMax.to(object.position, cubeMovementSpeed, {x:-10+Math.random()*20, y:-10+Math.random()*20, z:-10+Math.random()*20, ease:Back.easeInOut, onComplete:randomCubeMovement, onCompleteParams:[object]});
 }
 
-// utility functions
-
 function loadSpaceTextures(texture) {
 	var nebulaSphereModule = document.querySelector("#nebula-sphere-module");
 	var nebulaSphereModuleUL = nebulaSphereModule.querySelector("ul").querySelector("li");
@@ -799,6 +796,8 @@ function buildNebulaSphere(texture) {
 	mainContainer.add(nebulaSphere);
 	randomContainerMovement(nebulaSphere);
 }
+
+// utility functions
 
 function removeObject(container, object) {
 	container.remove(object);
@@ -1086,6 +1085,7 @@ function onNebulaOut(e) {
 }
 
 function fuckyouApple(e) {
+	// this function prevents the keyboard from popping up with we choose a color
 	e.preventDefault();
 }
 
