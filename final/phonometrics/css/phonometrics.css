@@ -507,4 +507,8 @@ input[type=range]:focus::-ms-fill-upper {
   .logo-text {
     display: none;
   }
+
+  .main-switch-container {
+    right: 20px;
+}
 }
