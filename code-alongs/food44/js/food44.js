@@ -1,15 +1,20 @@
 // structure
 
 var results = document.querySelector('.results');
+var search = document.querySelector('input');
+
+// event listeners
+
+search.addEventListener('change', onInputEnter);
 
 function init() {
-	//loadRestaurants(json.objects);
-	loadJSON(loadRestaurants);
+	restaurantSearch("94115");
 }
 
 // update page
 
 function loadRestaurants(restaurants) {
+	results.innerHTML = "";
 	restaurants.forEach(createRestaurant);
 }
 
@@ -21,8 +26,10 @@ function createRestaurant(restaurant, index) {
 
 	restaurantName.textContent = restaurant.name;
 	restaurantAddress.textContent = restaurant.street_address;
-	restaurantPhone.textContent = restaurant.phone;
-	restaurantPhone.href = "tel:" + restaurant.phone.replace(/[^\/\d]/g,'');
+	if(restaurant.phone) {
+		restaurantPhone.textContent = restaurant.phone;
+		restaurantPhone.href = "tel:" + restaurant.phone.replace(/[^\/\d]/g,'');
+	}
 
 	restaurantLi.appendChild(restaurantName);
 	restaurantLi.appendChild(restaurantAddress);
@@ -39,17 +46,23 @@ function createRestaurant(restaurant, index) {
 
 // load json
 
-function loadJSON(callback) {   
+function restaurantSearch(value) {
+	var baseUrl = 'https://api.locu.com/v1_0/venue/search/?api_key=0a5e07596109debc309c578a09b967f576900d87';
+	var variables = "&postal_code=" + value;
+	var url = baseUrl + variables;
+	//$.getJSON(url, loadJSON);
+	var script = document.createElement('script');
+	script.src = url + "&callback=loadJSON";
+	document.body.appendChild(script);
+}
 
-    var xobj = new XMLHttpRequest();
-        xobj.overrideMimeType("application/json");
-    xobj.open('GET', 'https://api.locu.com/v1_0/venue/search/?name=pizza&api_key=0a5e07596109debc309c578a09b967f576900d87', true); // Replace 'my_data' with the path to your file
-    xobj.onreadystatechange = function () {
-          if (xobj.readyState == 4 && xobj.status == "200") {
-            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
-            //callback(xobj.responseText);
-            console.log(xobj.responseText);
-          }
-    };
-    xobj.send(null);  
- }
+function loadJSON(data) {
+	//console.log(data.objects);
+	loadRestaurants(data.objects);
+}
+
+// event handlers
+
+function onInputEnter(e) {
+	restaurantSearch(e.target.value);
+}

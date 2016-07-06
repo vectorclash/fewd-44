@@ -130,12 +130,18 @@ footer ul li img {
   width: 50px;
 }
 
+footer ul {
+  display: flex;
+}
+
 footer ul li {
-  display: inline;
+  flex: 1;
+  text-align: center;
+  justify-content: space-between;
 }
 
 footer li:not(:last-child) {
-  padding-right: 6px;
+  
 }
 
 /*module states*/
@@ -179,7 +185,7 @@ h3 {
 .main-switch-container {
   position: absolute;
   top: 50px;
-  right: 20px;
+  right: 40px;
 }
 
 #fog-li {

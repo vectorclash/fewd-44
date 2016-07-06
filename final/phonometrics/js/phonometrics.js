@@ -5,6 +5,7 @@ var isMobile = false;
 var mainContainer;
 var mainSwitch;
 var aboutPage;
+var socialIcons;
 
 var nav;
 var settingsButton,
@@ -172,7 +173,11 @@ function init() {
 	aboutButton = document.querySelector(".about-button");
 
 	aboutPage = document.querySelector("#about-page");
-	TweenMax.to(aboutPage, 0.5, {x:200, alpha:0, ease:Quad.easeOut});
+	socialIcons = document.querySelector(".social-icon-container");
+	socialIcons.addEventListener("mouseover", onSocialOver);
+	socialIcons.addEventListener("mouseout", onSocialOut);
+
+	TweenMax.to(aboutPage, 0.5, {x:window.innerWidth, alpha:0, ease:Quad.easeOut});
 
 	scene = new THREE.Scene();
 	camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 5000);
@@ -352,8 +357,8 @@ function init() {
 				sourceJs = context.createScriptProcessor(2048, 1, 1);
 				sourceJs.connect(context.destination);
 				analyser = context.createAnalyser();
-				analyser.smoothingTimeConstant = 0.6;
-				analyser.fftSize = 1024;
+				analyser.smoothingTimeConstant = 0.8;
+				analyser.fftSize = 2048;
 
 				microphone.connect(analyser);
 				analyser.connect(sourceJs);
@@ -901,6 +906,14 @@ function disableAbout() {
 	TweenMax.set(aboutPage, {css:{display:"none"}});
 }
 
+function enableSettings() {
+	TweenMax.set("section", {css:{display:"block"}});
+}
+
+function disableSettings() {
+	TweenMax.set("section", {css:{display:"none"}});
+}
+
 // event handlers
 
 function changeNebula(e) {
@@ -914,8 +927,8 @@ function onNavClick(e) {
 			case "settings-button":
 			settingsButton.classList.add("active");
 			aboutButton.classList.remove("active");
-			TweenMax.to(aboutPage, 1, {x:window.innerWidth, alpha:0, ease:Bounce.easeOut, onComplete:disableAbout});
-			TweenMax.to("section", 0.5, {alpha:0.9, ease:Quad.easeOut});
+			TweenMax.to(aboutPage, 1, {x:window.innerWidth, ease:Bounce.easeOut, onComplete:disableAbout});
+			TweenMax.to("section", 0.5, {alpha:0.9, ease:Quad.easeOut, onStart:enableSettings});
 			break;
 
 			case "about-button":
@@ -925,7 +938,7 @@ function onNavClick(e) {
 			TweenMax.staggerFrom(aboutPage.children, 1, {y:50, alpha:0, ease:Bounce.easeOut, delay:0.2}, 0.2);
 			TweenMax.staggerFrom(aboutPage.children[0].children, 1, {y:50, alpha:0, ease:Bounce.easeOut, delay:0.2}, 0.08);
 			TweenMax.staggerFrom(aboutPage.children[1].children[1].children[0].children, 1, {alpha:0, ease:Bounce.easeOut, delay:1}, 0.2);
-			TweenMax.to("section", 0.5, {alpha:0.1, ease:Quad.easeOut});
+			TweenMax.to("section", 0.5, {alpha:0, ease:Quad.easeOut, delay:1, onComplete:disableSettings});
 			break;
 		}
 		break;
@@ -1087,6 +1100,18 @@ function onNebulaOut(e) {
 function fuckyouApple(e) {
 	// this function prevents the keyboard from popping up with we choose a color
 	e.preventDefault();
+}
+
+function onSocialOver(e) {
+	if(e.target.tagName != "UL") {
+		TweenMax.to(e.target, 0.5, {y:10, ease:Back.easeOut});
+	}
+}
+
+function onSocialOut(e) {
+	if(e.target.tagName != "UL") {
+		TweenMax.to(e.target, 0.3, {y:0, ease:Bounce.easeOut});
+	}
 }
 
 function onPhoneMovement(e) {
