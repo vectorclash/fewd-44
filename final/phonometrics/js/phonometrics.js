@@ -6,6 +6,7 @@ var mainContainer;
 var mainSwitch;
 var aboutPage;
 var socialIcons;
+var inTransit = false;
 
 var nav;
 var settingsButton,
@@ -921,27 +922,31 @@ function changeNebula(e) {
 }
 
 function onNavClick(e) {
-	switch(e.target.tagName) {
-		case "LI":
-		switch(e.target.className) {
-			case "settings-button":
-			settingsButton.classList.add("active");
-			aboutButton.classList.remove("active");
-			TweenMax.to(aboutPage, 1, {x:window.innerWidth, ease:Bounce.easeOut, onComplete:disableAbout});
-			TweenMax.to("section", 0.5, {alpha:0.9, ease:Quad.easeOut, onStart:enableSettings});
-			break;
+	if(!inTransit) {
+		inTransit = true;
+		switch(e.target.tagName) {
+			case "LI":
+			switch(e.target.className) {
+				case "settings-button":
+				settingsButton.classList.add("active");
+				aboutButton.classList.remove("active");
+				TweenMax.to(aboutPage, 1, {x:window.innerWidth, ease:Bounce.easeOut, onComplete:disableAbout});
+				TweenMax.to("section", 0.5, {alpha:0.9, ease:Quad.easeOut, onStart:enableSettings});
+				break;
 
-			case "about-button":
-			settingsButton.classList.remove("active");
-			aboutButton.classList.add("active");
-			TweenMax.to(aboutPage, 0.5, {x:0, alpha:1, ease:Quad.easeOut, onStart:enableAbout});
-			TweenMax.staggerFrom(aboutPage.children, 1, {y:50, alpha:0, ease:Bounce.easeOut, delay:0.2}, 0.2);
-			TweenMax.staggerFrom(aboutPage.children[0].children, 1, {y:50, alpha:0, ease:Bounce.easeOut, delay:0.2}, 0.08);
-			TweenMax.staggerFrom(aboutPage.children[1].children[1].children[0].children, 1, {alpha:0, ease:Bounce.easeOut, delay:1}, 0.2);
-			TweenMax.to("section", 0.5, {alpha:0, ease:Quad.easeOut, delay:1, onComplete:disableSettings});
+				case "about-button":
+				settingsButton.classList.remove("active");
+				aboutButton.classList.add("active");
+				TweenMax.to(aboutPage, 0.5, {x:0, alpha:1, ease:Quad.easeOut, onStart:enableAbout});
+				TweenMax.staggerFrom(aboutPage.children, 1, {y:50, alpha:0, ease:Bounce.easeOut, delay:0.2}, 0.2);
+				TweenMax.staggerFrom(aboutPage.children[0].children, 1, {y:50, alpha:0, ease:Bounce.easeOut, delay:0.2}, 0.08);
+				TweenMax.staggerFrom(aboutPage.children[1].children[1].children[0].children, 1, {alpha:0, ease:Bounce.easeOut, delay:1}, 0.2);
+				TweenMax.to("section", 0.5, {alpha:0, ease:Quad.easeOut, delay:1, onComplete:disableSettings});
+				break;
+			}
 			break;
 		}
-		break;
+		TweenMax.delayedCall(1, function(){inTransit = false;});
 	}
 }
 
