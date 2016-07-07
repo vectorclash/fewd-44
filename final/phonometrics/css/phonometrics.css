@@ -120,6 +120,11 @@ nav li:last-child {
 #about-page aside {
   flex: 1;
   margin-top: 41px;
+  max-width: 300px;
+}
+
+#about-page iframe {
+
 }
 
 footer {
