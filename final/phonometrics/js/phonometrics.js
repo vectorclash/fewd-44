@@ -168,6 +168,10 @@ function init() {
  		isMobile = true;
 	}
 
+	Leap.loop(function(frame){
+	  console.log(frame.hands.length);
+	});
+
 	nav = document.querySelector("nav");
 	nav.addEventListener("click", onNavClick);
 	settingsButton = document.querySelector(".settings-button");
