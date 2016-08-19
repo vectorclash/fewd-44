@@ -147,6 +147,12 @@ var ohX = 0;
 var ohY = 0;
 var ohZ = 0;
 
+// leap motion movement
+
+var lX = 0;
+var lY = 0;
+var lZ = 0;
+
 // sound reactivity
 
 var soundReactive = false;
@@ -169,7 +175,7 @@ function init() {
 	}
 
 	Leap.loop(function(frame){
-	  console.log(frame.hands.length);
+	  frame.hands.forEach(handPosition);
 	});
 
 	nav = document.querySelector("nav");
@@ -450,6 +456,16 @@ function buildElements() {
 	window.addEventListener("devicemotion", onPhoneMovement);
 }
 
+function handPosition(value, index, array) {
+	lX = value.pitch();
+	lY = value.roll();
+	lZ = value.yaw();
+
+	mainContainer.rotation.x = lX;
+	mainContainer.rotation.y = lY;
+	mainContainer.rotation.z = lZ;
+}
+
 // the render loop
 
 function render() {
@@ -555,9 +571,9 @@ function render() {
 			var scale = 1 + byteArray[i] * 0.002;
 
 			if(torus) {
-				torus.rotation.x = rotation;
-				torus.rotation.y = rotation;
-				torus.rotation.z = rotation;
+				torus.rotation.x = rotation + (lX * (i * 0.05));
+				torus.rotation.y = rotation + (lY * (i * 0.05));
+				torus.rotation.z = rotation + (lZ * (i * 0.05));
 
 				torus.scale.x = scale;
 				torus.scale.y = scale;
@@ -590,9 +606,9 @@ function render() {
 			var scale = 1 + byteArray[i] * 0.002;
 
 			if(icosahedron) {
-				icosahedron.rotation.x = rotation;
-				icosahedron.rotation.y = rotation;
-				icosahedron.rotation.z = rotation;
+				icosahedron.rotation.x = rotation + (lX * (i * 0.05));
+				icosahedron.rotation.y = rotation + (lY * (i * 0.05));
+				icosahedron.rotation.z = rotation + (lZ * (i * 0.05));
 
 				icosahedron.scale.x = scale;
 				icosahedron.scale.y = scale;
