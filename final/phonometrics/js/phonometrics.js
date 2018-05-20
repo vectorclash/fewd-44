@@ -85,10 +85,10 @@ var torusNumberField,
 
 var nebulaSphere;
 var nebulaSwitch;
-var textureURLs = ["img/space_texture_one.png", 
-				   "img/space_texture_two.png", 
-				   "img/space_texture_three.png", 
-				   "img/space_texture_four.png", 
+var textureURLs = ["img/space_texture_one.png",
+				   "img/space_texture_two.png",
+				   "img/space_texture_three.png",
+				   "img/space_texture_four.png",
 				   "img/space_texture_five.png"];
 var loadedTextures = new Array();
 
@@ -195,6 +195,7 @@ function init() {
 	renderer = new THREE.WebGLRenderer();
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	renderer.setClearColor(0xE3E3E3);
+	renderer.setPixelRatio(window.devicePixelRatio);
 	renderer.shadowMap.enabled = true;
 	renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 	var threeRendererElement = renderer.domElement;
@@ -211,7 +212,7 @@ function init() {
 	backgroundColorPicker = document.querySelector("#main-background-picker");
 	backgroundColorPicker.addEventListener("change", onInputChange);
 	backgroundColorPicker.addEventListener("mousedown", fuckyouApple);
-	
+
 	ambientLightField = document.querySelector("#ambient-light-intensity");
 	ambientLightSlider = document.querySelector("#ambient-light-slider");
 	ambientLightSlider.addEventListener("input", onInputChange);
@@ -476,7 +477,7 @@ function render() {
 	while(dodecahedronNum < dodecahedronContainer.children.length) {
 		dodecahedronContainer.children.pop();
 		adjustDodecahedronColor();
-	} 
+	}
 
 	if(dodecahedronNum > dodecahedronContainer.children.length) {
 		addDodecahedron();
@@ -533,7 +534,7 @@ function render() {
 
 	while(currentCubes < cubeContainer.children.length) {
 		cubeContainer.children.pop();
-	} 
+	}
 
 	if(currentCubes > cubeContainer.children.length) {
 		addCube();
@@ -587,7 +588,7 @@ function render() {
 	while(icosahedronNum < icosahedronContainer.children.length) {
 		icosahedronContainer.children.pop();
 		adjustIcosahedronColor();
-	} 
+	}
 
 	if(icosahedronNum > icosahedronContainer.children.length) {
 		addIcosahedron();
@@ -625,10 +626,10 @@ function render() {
 function addCube() {
 	var geometry = new THREE.BoxGeometry( 1, 1, 1 );
 
-	var material = new THREE.MeshPhongMaterial( { color: tinycolor.random().toHexString(), 
-	 											  specular: tinycolor.random().toHexString(), 
-	 											  emissive: 0x000000, 
-	 											  shininess: Math.random()*50, 
+	var material = new THREE.MeshPhongMaterial( { color: tinycolor.random().toHexString(),
+	 											  specular: tinycolor.random().toHexString(),
+	 											  emissive: 0x000000,
+	 											  shininess: Math.random()*50,
 	 											  shading: THREE.FlatShading,
 	 											  needsUpdate: true });
 	var cube = new THREE.Mesh( geometry, material );
@@ -648,10 +649,10 @@ function addTorus() {
 
 	var geometry = new THREE.TorusGeometry( num*2, torusThickness, 20, torusSides );
 
-	var material = new THREE.MeshPhongMaterial( { color: tinycolor({ h: num/torusNum*360, s: 100, v: 100 }).toHexString(), 
-	 											  specular: tinycolor.random().toHexString(), 
-	 											  emissive: 0x000000, 
-	 											  shininess: Math.random()*50, 
+	var material = new THREE.MeshPhongMaterial( { color: tinycolor({ h: num/torusNum*360, s: 100, v: 100 }).toHexString(),
+	 											  specular: tinycolor.random().toHexString(),
+	 											  emissive: 0x000000,
+	 											  shininess: Math.random()*50,
 	 											  shading: THREE.FlatShading,
 	 											  needsUpdate: true });
 	var torus = new THREE.Mesh( geometry, material );
@@ -665,10 +666,10 @@ function addDodecahedron() {
 
 	var geometry = new THREE.DodecahedronGeometry( dodecahedronSize );
 
-	var material = new THREE.MeshPhongMaterial( { color: tinycolor({ h: num/dodecahedronNum*360, s: 100, v: 100 }).toHexString(), 
-	 											  specular: tinycolor.random().toHexString(), 
-	 											  emissive: 0x000000, 
-	 											  shininess: Math.random()*50, 
+	var material = new THREE.MeshPhongMaterial( { color: tinycolor({ h: num/dodecahedronNum*360, s: 100, v: 100 }).toHexString(),
+	 											  specular: tinycolor.random().toHexString(),
+	 											  emissive: 0x000000,
+	 											  shininess: Math.random()*50,
 	 											  shading: THREE.FlatShading,
 	 											  needsUpdate: true });
 	var dodecahedron = new THREE.Mesh( geometry, material );
@@ -730,7 +731,7 @@ function addIcosahedron() {
 		hue -= 360;
 	}
 
-	var material = new THREE.MeshPhongMaterial( { color: tinycolor({ h: hue, s: 100, v: 100 }).toHexString(), 
+	var material = new THREE.MeshPhongMaterial( { color: tinycolor({ h: hue, s: 100, v: 100 }).toHexString(),
 	 											  wireframe: true,
 	 											  wireframeLinewidth: 1.5,
 	 											  shading: THREE.FlatShading,
@@ -769,7 +770,7 @@ function updateGradientSphere() {
     });
 
     gradientSphere = new THREE.Mesh(geometry, material);
-    
+
     while(gradientSphereCurrent >= gradientSphereMax) {
     	gradientSphereContainer.remove(gradientSphereContainer.children[0]);
     	gradientSphereCurrent--;
